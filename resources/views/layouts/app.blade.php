@@ -31,33 +31,7 @@
 
     <x-footer></x-footer>
 
-    <!-- ========================= JS here ========================= -->
-    <script src="{{ asset('') }}assets/js/bootstrap.min.js"></script>
-    <script src="{{ asset('') }}assets/js/tiny-slider.js"></script>
-    <script src="{{ asset('') }}assets/js/glightbox.min.js"></script>
-    <script src="{{ asset('') }}assets/js/main.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
-    <script>
-        new DataTable('#example', {
-            scrollX: true
-        });
-        $(function() {
-            $('#datepicker').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                minYear: 2024,
-                maxYear: parseInt(moment().format('YYYY'), 10),
-                maxDate: moment()
-            });
-        });
-    </script>
-
+    @stack('scripts')
 </body>
 
 </html>

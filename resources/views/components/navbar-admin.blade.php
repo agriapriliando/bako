@@ -19,17 +19,14 @@
                                 <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                     <ul id="nav" class="navbar-nav ms-auto">
                                         <li class="nav-item">
-                                            <a href="index.html" class="active" aria-label="Toggle navigation">Home</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="index.html" class="active" aria-label="Toggle navigation">Kelola Harga
+                                            <a href="{{ url('dashboard') }}" class="{{ request()->is('dashboard') ? 'active' : '' }}" aria-label="Toggle navigation">Kelola Harga
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent"
-                                                aria-expanded="false" aria-label="Toggle navigation">Kategori</a>
+                                            <a class="dd-menu collapsed {{ request()->is('categories') ? 'active' : '' }}" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-2"
+                                                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Kategori</a>
                                             <ul class="sub-menu collapse" id="submenu-1-2">
-                                                <li class="nav-item"><a href="about-us.html">Daftar Kategor</a></li>
+                                                <li class="nav-item"><a href="{{ url('categories') }}">Daftar Kategor</a></li>
                                                 <li class="nav-item"><a href="faq.html">Tambah Kategori</a></li>
                                             </ul>
                                         </li>
