@@ -6,6 +6,7 @@ use App\Models\Category;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Image;
+// intelephense.diagnostics.undefinedTypes
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 
