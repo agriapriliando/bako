@@ -36,11 +36,13 @@
                                 @foreach ($categories as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->nama }} <br><small class="text-muted">{{ $item->deskripsi }}</small></td>
+                                        <td class="data{{ $item->id }}">{{ $item->nama }} <br><small class="text-muted">{{ $item->deskripsi }}</small></td>
                                         <td>
                                             <div class="d-flex gap-1">
                                                 <a href="#" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
-                                                <a href="#" class="btn btn-sm btn-danger btn-delete"><i class="lni lni-eraser"></i></a>
+                                                <a data-id="{{ $item->id }}" data-name="{{ $item->nama }}" href="#" class="btn btn-sm btn-danger btn-delete">
+                                                    <i class="lni lni-eraser"></i>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>
@@ -91,7 +93,6 @@
         <script src="{{ asset('') }}assets/js/sweetalert/sweetalert.min.js"></script>
         <script>
             $(document).ready(function() {
-
                 $('body').on('click', '.btn-delete', function(e) {
                     e.preventDefault();
                     var id = $(this).data('id');
@@ -99,7 +100,7 @@
                     var at = $(this).attr('data-id');
                     console.log(at);
                     swal({
-                        title: 'Yakin ingin menghapus Akun ' + nama,
+                        title: 'Yakin menghapus Kategori : ' + nama,
                         icon: 'warning',
                         buttons: {
                             confirm: {
@@ -114,7 +115,7 @@
                     }).then((deleteAll) => {
                         if (deleteAll) {
                             $.ajax({
-                                url: "{{ url('users') }}/" + id,
+                                url: "{{ url('categories') }}/" + id,
                                 type: 'DELETE',
                                 data: {
                                     "id": id,
@@ -122,7 +123,7 @@
                                 },
                                 success: function(data) {
                                     swal({
-                                        title: 'Proses Hapus Berhasil',
+                                        title: 'Kategori Berhasil Dihapus',
                                         text: data.message,
                                         type: 'success',
                                         buttons: {
@@ -135,7 +136,6 @@
                                         $(".data" + id).each(function() {
                                             $(this).parents("tr").remove();
                                         });
-                                        // alert(data['message']);
                                     } else {
                                         alert('Error occured.');
                                     }
