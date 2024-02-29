@@ -12,7 +12,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+        return view('item.index', ['items' => Item::with('category')->get()]);
     }
 
     /**
@@ -60,6 +60,9 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        //
+        $item->delete();
+        return response()->json([
+            'message' => 'Nama Barang Berhasil dihapus'
+        ]);
     }
 }

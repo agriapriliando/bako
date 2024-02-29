@@ -9,7 +9,7 @@
                         <div class="row">
                             <div class="col-12 mt-0 pt-0">
                                 <div class="section-title p-0 m-0">
-                                    <h2>Kelola Kategori</h2>
+                                    <h2>Kelola Nama Barang</h2>
                                 </div>
                             </div>
                         </div>
@@ -21,7 +21,7 @@
                                 </div>
                             @endif
                             <div class="col">
-                                <a href="{{ url('categories/create') }}" class="btn btn-sm btn-success"><i class="lni lni-plus"></i> Tambah Kategori</a>
+                                <a href="{{ url('items/create') }}" class="btn btn-sm btn-success"><i class="lni lni-plus"></i> Tambah Nama Barang</a>
                             </div>
                         </div>
                         <table id="example" class="table table-striped" style="width:100%">
@@ -29,22 +29,34 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
+                                    <th>Kategori</th>
+                                    <th>Harga Rata-Rata <br>Tahun <span id="tahunini"></span></th>
                                     <th>Kelola</th>
                                 </tr>
                             </thead>
+                            <script>
+                                const d = new Date();
+                                let year = d.getFullYear();
+                                document.getElementById("tahunini").innerHTML = year;
+                            </script>
                             <tbody>
-                                @foreach ($categories as $item)
+                                @foreach ($items as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td class="data{{ $item->id }}">{{ $item->nama }} <br><small class="text-muted">{{ $item->deskripsi }}</small></td>
+                                        <td>{{ $item->category->nama }}</td>
+                                        <td>
+                                            <div>{{ $item->hargaaverage }}</div>
+                                            <span class="badge rounded-pill bg-warning text-dark">
+                                                updated : {{ \Carbon\Carbon::parse($item->tglharga)->format('j F, Y') }}
+                                            </span>
+                                        </td>
                                         <td>
                                             <div class="d-flex gap-1">
-                                                <a href="{{ url('categories/' . $item->id . '/edit') }}" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
-                                                @if ($item->item_count == 0)
-                                                    <a data-id="{{ $item->id }}" data-name="{{ $item->nama }}" href="#" class="btn btn-sm btn-danger btn-delete">
-                                                        <i class="lni lni-eraser"></i>
-                                                    </a>
-                                                @endif
+                                                <a href="{{ url('items/' . $item->id . '/edit') }}" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
+                                                <a data-id="{{ $item->id }}" data-name="{{ $item->nama }}" href="#" class="btn btn-sm btn-danger btn-delete">
+                                                    <i class="lni lni-eraser"></i>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>
@@ -54,6 +66,8 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
+                                    <th>Kategori</th>
+                                    <th>Rata-Rata <br>Tahun Ini</th>
                                     <th>Kelola</th>
                                 </tr>
                             </tfoot>
@@ -75,21 +89,9 @@
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
         <script>
             new DataTable('#example', {
                 scrollX: true
-            });
-            $(function() {
-                $('#datepicker').daterangepicker({
-                    singleDatePicker: true,
-                    showDropdowns: true,
-                    minYear: 2024,
-                    maxYear: parseInt(moment().format('YYYY'), 10),
-                    maxDate: moment()
-                });
             });
         </script>
         <script src="{{ asset('') }}assets/js/sweetalert/sweetalert.min.js"></script>
@@ -102,7 +104,7 @@
                     var at = $(this).attr('data-id');
                     console.log(at);
                     swal({
-                        title: 'Yakin menghapus Kategori : ' + nama,
+                        title: 'Yakin menghapus Nama Barang : ' + nama,
                         icon: 'warning',
                         buttons: {
                             confirm: {
@@ -117,7 +119,7 @@
                     }).then((deleteAll) => {
                         if (deleteAll) {
                             $.ajax({
-                                url: "{{ url('categories') }}/" + id,
+                                url: "{{ url('items') }}/" + id,
                                 type: 'DELETE',
                                 data: {
                                     "id": id,
@@ -125,7 +127,7 @@
                                 },
                                 success: function(data) {
                                     swal({
-                                        title: 'Kategori Berhasil Dihapus',
+                                        title: 'Nama Barang Berhasil Dihapus',
                                         text: data.message,
                                         type: 'success',
                                         buttons: {

@@ -27,15 +27,15 @@
                                                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Kategori</a>
                                             <ul class="sub-menu collapse" id="submenu-1-2">
                                                 <li class="nav-item"><a href="{{ url('categories') }}">Daftar Kategor</a></li>
-                                                <li class="nav-item"><a href="faq.html">Tambah Kategori</a></li>
+                                                <li class="nav-item"><a href="{{ url('categories/create') }}">Tambah Kategori</a></li>
                                             </ul>
                                         </li>
                                         <li class="nav-item">
                                             <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-22" aria-controls="navbarSupportedContent"
                                                 aria-expanded="false" aria-label="Toggle navigation">Nama Barang</a>
                                             <ul class="sub-menu collapse" id="submenu-1-22">
-                                                <li class="nav-item"><a href="about-us.html">Daftar Barang</a></li>
-                                                <li class="nav-item"><a href="faq.html">Tambah Barang</a></li>
+                                                <li class="nav-item"><a href="{{ url('items') }}">Daftar Barang</a></li>
+                                                <li class="nav-item"><a href="{{ url('items/create') }}">Tambah Barang</a></li>
                                             </ul>
                                         </li>
                                         <li class="nav-item">
