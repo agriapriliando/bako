@@ -6,6 +6,8 @@ use App\Models\Category;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Image;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -33,7 +35,7 @@ class CategoryController extends Controller
         $dataValidated = $request->validate([
             'nama' => 'required|string|unique:categories',
             'deskripsi' => 'required',
-            'image' => 'required'
+            'image' => 'required|image|max:2048'
         ]);
         $path = storage_path('app/public/images/category/');
         // code to make dir and subdir
@@ -63,7 +65,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('category.edit', ['category' => $category]);
     }
 
     /**
@@ -71,7 +73,22 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $dataValidated = $request->validate([
+            'nama' => ['required', 'string', Rule::unique('categories')->ignore($category->id)],
+            'deskripsi' => 'required',
+            'image' => 'image|max:2048'
+        ]);
+        if ($request->has('image')) {
+            $path = storage_path('app/public/images/category/');
+            $name = Carbon::now()->format('YmdHis') . '.' . $request->image->extension();
+            Image::make($request->file('image'))
+                ->resize(400, 400)
+                ->save($path . $name);
+            $dataValidated['image'] = $name;
+            Storage::delete('public/images/category/' . $category->image);
+        }
+        Category::where('id', $category->id)->update($dataValidated);
+        return redirect('categories')->with('status', 'Kategori : ' . $dataValidated['nama'] . ' telah dirubah');
     }
 
     /**
@@ -79,6 +96,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        Storage::delete('public/images/category/' . $category->image);
         $category->delete();
         return response()->json([
             'message' => "Kategori Berhasil Dihapus"

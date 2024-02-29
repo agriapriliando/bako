@@ -39,7 +39,7 @@
                                         <td class="data{{ $item->id }}">{{ $item->nama }} <br><small class="text-muted">{{ $item->deskripsi }}</small></td>
                                         <td>
                                             <div class="d-flex gap-1">
-                                                <a href="#" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
+                                                <a href="{{ url('categories/' . $item->id . '/edit') }}" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
                                                 <a data-id="{{ $item->id }}" data-name="{{ $item->nama }}" href="#" class="btn btn-sm btn-danger btn-delete">
                                                     <i class="lni lni-eraser"></i>
                                                 </a>
