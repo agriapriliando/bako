@@ -14,6 +14,12 @@
                             </div>
                         </div>
                         <div class="row mb-3">
+                            @if (session('status'))
+                                <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                                    <strong>{{ session('status') }}</strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
                             <div class="col">
                                 <a href="{{ url('categories/create') }}" class="btn btn-sm btn-success"><i class="lni lni-plus"></i> Tambah Kategori</a>
                             </div>

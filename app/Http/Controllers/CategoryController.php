@@ -28,7 +28,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dataValidated = $request->validate([
+            'nama' => 'required|string|unique:categories',
+            'deskripsi' => 'required',
+            'image' => 'required'
+        ]);
+        $dataValidated['jumlahbarang'] = 0;
+        Category::create($dataValidated);
+        return redirect('categories')->with('status', 'Kategori : ' . $dataValidated['nama'] . ' telah ditambahkan');
     }
 
     /**

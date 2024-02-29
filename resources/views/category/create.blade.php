@@ -15,7 +15,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <form method="POST" action="{{ route('register') }}">
+                                <form method="POST" action="{{ url('categories') }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-2">
                                         <label>Nama Kategori</label>
