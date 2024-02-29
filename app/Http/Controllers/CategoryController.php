@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Image;
 
 class CategoryController extends Controller
 {
@@ -33,7 +35,17 @@ class CategoryController extends Controller
             'deskripsi' => 'required',
             'image' => 'required'
         ]);
+        $path = storage_path('app/public/images/category/');
+        // code to make dir and subdir
+        !is_dir($path) &&
+            mkdir($path, 0777, true);
+
+        $name = Carbon::now()->format('YmdHis') . '.' . $request->image->extension();
+        Image::make($request->file('image'))
+            ->resize(400, 400)
+            ->save($path . $name);
         $dataValidated['jumlahbarang'] = 0;
+        $dataValidated['image'] = $name;
         Category::create($dataValidated);
         return redirect('categories')->with('status', 'Kategori : ' . $dataValidated['nama'] . ' telah ditambahkan');
     }
