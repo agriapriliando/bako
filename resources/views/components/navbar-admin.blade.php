@@ -31,12 +31,15 @@
                                             </ul>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-22" aria-controls="navbarSupportedContent"
-                                                aria-expanded="false" aria-label="Toggle navigation">Nama Barang</a>
+                                            <a class="dd-menu collapsed {{ request()->is('items') ? 'active' : '' }}" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-22"
+                                                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Barang</a>
                                             <ul class="sub-menu collapse" id="submenu-1-22">
                                                 <li class="nav-item"><a href="{{ url('items') }}">Daftar Barang</a></li>
                                                 <li class="nav-item"><a href="{{ url('items/create') }}">Tambah Barang</a></li>
                                             </ul>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ url('pasars') }}" class="{{ request()->is('pasars') ? 'active' : '' }}" aria-label="Toggle navigation">Pasar</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-3" aria-controls="navbarSupportedContent"
