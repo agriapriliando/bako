@@ -36,7 +36,7 @@ class CategoryController extends Controller
         $dataValidated = $request->validate([
             'nama' => 'required|string|unique:categories',
             'deskripsi' => 'required',
-            'image' => 'required|image|max:2048'
+            'image' => 'required|image|max:1024'
         ]);
         $path = storage_path('app/public/images/category/');
         // code to make dir and subdir
@@ -77,7 +77,7 @@ class CategoryController extends Controller
         $dataValidated = $request->validate([
             'nama' => ['required', 'string', Rule::unique('categories')->ignore($category->id)],
             'deskripsi' => 'required',
-            'image' => 'image|max:2048'
+            'image' => 'image|max:1024'
         ]);
         if ($request->has('image')) {
             $path = storage_path('app/public/images/category/');

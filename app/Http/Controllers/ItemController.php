@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Item;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ItemController extends Controller
 {
@@ -57,7 +58,13 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        //
+        return view(
+            'item.edit',
+            [
+                'item' => $item,
+                'categories' => Category::all(),
+            ]
+        );
     }
 
     /**
@@ -65,7 +72,15 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        //
+        $dataValidated = $request->validate([
+            'nama' => ['required', 'string', Rule::unique('items')->ignore($item->id)],
+            'deskripsi' => 'required',
+            'category_id' => 'required'
+        ]);
+
+        $item->update($dataValidated);
+
+        return redirect('items')->with('status', 'Nama Barang : ' . $dataValidated['nama'] . ' Berhasil Dirubah');
     }
 
     /**

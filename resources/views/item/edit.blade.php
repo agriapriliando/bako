@@ -15,22 +15,23 @@
                         <div class="row">
                             <div class="col-12 mt-0 pt-0">
                                 <div class="section-title p-0 m-0">
-                                    <h2>Tambah Nama Barang</h2>
+                                    <h2>Edit Nama Barang</h2>
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <form method="POST" action="{{ url('items') }}" enctype="multipart/form-data">
+                                <form method="POST" action="{{ url('items/' . $item->id) }}" enctype="multipart/form-data">
+                                    @method('PATCH')
                                     @csrf
                                     <div class="mb-2">
                                         <label>Nama Barang</label>
-                                        <input type="text" class="form-control" name="nama" value="{{ old('nama') }}" autofocus autocomplete="nama">
+                                        <input type="text" class="form-control" name="nama" value="{{ old('nama', $item->nama) }}" autofocus autocomplete="nama">
                                         <x-alert-input :messages="$errors->get('nama')" class="mt-2 bg-danger"></x-alert-input>
                                     </div>
                                     <div class="mb-2">
                                         <label>Deskripsi Barang</label>
-                                        <textarea name="deskripsi" class="form-control" rows="2">{{ old('deskripsi') }}</textarea>
+                                        <textarea name="deskripsi" class="form-control" rows="2">{{ old('deskripsi', $item->deskripsi) }}</textarea>
                                         <x-alert-input :messages="$errors->get('deskripsi')" class="mt-2 bg-danger"></x-alert-input>
                                     </div>
                                     <div class="mb-2">
@@ -38,7 +39,9 @@
                                         <select name="category_id" class="form-select" id="basic-usage" data-placeholder="Choose one thing">
                                             <option></option>
                                             @foreach ($categories as $c)
-                                                <option value="{{ $c->id }}">{{ $c->nama }}</option>
+                                                <option value="{{ $c->id }}" @if ($item->category_id == old('category_id', $c->id)) selected="selected" @endif>
+                                                    {{ $c->nama }}
+                                                </option>
                                             @endforeach
                                         </select>
                                         <x-alert-input :messages="$errors->get('deskripsi')" class="mt-2 bg-danger"></x-alert-input>
