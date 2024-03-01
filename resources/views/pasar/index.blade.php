@@ -21,7 +21,7 @@
                                 </div>
                             @endif
                             <div class="col">
-                                <a href="{{ url('items/create') }}" class="btn btn-sm btn-success"><i class="lni lni-plus"></i> Tambah Nama Barang</a>
+                                <a href="{{ url('pasars/create') }}" class="btn btn-sm btn-success"><i class="lni lni-plus"></i> Tambah Nama Barang</a>
                             </div>
                         </div>
                         <table id="example" class="table table-striped" style="width:100%">
@@ -93,7 +93,7 @@
                     var at = $(this).attr('data-id');
                     console.log(at);
                     swal({
-                        title: 'Yakin menghapus Nama Barang : ' + nama,
+                        title: 'Yakin menghapus Data Pasar : ' + nama,
                         icon: 'warning',
                         buttons: {
                             confirm: {
@@ -108,7 +108,7 @@
                     }).then((deleteAll) => {
                         if (deleteAll) {
                             $.ajax({
-                                url: "{{ url('items') }}/" + id,
+                                url: "{{ url('pasars') }}/" + id,
                                 type: 'DELETE',
                                 data: {
                                     "id": id,
