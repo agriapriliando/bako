@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Item;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -20,7 +22,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        return view('item.create', ['categories' => Category::all()]);
     }
 
     /**
@@ -28,7 +30,18 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dataValidated = $request->validate([
+            'nama' => 'required|string',
+            'deskripsi' => 'required',
+            'category_id' => 'required'
+        ]);
+
+        $dataValidated['hargaaverage'] = 0;
+        $dataValidated['tglharga'] = Carbon::now();
+
+        Item::create($dataValidated);
+
+        return redirect('items')->with('status', 'Nama Barang ' . $dataValidated['nama'] . ' Berhasil Ditambahkan');
     }
 
     /**
