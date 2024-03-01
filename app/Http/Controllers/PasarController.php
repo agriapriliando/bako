@@ -22,8 +22,6 @@ class PasarController extends Controller
      */
     public function create()
     {
-        //
-
         return view('pasar.create');
     }
 
@@ -49,7 +47,7 @@ class PasarController extends Controller
                 ->save($path . $name);
             $dataValidated['gambar'] = $name;
         } else {
-            $dataValidated['gambar'] = "kosong.png";
+            $dataValidated['gambar'] = "400x400.svg";
         }
 
         if ($request->filled('lokasi_gmap')) {
@@ -75,7 +73,7 @@ class PasarController extends Controller
      */
     public function edit(Pasar $pasar)
     {
-        //
+        return view('pasar.edit', ['pasar' => $pasar]);
     }
 
     /**
@@ -83,7 +81,34 @@ class PasarController extends Controller
      */
     public function update(Request $request, Pasar $pasar)
     {
-        //
+        $dataValidated = $request->validate([
+            'nama' => 'required|string|unique:pasars,nama,' . $pasar->id,
+            'deskripsi' => 'required',
+        ]);
+
+        if ($request->has('gambar')) {
+            $path = storage_path('app/public/images/pasar/');
+
+            $name = Carbon::now()->format('YmdHis') . '.' . $request->gambar->extension();
+            Image::make($request->file('gambar'))
+                ->resize(400, 400)
+                ->save($path . $name);
+            $dataValidated['gambar'] = $name;
+            if ($pasar->gambar <> "400x400.svg") {
+                Storage::delete('public/images/pasar/' . $pasar->gambar);
+            }
+        } else {
+            $dataValidated['gambar'] = "400x400.svg";
+        }
+
+        if ($request->filled('lokasi_gmap')) {
+            $dataValidated['lokasi_gmap'] = $request->lokasi_gmap;
+        } else {
+            $dataValidated['lokasi_gmap'] = 'Lokasi Google Map Belum Diisi';
+        }
+        $pasar->update($dataValidated);
+
+        return redirect('pasars')->with('status', 'Data Pasar : ' . $dataValidated['nama'] . ' telah diperbaharui');
     }
 
     /**
@@ -91,6 +116,9 @@ class PasarController extends Controller
      */
     public function destroy(Pasar $pasar)
     {
+        if ($pasar->gambar <> "400x400.svg") {
+            Storage::delete('public/images/pasar/' . $pasar->gambar);
+        }
         $pasar->delete();
         return response()->json([
             'message' => 'Data Pasar Berhasil Dihapus'

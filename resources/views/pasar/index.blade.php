@@ -39,12 +39,12 @@
                                         <td class="data{{ $item->id }}">{{ $item->nama }} <br><small class="text-muted">{{ $item->deskripsi }}</small>
                                             <div style="max-width: 100px;">{!! $item->lokasi_gmap !!}</div>
                                             <span class="badge rounded-pill bg-warning text-dark">
-                                                updated : {{ \Carbon\Carbon::parse($item->updated_at)->translatedFormat('j F, Y h:i') }}
+                                                updated : {{ \Carbon\Carbon::parse($item->updated_at)->translatedFormat('j F, Y H:i') }}
                                             </span>
                                         </td>
                                         <td>
                                             <div class="d-flex gap-1">
-                                                <a href="{{ url('items/' . $item->id . '/edit') }}" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
+                                                <a href="{{ url('pasars/' . $item->id . '/edit') }}" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
                                                 <a data-id="{{ $item->id }}" data-name="{{ $item->nama }}" href="#" class="btn btn-sm btn-danger btn-delete">
                                                     <i class="lni lni-eraser"></i>
                                                 </a>
