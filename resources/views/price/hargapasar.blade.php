@@ -9,7 +9,7 @@
                         <div class="row">
                             <div class="col-12 mt-0 pt-0">
                                 <div class="section-title p-0 m-0">
-                                    <h2>Kelola Data Harga Semua Pasar</h2>
+                                    <h2>Kelola Data Harga Barang <br>Lokasi : {{ $namapasar }}</h2>
                                 </div>
                             </div>
                         </div>
@@ -31,7 +31,6 @@
                                     <th>Nama Barang</th>
                                     <th>Harga Hari Ini</th>
                                     <th>Harga Kemarin</th>
-                                    <th>Pasar</th>
                                     <th>Kelola</th>
                                 </tr>
                             </thead>
@@ -56,7 +55,6 @@
                                             </span>
                                         </td>
                                         <td>@currency($item->hargakemarin)</td>
-                                        <td>{{ $item->pasar->nama }}</td>
                                         <td>
                                             <div class="d-flex gap-1">
                                                 <a href="{{ url('prices/' . $item->id . '/edit') }}" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>

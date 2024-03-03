@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->text('deskripsi');
+            $table->string('slugpasar');
             $table->text('lokasi_gmap');
             $table->string('gambar');
             $table->timestamps();

@@ -14,15 +14,15 @@ class PriceSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 12; ++$i) {
+        for ($i = 0; $i < 15; ++$i) {
             DB::table('prices')->insert([
                 'item_id' => Item::all()->random()->id,
-                'pasar_id' => 1,
+                'pasar_id' => rand(1, 2),
                 'user_id' => 1,
-                'hargahariini' => 80000,
-                'hargakemarin' => 80000,
-                'hargaminggulalu' => 80000,
-                'hargabulanlalu' => 80000,
+                'hargahariini' => rand(2, 7) . "0000",
+                'hargakemarin' => rand(2, 7) . "0000",
+                'hargaminggulalu' => rand(2, 7) . "0000",
+                'hargabulanlalu' => rand(2, 7) . "0000",
                 'deskripsi' => '',
                 'status' => 'Tetap',
                 'selisih' => 0,

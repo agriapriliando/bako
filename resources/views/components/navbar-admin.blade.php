@@ -18,9 +18,19 @@
                                 </button>
                                 <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                     <ul id="nav" class="navbar-nav ms-auto">
-                                        <li class="nav-item">
+                                        {{-- <li class="nav-item">
                                             <a href="{{ url('prices') }}" class="{{ request()->is('prices') ? 'active' : '' }}" aria-label="Toggle navigation">Kelola Harga
                                             </a>
+                                        </li> --}}
+                                        <li class="nav-item">
+                                            <a class="dd-menu collapsed {{ request()->is('prices*') ? 'active' : '' }}" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-2"
+                                                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Data Harga</a>
+                                            <ul class="sub-menu collapse" id="submenu-1-2">
+                                                @foreach ($pasars as $item)
+                                                    <li class="nav-item"><a href="{{ url('hargapasar/' . $item->nama) }}">{{ $item->nama }}</a></li>
+                                                @endforeach
+                                                <li class="nav-item"><a href="{{ url('prices') }}">Semua Daftar Harga</a></li>
+                                            </ul>
                                         </li>
                                         <li class="nav-item">
                                             <a class="dd-menu collapsed {{ request()->is('categories') ? 'active' : '' }}" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-2"
