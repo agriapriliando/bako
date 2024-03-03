@@ -19,7 +19,7 @@
                                 <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                     <ul id="nav" class="navbar-nav ms-auto">
                                         <li class="nav-item">
-                                            <a href="{{ url('dashboard') }}" class="{{ request()->is('dashboard') ? 'active' : '' }}" aria-label="Toggle navigation">Kelola Harga
+                                            <a href="{{ url('prices') }}" class="{{ request()->is('prices') ? 'active' : '' }}" aria-label="Toggle navigation">Kelola Harga
                                             </a>
                                         </li>
                                         <li class="nav-item">

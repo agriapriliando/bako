@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Price;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,19 @@ class PriceController extends Controller
      */
     public function index()
     {
-        //
+        // $data = Category::join('items', 'items.category_id', '=', 'categories.id')
+        //     ->join('prices', 'prices.item_id', '=', 'items.id')
+        //     ->select('categories.nama', 'items.nama as namaa', 'prices.hargahariini')
+        //     ->get();
+        // $data = Price::join('prices', 'prices.item_id', '=', 'items.id')
+        //     ->join('items', 'items.category_id', '=', 'categories.id')
+        //     ->select('prices.hargahariini', 'items.nama', 'categories.nama as nama_category')
+        //     ->get();
+        // dd($data);
+        return view('price.index', [
+            'prices' => Price::with('item', 'pasar')->get(),
+            'categories' => Category::all()
+        ]);
     }
 
     /**

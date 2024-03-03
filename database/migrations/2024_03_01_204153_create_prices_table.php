@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('item_id')->constrained();
             $table->foreignId('pasar_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->integer('hargahariini')->default(0);
             $table->integer('hargakemarin')->default(0);
             $table->integer('hargaminggulalu')->default(0);

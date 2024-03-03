@@ -14,27 +14,20 @@ class PriceSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('prices')->insert([
-            'item_id' => Item::all()->random()->id,
-            'pasar_id' => 1,
-            'hargahariini' => 8.0000,
-            'hargakemarin' => 80000,
-            'hargaminggulalu' => 80000,
-            'hargabulanlalu' => 80000,
-            'deskripsi' => '',
-            'status' => 'Tetap',
-            'selisih' => 0,
-            'persen' => 0,
-        ]);
-        //    nId('item_id')->constrained();
-        //    nId('pasar_id')->constrained();
-        //    r('hargahariini')->default(0);
-        //    r('hargakemarin')->default(0);
-        //    r('hargaminggulalu')->default(0);
-        //    r('hargabulanlalu')->default(0);
-        //    ('deskripsi')->nullable();
-        //    status', ['Tetap', 'Turun', 'Naik']);
-        //    r('selisih')->default(0);
-        //    'persen', 5, 2)->nullable();
+        for ($i = 0; $i < 12; ++$i) {
+            DB::table('prices')->insert([
+                'item_id' => Item::all()->random()->id,
+                'pasar_id' => 1,
+                'user_id' => 1,
+                'hargahariini' => 80000,
+                'hargakemarin' => 80000,
+                'hargaminggulalu' => 80000,
+                'hargabulanlalu' => 80000,
+                'deskripsi' => '',
+                'status' => 'Tetap',
+                'selisih' => 0,
+                'persen' => 0,
+            ]);
+        }
     }
 }
