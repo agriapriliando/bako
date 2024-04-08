@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Item;
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -14,10 +15,12 @@ class PriceSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 15; ++$i) {
+        $itemall = Item::all();
+        // pasar kahayan
+        foreach ($itemall as $a) {
             DB::table('prices')->insert([
-                'item_id' => Item::all()->random()->id,
-                'pasar_id' => rand(1, 2),
+                'item_id' => $a->id,
+                'pasar_id' => 1,
                 'user_id' => 1,
                 'hargahariini' => rand(2, 7) . "0000",
                 'hargakemarin' => rand(2, 7) . "0000",
@@ -27,6 +30,60 @@ class PriceSeeder extends Seeder
                 'status' => 'Tetap',
                 'selisih' => 0,
                 'persen' => 0,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+        foreach ($itemall as $a) {
+            DB::table('prices')->insert([
+                'item_id' => $a->id,
+                'pasar_id' => 1,
+                'user_id' => 1,
+                'hargahariini' => rand(2, 7) . "0000",
+                'hargakemarin' => rand(2, 7) . "0000",
+                'hargaminggulalu' => rand(2, 7) . "0000",
+                'hargabulanlalu' => rand(2, 7) . "0000",
+                'deskripsi' => '',
+                'status' => 'Tetap',
+                'selisih' => 0,
+                'persen' => 0,
+                'created_at' => Carbon::now()->subDays(1),
+                'updated_at' => Carbon::now()->subDays(1),
+            ]);
+        }
+        // pasar besar
+        foreach ($itemall as $a) {
+            DB::table('prices')->insert([
+                'item_id' => $a->id,
+                'pasar_id' => 2,
+                'user_id' => 1,
+                'hargahariini' => rand(2, 7) . "0000",
+                'hargakemarin' => rand(2, 7) . "0000",
+                'hargaminggulalu' => rand(2, 7) . "0000",
+                'hargabulanlalu' => rand(2, 7) . "0000",
+                'deskripsi' => '',
+                'status' => 'Tetap',
+                'selisih' => 0,
+                'persen' => 0,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+        foreach ($itemall as $a) {
+            DB::table('prices')->insert([
+                'item_id' => $a->id,
+                'pasar_id' => 2,
+                'user_id' => 1,
+                'hargahariini' => rand(2, 7) . "0000",
+                'hargakemarin' => rand(2, 7) . "0000",
+                'hargaminggulalu' => rand(2, 7) . "0000",
+                'hargabulanlalu' => rand(2, 7) . "0000",
+                'deskripsi' => '',
+                'status' => 'Tetap',
+                'selisih' => 0,
+                'persen' => 0,
+                'created_at' => Carbon::now()->subDays(1),
+                'updated_at' => Carbon::now()->subDays(1),
             ]);
         }
     }

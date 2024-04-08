@@ -9,7 +9,7 @@
                         <div class="row">
                             <div class="col-12 mt-0 pt-0">
                                 <div class="section-title p-0 m-0">
-                                    <h2>Kelola Data Harga Barang <br>Lokasi : {{ $namapasar }}</h2>
+                                    <h2>Kelola Data Harga Barang <br>Lokasi : {{ $pasar->nama }}</h2>
                                 </div>
                             </div>
                         </div>

@@ -27,7 +27,7 @@
                                                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Data Harga</a>
                                             <ul class="sub-menu collapse" id="submenu-1-2">
                                                 @foreach ($pasars as $item)
-                                                    <li class="nav-item"><a href="{{ url('hargapasar/' . $item->nama) }}">{{ $item->nama }}</a></li>
+                                                    <li class="nav-item"><a href="{{ url('hargapasar/' . $item->slugpasar) }}">{{ $item->nama }}</a></li>
                                                 @endforeach
                                                 <li class="nav-item"><a href="{{ url('prices') }}">Semua Daftar Harga</a></li>
                                             </ul>

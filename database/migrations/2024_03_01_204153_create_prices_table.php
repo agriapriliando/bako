@@ -16,10 +16,10 @@ return new class extends Migration
             $table->foreignId('item_id')->constrained();
             $table->foreignId('pasar_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->integer('hargahariini')->default(0);
-            $table->integer('hargakemarin')->default(0);
-            $table->integer('hargaminggulalu')->default(0);
-            $table->integer('hargabulanlalu')->default(0);
+            $table->integer('hargahariini')->nullable();
+            $table->integer('hargakemarin')->nullable();
+            $table->integer('hargaminggulalu')->nullable();
+            $table->integer('hargabulanlalu')->nullable();
             $table->string('deskripsi')->nullable();
             $table->enum('status', ['Tetap', 'Turun', 'Naik']);
             $table->integer('selisih')->default(0);

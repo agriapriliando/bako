@@ -31,7 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('items', ItemController::class);
     Route::resource('pasars', PasarController::class);
     Route::resource('prices', PriceController::class);
-    Route::get('hargapasar/{namapasar}', [PriceController::class, 'hargapasar']);
+    Route::post('priceby', [PriceController::class, 'priceby']);
+    Route::get('hargapasar/{slugpasar}', [PriceController::class, 'hargapasar']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

@@ -9,7 +9,10 @@
                         <div class="row">
                             <div class="col-12 mt-0 pt-0">
                                 <div class="section-title p-0 m-0">
-                                    <h2>Kelola Data Harga Semua Pasar</h2>
+                                    <h2>Kelola Data Harga Barang</h2>
+                                    <p>Dari Tanggal
+                                        {{ \Carbon\Carbon::parse($tglstart)->translatedFormat('j F Y') }} s.d.
+                                        {{ \Carbon\Carbon::parse($tglend)->translatedFormat('j F Y') }}</p>
                                 </div>
                             </div>
                         </div>
