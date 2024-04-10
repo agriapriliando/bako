@@ -21,7 +21,7 @@
                                 </div>
                             @endif
                             <div class="col">
-                                <a href="{{ url('prices/create') }}" class="btn btn-sm btn-success"><i class="lni lni-plus"></i> Tambah Data Harga</a>
+                                <a href="{{ url('prices/create/' . $pasar->id) }}" class="btn btn-sm btn-success"><i class="lni lni-plus"></i> Tambah Data Harga</a>
                             </div>
                         </div>
                         <table id="example" class="table table-striped" style="width:100%">
@@ -44,7 +44,9 @@
                                                         <span class="badge bg-success">Kategori : {{ $i->nama }}</span>
                                                     @endif
                                                 @endforeach
-                                            </small></td>
+                                            </small> <br>
+                                            <small><span class="badge text-bg-info">{{ $item->pasar->nama }}</span></small>
+                                        </td>
                                         <td>
                                             <div>@currency($item->hargahariini)</div>
                                             <span class="badge rounded-pill bg-warning text-dark">

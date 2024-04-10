@@ -8,6 +8,7 @@ use App\Models\Pasar;
 use App\Models\Price;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PriceController extends Controller
 {
@@ -18,7 +19,7 @@ class PriceController extends Controller
     {
 
         return view('price.index', [
-            'prices' => Price::with('item', 'pasar')->get(),
+            'prices' => Price::with('item', 'pasar')->latest()->get(),
             'categories' => Category::all()
         ]);
     }
@@ -54,23 +55,34 @@ class PriceController extends Controller
         ]);
     }
 
+
+    public function listitem($tglinput, $pasar_id)
+    {
+        $tglinput = str_replace('-', '/', $tglinput);
+        $itemExist = Price::whereDate('created_at', $tglinput)->where('pasar_id', $pasar_id)->get();
+        $items_id = $itemExist->pluck('item_id');
+        // return $items_id;
+        $items = Item::whereNotIn('id', $items_id)->get();
+        return response()->json($items);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($pasar_id)
     {
-        return view('price.create', ['items' => Item::all()]);
+        // hanya tampilkan item yang belum dimasukan
+        // return $this->listitem(Carbon::now(), $pasar_id);
+        $pasar = Pasar::find($pasar_id);
+        return view('price.create', [
+            'items' => Item::all(),
+            'pasar' => $pasar
+        ]);
     }
 
-    public function getHargakemarin($tanggal, $pasar_id, $item_id)
+    public function getHargaminggulalu($tglprice, $item_id, $pasar_id)
     {
-        $hargakemarin = Price::where('updated_at', $tanggal)->where('pasar_id', $pasar_id)->where('item_id', $item_id)->first();
-        return $hargakemarin;
-    }
-
-    public function getHargaminggulalu($tglstart, $tglend, $pasar_id, $item_id)
-    {
-        $hargaminggulalu = Price::whereBetween('updated_at', [$tglstart, $tglend])->where('pasar_id', $pasar_id)->where('item_id', $item_id)->first();
+        $hargaminggulalu = Price::where('created_at', $tglprice)->where('pasar_id', $pasar_id)->where('item_id', $item_id)->get();
         return $hargaminggulalu;
     }
 
@@ -88,20 +100,30 @@ class PriceController extends Controller
             'item_id' => 'required',
             'pasar_id' => 'required',
             'hargahariini' => 'required',
-            'deskripsi' => 'required',
-            'status' => 'required'
+            'tglprice' => 'required'
         ]);
-
-
-        // $table->foreignId('user_id')->constrained();
-        //     $table->integer('hargahariini')->default(0);
-        //     $table->integer('hargakemarin')->default(0);
-        //     $table->integer('hargaminggulalu')->default(0);
-        //     $table->integer('hargabulanlalu')->default(0);
-        //     $table->string('deskripsi')->nullable();
-        //     $table->enum('status', ['Tetap', 'Turun', 'Naik']);
-        //     $table->integer('selisih')->default(0);
-        //     $table->float('persen', 5, 2)->nullable();
+        $time = Carbon::now()->toTimeString();
+        // return $time;
+        $gabung = $request->tglprice . " " . $time;
+        // return $gabung;
+        // $tgl = Carbon::createFromFormat('Y-m-d H:i:s', $gabung)->locale('id');
+        // $tgl = Carbon::parse($gabung);
+        // return $tgl;
+        Price::create([
+            'item_id' => $request->item_id,
+            'pasar_id' => $request->pasar_id,
+            'user_id' => Auth::id(),
+            'hargahariini' => $request->hargahariini,
+            'hargaminggulalu' => 0,
+            'hargabulanlalu' => 0,
+            'deskripsi' => '',
+            'status' => 'Tetap',
+            'selisih' => 2000,
+            'persen' => '2',
+            'created_at' => $gabung,
+            'updated_at' => $gabung
+        ]);
+        return redirect('prices')->with('status', 'Anda berhasil Menambah Harga');
     }
 
     /**

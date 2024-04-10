@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('pasar_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->integer('hargahariini')->nullable();
-            $table->integer('hargakemarin')->nullable();
             $table->integer('hargaminggulalu')->nullable();
             $table->integer('hargabulanlalu')->nullable();
             $table->string('deskripsi')->nullable();

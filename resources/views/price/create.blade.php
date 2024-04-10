@@ -16,21 +16,24 @@
                             <div class="col-12 mt-0 pt-0">
                                 <div class="section-title p-0 m-0">
                                     <h2>Tambah Harga Barang</h2>
+                                    <h3>{{ $pasar->nama }}</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <form method="POST" action="{{ url('prices') }}" enctype="multipart/form-data">
+                                <form method="POST" action="{{ url('prices') }}">
                                     @csrf
+                                    @method('POST')
                                     <div class="mb-2">
-                                        <label>Pilih Nama Barang</label>
-                                        <select name="item_id" class="form-select" id="basic-usage" data-placeholder="Choose one thing">
-                                            <option></option>
-                                            @foreach ($items as $c)
-                                                <option value="{{ $c->id }}">{{ $c->nama }}</option>
-                                            @endforeach
-                                        </select>
+                                        <label>Pilih Tanggal</label>
+                                        <input name="tglprice" id="opt_items" type="date" class="form-control" value="{{ date('Y-m-d') }}" required>
+                                        <small>Hari Ini Tanggal {{ date('j F Y') }}</small>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label>Pilih Barang</label>
+                                        <div id="state">
+                                        </div>
                                         <x-alert-input :messages="$errors->get('deskripsi')" class="mt-2 bg-danger"></x-alert-input>
                                     </div>
                                     <div class="mb-2">
@@ -41,13 +44,10 @@
                                         </div>
                                         <x-alert-input :messages="$errors->get('hargahariini')" class="mt-2 bg-danger"></x-alert-input>
                                     </div>
-                                    <div class="mb-2">
-                                        <label>Tanggal Hari Ini</label>
-                                        <input id="hariini" type="datetime" class="form-control" disabled value=" {{ date('d M Y') }}">
-                                    </div>
+                                    <input class="d-none" id="pasar_id" type="text" name="pasar_id" value="{{ $pasar->id }}">
                                     <div class="d-grid">
                                         <button type="submit" class="btn btn-primary mb-2">Simpan Data Harga</button>
-                                        <a href="{{ url('prices') }}" class="btn btn-warning">Kembali</a>
+                                        <a href="{{ url('hargapasar/' . $pasar->slugpasar) }}" class="btn btn-warning">Kembali</a>
                                     </div>
                                 </form>
                             </div>
@@ -66,16 +66,50 @@
         <script src="{{ asset('') }}assets/js/glightbox.min.js"></script>
         <script src="{{ asset('') }}assets/js/main.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-        <!-- Scripts -->
-        {{-- <script src="{{ asset('assets/js/select2/jquery3_5_0.slim.min.js') }}"></script> --}}
-        {{-- <script src="{{ asset('assets/js/select2/bootstrap.bundle.min.js') }}"></script> --}}
         <script src="{{ asset('assets/js/select2/select2.min.js') }}"></script>
         <script>
             $(document).ready(function() {
                 $('#basic-usage').select2({
                     theme: "bootstrap-5",
-                    // width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-                    // placeholder: $(this).data('placeholder'),
+                });
+
+                var pasar_id = $("#pasar_id").val();
+                var tgl = $('#opt_items').val();
+
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://127.0.0.1:8000/listitem/' + tgl + '/' + pasar_id,
+                    success: function(data) {
+                        var html = '<select name="item_id" class="form-select" id="basic-usage" data-placeholder="Choose one thing">';
+                        for (var count = 0; count < data.length; count++) {
+                            html += '<option value="' + data[count].id + '">' + data[count].nama + '</option>';
+                        }
+                        html += '</select>';
+                        console.log(html);
+                        $('#state').html(html);
+                        $('#basic-usage').select2({
+                            theme: "bootstrap-5",
+                        });
+                    }
+                });
+                $(document).on('change', '#opt_items', function() {
+                    var tgl = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: 'http://127.0.0.1:8000/listitem/' + tgl + '/' + pasar_id,
+                        success: function(data) {
+                            var html = '<select name="item_id" class="form-select" id="basic-usage" data-placeholder="Choose one thing">';
+                            for (var count = 0; count < data.length; count++) {
+                                html += '<option value="' + data[count].id + '">' + data[count].nama + '</option>';
+                            }
+                            html += '</select>';
+                            console.log(html);
+                            $('#state').html(html);
+                            $('#basic-usage').select2({
+                                theme: "bootstrap-5",
+                            });
+                        }
+                    });
                 });
             });
         </script>

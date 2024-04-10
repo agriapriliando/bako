@@ -28,6 +28,8 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('categories', CategoryController::class);
+    Route::get('/listitem/{tglinput}/{pasar_id}', [PriceController::class, 'listitem'])->name('listitem');
+    Route::get('/prices/create/{pasar_id}', [PriceController::class, 'create']);
     Route::resource('items', ItemController::class);
     Route::resource('pasars', PasarController::class);
     Route::resource('prices', PriceController::class);

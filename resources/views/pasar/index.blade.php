@@ -20,9 +20,9 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             @endif
-                            <div class="col">
-                                <a href="{{ url('pasars/create') }}" class="btn btn-sm btn-success"><i class="lni lni-plus"></i> Tambah Nama Barang</a>
-                            </div>
+                            {{-- <div class="col">
+                                <a href="{{ url('pasars/create') }}" class="btn btn-sm btn-success"><i class="lni lni-plus"></i> Tambah Pasar</a>
+                            </div> --}}
                         </div>
                         <table id="example" class="table table-striped" style="width:100%">
                             <thead>
@@ -45,9 +45,6 @@
                                         <td>
                                             <div class="d-flex gap-1">
                                                 <a href="{{ url('pasars/' . $item->id . '/edit') }}" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
-                                                <a data-id="{{ $item->id }}" data-name="{{ $item->nama }}" href="#" class="btn btn-sm btn-danger btn-delete">
-                                                    <i class="lni lni-eraser"></i>
-                                                </a>
                                             </div>
                                         </td>
                                     </tr>
@@ -81,67 +78,6 @@
         <script>
             new DataTable('#example', {
                 scrollX: true
-            });
-        </script>
-        <script src="{{ asset('') }}assets/js/sweetalert/sweetalert.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                $('body').on('click', '.btn-delete', function(e) {
-                    e.preventDefault();
-                    var id = $(this).data('id');
-                    var nama = $(this).data('name');
-                    var at = $(this).attr('data-id');
-                    console.log(at);
-                    swal({
-                        title: 'Yakin menghapus Data Pasar : ' + nama,
-                        icon: 'warning',
-                        buttons: {
-                            confirm: {
-                                text: 'Ya, Hapus',
-                                className: 'btn btn-success'
-                            },
-                            cancel: {
-                                visible: true,
-                                className: 'btn btn-danger'
-                            }
-                        }
-                    }).then((deleteAll) => {
-                        if (deleteAll) {
-                            $.ajax({
-                                url: "{{ url('pasars') }}/" + id,
-                                type: 'DELETE',
-                                data: {
-                                    "id": id,
-                                    "_token": $("meta[name='csrf-token']").attr("content"),
-                                },
-                                success: function(data) {
-                                    swal({
-                                        title: 'Nama Barang Berhasil Dihapus',
-                                        text: data.message,
-                                        type: 'success',
-                                        buttons: {
-                                            confirm: {
-                                                className: 'btn btn-success'
-                                            }
-                                        }
-                                    });
-                                    if (data['message']) {
-                                        $(".data" + id).each(function() {
-                                            $(this).parents("tr").remove();
-                                        });
-                                    } else {
-                                        alert('Error occured.');
-                                    }
-                                },
-                                error: function(data) {
-                                    alert(data.responseText);
-                                }
-                            });
-                        } else {
-                            swal.close();
-                        }
-                    });
-                });
             });
         </script>
     @endpush
