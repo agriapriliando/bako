@@ -41,7 +41,7 @@
                                                 <option value="{{ $c->id }}">{{ $c->nama }}</option>
                                             @endforeach
                                         </select>
-                                        <x-alert-input :messages="$errors->get('deskripsi')" class="mt-2 bg-danger"></x-alert-input>
+                                        <x-alert-input :messages="$errors->get('category_id')" class="mt-2 bg-danger"></x-alert-input>
                                     </div>
                                     <div class="d-grid">
                                         <button type="submit" class="btn btn-primary mb-2">Simpan Kategori</button>

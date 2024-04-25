@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
@@ -11,7 +13,7 @@ class Price extends Model
     use HasFactory;
 
     protected $guarded = [];
-    public $timestamps = false;
+    // public $timestamps = false;
 
     public function item()
     {
@@ -27,4 +29,28 @@ class Price extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected function createdAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Carbon::createFromFormat('Y-m-d H:i:s', $value)->translatedFormat('j F Y H:i'),
+        );
+    }
+
+    protected function updatedAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Carbon::createFromFormat('Y-m-d H:i:s', $value)->translatedFormat('j F Y H:i'),
+        );
+    }
+
+    // public function getUpdatedAtAttribute($date)
+    // {
+    //     return Carbon::createFromFormat('Y-m-d H:i:s', $date)->translatedFormat('j F, Y H:i');
+    // }
+
+    // protected $casts = [
+    //     'created_at' => 'datetime:Y-m-d H:i:s',
+    //     'updated_at' => 'datetime:Y-m-d H:i:s',
+    // ];
 }

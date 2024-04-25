@@ -54,7 +54,8 @@
                                         <td>
                                             <div class="d-flex gap-1">
                                                 <a href="{{ url('items/' . $item->id . '/edit') }}" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
-                                                <a data-id="{{ $item->id }}" data-name="{{ $item->nama }}" href="#" class="btn btn-sm btn-danger btn-delete">
+                                                <a data-id="{{ $item->id }}" data-name="{{ $item->nama }}" href="#"
+                                                    class="btn btn-sm btn-danger btn-delete {{ in_array($item->id, $prices, true) ? 'd-none' : '' }}">
                                                     <i class="lni lni-eraser"></i>
                                                 </a>
                                             </div>

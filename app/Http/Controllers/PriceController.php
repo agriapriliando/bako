@@ -26,10 +26,12 @@ class PriceController extends Controller
 
     public function hargapasar($slugpasar)
     {
-
         $pasar = Pasar::where('slugpasar', $slugpasar)->first();
         return view('price.hargapasar', [
-            'prices' => Price::with('item', 'pasar')->where('pasar_id', $pasar->id)->get(),
+            'prices' => Price::with('item', 'pasar')->where('pasar_id', $pasar->id)
+                ->whereDate('created_at', date('Y-m-d'))
+                ->orderBy('updated_at', 'DESC')
+                ->get(),
             'categories' => Category::all(),
             'pasar' => $pasar,
             'tglstart' => Carbon::now(),
@@ -71,24 +73,11 @@ class PriceController extends Controller
      */
     public function create($pasar_id)
     {
-        // hanya tampilkan item yang belum dimasukan
-        // return $this->listitem(Carbon::now(), $pasar_id);
         $pasar = Pasar::find($pasar_id);
         return view('price.create', [
             'items' => Item::all(),
             'pasar' => $pasar
         ]);
-    }
-
-    public function getHargaminggulalu($tglprice, $item_id, $pasar_id)
-    {
-        $hargaminggulalu = Price::where('created_at', $tglprice)->where('pasar_id', $pasar_id)->where('item_id', $item_id)->get();
-        return $hargaminggulalu;
-    }
-
-    public function createHargaharian()
-    {
-        //
     }
 
     /**
@@ -102,13 +91,11 @@ class PriceController extends Controller
             'hargahariini' => 'required',
             'tglprice' => 'required'
         ]);
-        $time = Carbon::now()->toTimeString();
-        // return $time;
+        // $time = Carbon::now()->toTimeString();
+        $time = Carbon::now()->format('H:i:s');
         $gabung = $request->tglprice . " " . $time;
+        // $gabung = date('Y-m-d H:i:s', strtotime($gabung));
         // return $gabung;
-        // $tgl = Carbon::createFromFormat('Y-m-d H:i:s', $gabung)->locale('id');
-        // $tgl = Carbon::parse($gabung);
-        // return $tgl;
         Price::create([
             'item_id' => $request->item_id,
             'pasar_id' => $request->pasar_id,
@@ -123,7 +110,8 @@ class PriceController extends Controller
             'created_at' => $gabung,
             'updated_at' => $gabung
         ]);
-        return redirect('prices')->with('status', 'Anda berhasil Menambah Harga');
+        $pasar = Pasar::find($request->pasar_id);
+        return redirect('hargapasar/' . $pasar->slugpasar)->with('status', 'Anda berhasil Menambah Harga');
     }
 
     /**
@@ -139,7 +127,11 @@ class PriceController extends Controller
      */
     public function edit(Price $price)
     {
-        //
+        $pasar = Pasar::where('id', $price->pasar_id)->first();
+        return view('price.edit', [
+            'price' => $price,
+            'pasar' => $pasar,
+        ]);
     }
 
     /**
@@ -147,7 +139,13 @@ class PriceController extends Controller
      */
     public function update(Request $request, Price $price)
     {
-        //
+        $dataValidated = $request->validate([
+            'hargahariini' => 'required',
+        ]);
+        $pasar = Pasar::find($price->pasar_id);
+        $price->update($dataValidated);
+
+        return redirect('hargapasar/' . $pasar->slugpasar)->with('status', 'Harga Berhasil dirubah');
     }
 
     /**

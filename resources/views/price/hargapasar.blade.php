@@ -9,7 +9,9 @@
                         <div class="row">
                             <div class="col-12 mt-0 pt-0">
                                 <div class="section-title p-0 m-0">
-                                    <h2>Kelola Data Harga Barang <br>Lokasi : {{ $pasar->nama }}</h2>
+                                    <h2>Kelola Data Harga Barang <br>Lokasi : {{ $pasar->nama }}
+                                        <br>Hari Ini Tanggal {{ date('j F Y') }}
+                                    </h2>
                                 </div>
                             </div>
                         </div>
@@ -29,8 +31,8 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Barang</th>
-                                    <th>Harga Hari Ini</th>
-                                    <th>Harga Kemarin</th>
+                                    <th>Harga Barang</th>
+                                    <th>Diperbaharui</th>
                                     <th>Kelola</th>
                                 </tr>
                             </thead>
@@ -49,19 +51,18 @@
                                         </td>
                                         <td>
                                             <div>@currency($item->hargahariini)</div>
+                                        </td>
+                                        <td>{{ $item->updated_at }} Wib <br>
                                             <span class="badge rounded-pill bg-warning text-dark">
-                                                updated : {{ \Carbon\Carbon::parse($item->updated_at)->translatedFormat('j F, Y H:i') }} Wib
-                                            </span><br>
-                                            <span class="badge rounded-pill bg-warning text-dark">
-                                                oleh Petugas : {{ $item->user->name }}
+                                                oleh : {{ $item->user->name }}
                                             </span>
                                         </td>
-                                        <td>@currency($item->hargakemarin)</td>
                                         <td>
                                             <div class="d-flex gap-1">
                                                 <a href="{{ url('prices/' . $item->id . '/edit') }}" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
-                                                <a data-tgl="{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('j F, Y H:i') }} Wib" data-id="{{ $item->id }}"
-                                                    data-name="{{ $item->item->nama }}" href="#" class="btn btn-sm btn-danger btn-delete">
+                                                {{-- <a data-tgl="{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('j F, Y H:i') }} Wib" data-id="{{ $item->id }}" --}}
+                                                <a data-tgl="{{ $item->created_at }} Wib" data-id="{{ $item->id }}" data-name="{{ $item->item->nama }}" href="#"
+                                                    class="btn btn-sm btn-danger btn-delete">
                                                     <i class="lni lni-eraser"></i>
                                                 </a>
                                             </div>

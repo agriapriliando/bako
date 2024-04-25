@@ -21,7 +21,7 @@
                                 </div>
                             @endif
                         </div>
-                        <div class="row mb-2">
+                        <div class="row mb-2 d-none">
                             <div class="col-12 col-lg-4">
                                 <div class="accordion accordion-flush" id="accordionFlushExample">
                                     <div class="accordion-item">
@@ -67,8 +67,8 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Barang</th>
-                                    <th>Harga Hari Ini</th>
-                                    <th>Harga Kemarin</th>
+                                    <th>Harga </th>
+                                    <th>Harga H-1</th>
                                     <th>Pasar</th>
                                     <th>Kelola</th>
                                 </tr>

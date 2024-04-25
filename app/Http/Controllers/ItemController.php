@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\Price;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -15,7 +16,11 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return view('item.index', ['items' => Item::with('category')->get()]);
+        $prices = Price::pluck('item_id')->toArray();
+        return view('item.index', [
+            'items' => Item::with('category')->get(),
+            'prices' => $prices
+        ]);
     }
 
     /**
@@ -32,7 +37,7 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $dataValidated = $request->validate([
-            'nama' => 'required|string',
+            'nama' => ['required', 'string', Rule::unique('items')],
             'deskripsi' => 'required',
             'category_id' => 'required'
         ]);
