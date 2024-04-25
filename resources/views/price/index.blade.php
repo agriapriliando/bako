@@ -68,7 +68,7 @@
                                     <th>No</th>
                                     <th>Nama Barang</th>
                                     <th>Harga </th>
-                                    <th>Harga H-1</th>
+                                    <th>Tanggal</th>
                                     <th>Pasar</th>
                                     <th>Kelola</th>
                                 </tr>
@@ -86,6 +86,11 @@
                                             </small></td>
                                         <td>
                                             <div>@currency($item->hargahariini)</div>
+
+                                            <span class="badge rounded-pill bg-primary">
+                                                Harga Kemarin :
+                                                {{ $item->hargakemarin ? 'Rp ' . $item->hargakemarin : 'Tidak Ada' }}
+                                            </span><br>
                                             <span class="badge rounded-pill bg-warning text-dark">
                                                 updated : {{ \Carbon\Carbon::parse($item->updated_at)->translatedFormat('j F, Y H:i') }} Wib
                                             </span><br>
@@ -93,7 +98,7 @@
                                                 oleh Petugas : {{ $item->user->name }}
                                             </span>
                                         </td>
-                                        <td>@currency($item->hargakemarin)</td>
+                                        <td>{{ $item->created_at }} Wib</td>
                                         <td>{{ $item->pasar->nama }}</td>
                                         <td>
                                             <div class="d-flex gap-1">
