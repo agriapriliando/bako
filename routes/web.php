@@ -5,6 +5,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PasarController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('report/{pasar_id}/{tgl}', [ReportController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

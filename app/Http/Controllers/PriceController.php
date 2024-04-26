@@ -18,12 +18,6 @@ class PriceController extends Controller
     public function index()
     {
         $prices = Price::with('item', 'pasar')->orderBy('created_at', 'DESC')->get();
-        // dd(Carbon::parse($prices[0]['created_at'])->subday()->format('Y-m-d'));
-        // dd($prices);
-        // $hargakemarin = Price::where('item_id', 4)
-        //     ->whereDate('created_at', Carbon::parse($prices[0]['created_at'])->subday()->format('Y-m-d'))
-        //     ->first();
-        // dd($hargakemarin);
         for ($i = 0; $i < count($prices); $i++) {
             $hargakemarin = Price::where('pasar_id', $prices[$i]['pasar_id'])
                 ->where('item_id', $prices[$i]['item_id'])
@@ -130,6 +124,8 @@ class PriceController extends Controller
         $pasar = Pasar::find($request->pasar_id);
         return redirect('hargapasar/' . $pasar->slugpasar)->with('status', 'Anda berhasil Menambah Harga');
     }
+
+    // 
 
     /**
      * Display the specified resource.
