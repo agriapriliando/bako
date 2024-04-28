@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pasar;
 use App\Models\Price;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -35,11 +36,23 @@ class ReportController extends Controller
             }
             $prices[$i]['hargaselisih'] = $prices[$i]['hargahariini'] - $prices[$i]['hargakemarin'];
         }
-        return view('report.format1', [
+        // return 'AA';
+        // $pdf = Pdf::loadHTML('<h1>Test</h1>');
+        // $pdf = App::make('dompdf.wrapper');
+        // return $pdf->download();
+
+        $pdf = Pdf::loadView('report.format1', [
             'prices' => $prices,
             'tgl' => date('j F Y', strtotime($tgl)),
             'tglmin' => date('j F Y', strtotime('-1 day', strtotime($tgl))),
             'pasar' => Pasar::find($pasar_id)
         ]);
+        return $pdf->download();
+        // return view('report.format1', [
+        //     'prices' => $prices,
+        //     'tgl' => date('j F Y', strtotime($tgl)),
+        //     'tglmin' => date('j F Y', strtotime('-1 day', strtotime($tgl))),
+        //     'pasar' => Pasar::find($pasar_id)
+        // ]);
     }
 }

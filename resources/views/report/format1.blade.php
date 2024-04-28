@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Laporan</title>
     @vite('resources/js/app.js')
 </head>
@@ -39,7 +39,7 @@
 
 <body>
     <img class="responsive" src="{{ url('assets/images/kop_surat.JPG') }}" alt="kop_surat">
-    <table class="customTable">
+    <table class="customTable" style="width:100%">
         <thead>
             <tr style="background-color: #FFFFFF">
                 <th colspan="7">PERKEMBANGAN HARGA RATA-RATA BEBERAPA BAHAN POKOK</th>
@@ -49,16 +49,15 @@
                 <th colspan="5">Waktu : {{ Carbon\Carbon::parse($tgl)->isoFormat('dddd, D MMMM Y') }}</th>
             </tr>
             <tr style="background-color: #d1d3ff">
-                <th rowspan="2">No</th>
-                <th rowspan="2">Nama Bahan Pokok</th>
-                <th colspan="2">Harga</th>
+                <th rowspan="2" style="width: 4%">No</th>
+                <th rowspan="2" style="width: 30%">Nama Bahan Pokok</th>
                 <th colspan="2">Perubahan</th>
-                <th rowspan="2">Ket</th>
+                <th rowspan="2" style="width: 10%">Ket</th>
             </tr>
             <tr style="background-color: #d1d3ff">
-                <th>Sebelumnya <br>{{ $tglmin }}</th>
-                <th>Hari Ini <br>{{ $tgl }}</th>
-                <th>Rp</th>
+                <th style="width: 15%">Sebelumnya <br>{{ $tglmin }}</th>
+                <th style="width: 15%">Hari Ini <br>{{ $tgl }}</th>
+                <th style="width: 15%">Rp</th>
                 <th>%</th>
             </tr>
         </thead>
