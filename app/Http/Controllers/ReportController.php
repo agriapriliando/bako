@@ -36,10 +36,37 @@ class ReportController extends Controller
             }
             $prices[$i]['hargaselisih'] = $prices[$i]['hargahariini'] - $prices[$i]['hargakemarin'];
         }
-        // return 'AA';
-        // $pdf = Pdf::loadHTML('<h1>Test</h1>');
-        // $pdf = App::make('dompdf.wrapper');
-        // return $pdf->download();
+
+        return view('report.format1', [
+            'prices' => $prices,
+            'tgl' => date('j F Y', strtotime($tgl)),
+            'tglmin' => date('j F Y', strtotime('-1 day', strtotime($tgl))),
+            'pasar' => Pasar::find($pasar_id)
+        ]);
+    }
+
+    public function pdf($pasar_id, $tgl)
+    {
+        $prices = Price::with('item')->orderBy('item_id')
+            ->where('pasar_id', $pasar_id)
+            ->whereDate('created_at', '=', Carbon::parse($tgl)->format('Y-m-d'))
+            ->get();
+        $pricesCompare = Price::with('item')->orderBy('created_at', 'DESC')
+            ->where('pasar_id', $pasar_id)
+            ->whereDate('created_at', '=', Carbon::parse($tgl)->subDay()->format('Y-m-d'))
+            ->get();
+        for ($i = 0; $i < count($prices); $i++) {
+            $prices[$i]['nama_item'] = $prices[$i]->item->nama;
+            $hargakemarin = Price::where('pasar_id', $prices[$i]['pasar_id'])
+                ->where('item_id', $prices[$i]['item_id'])
+                ->whereDate('created_at', Carbon::parse($prices[$i]['created_at'])->subDay()->format('Y-m-d'))->first();
+            if ($hargakemarin) {
+                $prices[$i]['hargakemarin'] = $hargakemarin['hargahariini'];
+            } else {
+                $prices[$i]['hargakemarin'] = FALSE;
+            }
+            $prices[$i]['hargaselisih'] = $prices[$i]['hargahariini'] - $prices[$i]['hargakemarin'];
+        }
 
         $pdf = Pdf::loadView('report.format1', [
             'prices' => $prices,
@@ -48,11 +75,5 @@ class ReportController extends Controller
             'pasar' => Pasar::find($pasar_id)
         ]);
         return $pdf->download();
-        // return view('report.format1', [
-        //     'prices' => $prices,
-        //     'tgl' => date('j F Y', strtotime($tgl)),
-        //     'tglmin' => date('j F Y', strtotime('-1 day', strtotime($tgl))),
-        //     'pasar' => Pasar::find($pasar_id)
-        // ]);
     }
 }

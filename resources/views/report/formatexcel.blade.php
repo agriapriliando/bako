@@ -38,9 +38,6 @@
 </style>
 
 <body>
-    <div>
-        <img class="responsive" src="{{ asset('images/kop_surat.JPG') }}" alt="kop_surat">
-    </div>
     <table class="customTable" style="width:100%">
         <thead>
             <tr style="background-color: #FFFFFF">
@@ -84,9 +81,6 @@
             @endif
         </tbody>
     </table>
-    <div style="margin-top: 15px">
-        <img class="responsive" src="{{ asset('images/kop_surat_ttd.JPG') }}" alt="kop_surat">
-    </div>
 </body>
 
 </html>

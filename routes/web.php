@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PasarController;
 use App\Http\Controllers\PriceController;
@@ -24,6 +25,10 @@ Route::get('/', function () {
 });
 
 Route::get('report/{pasar_id}/{tgl}', [ReportController::class, 'index']);
+Route::get('report/{pasar_id}/{tgl}/pdf', [ReportController::class, 'pdf']);
+// http://localhost/sembakolaravel/public/report/1/2024-04-07
+Route::get('report/{pasar_id}/{tgl}/excel', [ExcelController::class, 'export']);
+// http://localhost/sembakolaravel/public/report/1/2024-04-07/excel
 
 Route::get('/dashboard', function () {
     return view('dashboard');
