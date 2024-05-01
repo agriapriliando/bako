@@ -36,7 +36,9 @@
                                 @foreach ($categories as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td class="data{{ $item->id }}">{{ $item->nama }} <br><small class="text-muted">{{ $item->deskripsi }}</small></td>
+                                        <td class="data{{ $item->id }}">{{ $item->nama }} <br><small class="text-muted">{{ $item->deskripsi }}</small>
+                                            <br><img style="max-height: 100px" src="{{ asset('storage/images/category/' . $item->image) }}" alt="">
+                                        </td>
                                         <td>
                                             <div class="d-flex gap-1">
                                                 <a href="{{ url('categories/' . $item->id . '/edit') }}" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
