@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Price extends Model
 {
+    use \Znck\Eloquent\Traits\BelongsToThrough;
     use HasFactory;
 
     protected $guarded = [];
@@ -30,14 +31,19 @@ class Price extends Model
         return $this->belongsTo(User::class);
     }
 
-    protected function createdAt(): Attribute
+    public function category()
+    {
+        return $this->belongsToThrough(Category::class, Item::class);
+    }
+
+    protected function createdAtEdit(): Attribute
     {
         return Attribute::make(
             get: fn ($value) => Carbon::createFromFormat('Y-m-d H:i:s', $value)->translatedFormat('j F Y H:i'),
         );
     }
 
-    protected function updatedAt(): Attribute
+    protected function updatedAtEdit(): Attribute
     {
         return Attribute::make(
             get: fn ($value) => Carbon::createFromFormat('Y-m-d H:i:s', $value)->translatedFormat('j F Y H:i'),

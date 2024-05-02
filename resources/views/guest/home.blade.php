@@ -1,4 +1,15 @@
 <x-guest-layout>
+    <style>
+        .div1 {
+            background: url(assets/images/hero/slider-bga.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        p {
+            color: #303030;
+        }
+    </style>
     <!-- Start Hero Area -->
     <section class="hero-area">
         <div class="container">
@@ -14,23 +25,26 @@
                         <!-- Start Hero Slider -->
                         <div class="hero-slider">
                             <!-- Start Single Slider -->
-                            <div class="single-slider" style="background-image: url(assets/images/hero/sliderbg1.jpg);">
-                                <div class="content">
-                                    <h2><span>Harga Sembako</span>
-                                        Beras
-                                    </h2>
-                                    <p>Beras SPHP, Pangkuh/IR.64/IR.42, Siam, Karang Dukuh, Mayang, Mangkok, Lahap 5 Kg,
-                                        ........</p>
-                                    <h3><span>Harga Rata-Rata</span> Rp 15.000/kg</h3>
-                                    <div class="button">
-                                        <a href="/barang-detail.html" class="btn">Lihat</a>
+                            @foreach ($price as $item)
+                                <div class="single-slider div1">
+                                    <div class="content"
+                                        style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(236, 236, 236, 0.5)),url(storage/images/category/{{ $item->category->image }}) 80% center no-repeat; background-size: 200px;">
+                                        <h2><span>Update : {{ date('d/m/Y') . ' - ' . $item->pasar->nama }}</span>
+                                            {{ $item->item->nama }}
+                                        </h2>
+                                        <p>Kategori {{ $item->category->nama }}</p>
+                                        <h3>@currency($item->hargahariini)</h3>
+                                        <div class="button">
+                                            <a href="/barang-detail.html" class="btn">Lihat</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endforeach
                             <!-- End Single Slider -->
                             <!-- Start Single Slider -->
-                            <div class="single-slider" style="background-image: url(assets/images/hero/sliderbg2.jpg);">
-                                <div class="content">
+                            <div class="single-slider div1">
+                                <div class="content"
+                                    style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(236, 236, 236, 0.5)),url(assets/images/hero/nobg_minyakgoreng.png) 80% center no-repeat; background-size: 200px;">
                                     <h2><span>Harga Sembako</span>
                                         Minyak Goreng
                                     </h2>

@@ -16,4 +16,9 @@ class Category extends Model
     {
         return $this->hasMany(Item::class);
     }
+
+    public function itemPrice()
+    {
+        return $this->hasOneThrough(Price::class, Item::class);
+    }
 }
