@@ -36,19 +36,19 @@ class Price extends Model
         return $this->belongsToThrough(Category::class, Item::class);
     }
 
-    protected function createdAtEdit(): Attribute
+    public function createdAtEdit(): Attribute
     {
-        return Attribute::make(
-            get: fn ($value) => Carbon::createFromFormat('Y-m-d H:i:s', $value)->translatedFormat('j F Y H:i'),
+        return new Attribute(
+            get: fn () => Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['created_at'])->translatedFormat('j F Y H:i'),
         );
     }
 
-    protected function updatedAtEdit(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => Carbon::createFromFormat('Y-m-d H:i:s', $value)->translatedFormat('j F Y H:i'),
-        );
-    }
+    // protected function updatedAtEdit(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn ($value) => Carbon::createFromFormat('Y-m-d H:i:s', $value)->translatedFormat('j F Y H:i'),
+    //     );
+    // }
 
     // public function getUpdatedAtAttribute($date)
     // {

@@ -25,37 +25,21 @@
                         <!-- Start Hero Slider -->
                         <div class="hero-slider">
                             <!-- Start Single Slider -->
-                            @foreach ($price as $item)
+                            @foreach ($priceslide as $item)
                                 <div class="single-slider div1">
                                     <div class="content"
-                                        style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(236, 236, 236, 0.5)),url(storage/images/category/{{ $item->category->image }}) 80% center no-repeat; background-size: 200px;">
-                                        <h2><span>Update : {{ date('d/m/Y') . ' - ' . $item->pasar->nama }}</span>
+                                        style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(236, 236, 236, 0.5)),url({{ $item->category->image }}) right center no-repeat; background-size: 300px;">
+                                        <h2><span>Update : {{ $item->created_at_edit }} WIB</br>Lokasi : {{ $item->pasar->nama }} </span>
                                             {{ $item->item->nama }}
                                         </h2>
-                                        <p>Kategori {{ $item->category->nama }}</p>
                                         <h3>@currency($item->hargahariini)</h3>
+                                        <p>Kategori {{ $item->category->nama }}</p>
                                         <div class="button">
                                             <a href="/barang-detail.html" class="btn">Lihat</a>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
-                            <!-- End Single Slider -->
-                            <!-- Start Single Slider -->
-                            <div class="single-slider div1">
-                                <div class="content"
-                                    style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(236, 236, 236, 0.5)),url(assets/images/hero/nobg_minyakgoreng.png) 80% center no-repeat; background-size: 200px;">
-                                    <h2><span>Harga Sembako</span>
-                                        Minyak Goreng
-                                    </h2>
-                                    <p>Bimoli, Sun Co, Tropical, Sania 2 liter, Fortune, Minyak Kita, Tanpa Merk / Curah
-                                    </p>
-                                    <h3><span>Harga Rata-Rata</span> Rp 28.000</h3>
-                                    <div class="button">
-                                        <a href="/barang-detail.html" class="btn">Lihat</a>
-                                    </div>
-                                </div>
-                            </div>
                             <!-- End Single Slider -->
                         </div>
                         <!-- End Hero Slider -->
@@ -65,13 +49,11 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-6 col-12 md-custom-padding">
                             <!-- Start Small Banner -->
-                            <div class="hero-small-banner" style="background-image: url('assets/images/hero/slider-bnr.jpg');">
+                            <div class="hero-small-banner" style="background-image: url('assets/images/hero/slider-bga.jpg');">
                                 <div class="content">
-                                    <h2>
-                                        <span>Harga Hari Ini</span>
-                                        Daging Sapi Segar
+                                    <h2 class="text-center">
+                                        Free Banner
                                     </h2>
-                                    <h3>Rp 135.000</h3>
                                 </div>
                             </div>
                             <!-- End Small Banner -->
@@ -84,7 +66,10 @@
                                     <p>Berisi seluruh item bahan pokok berdasarkan lokasi pantauan : Pasar Besar dan
                                         Pasar Kahayan</p>
                                     <div class="button">
-                                        <a class="btn" href="#">Unduh PDF</a>
+                                        @foreach ($pasar as $p)
+                                            <a class="btn"
+                                                href="http://localhost/sembakolaravel/public/report/{{ $p->id }}/{{ \Carbon\Carbon::now()->subDay()->format('Y-m-d') }}/pdf">{{ $p->nama }}</a>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +89,7 @@
                 <div class="col-12">
                     <div class="section-title">
                         <h2>Daftar Harga Bahan Pokok</h2>
-                        <p>Berisi Daftar Bahan Pokok | diperbaharui tanggal 15 Februari 2024 Pukul 09.23 WIB</p>
+                        <h5>Hari ini Tanggal {{ \Carbon\Carbon::now()->translatedFormat('j F Y') }}</h5>
                     </div>
                 </div>
             </div>
@@ -120,254 +105,43 @@
                 }
             </style>
             <div class="row">
-                <div class="col-lg-3 col-md-6 col-6">
-                    <!-- Start Single Product -->
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img src="assets/images/products/products1.jpg" alt="#">
-                            <div class="button">
-                                <a href="/barang-detail.html" class="btn"><i class="lni lni-chevron-right"></i>Lihat</a>
+                @foreach ($items as $item)
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <!-- Start Single Product -->
+                        <div class="single-product">
+                            <div class="product-image">
+                                <img src="{{ $item->category->image }}" alt="#">
+                                <div class="button">
+                                    <a href="/barang-detail.html" class="btn"><i class="lni lni-chevron-right"></i>Lihat</a>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <span class="category">{{ $item->category->nama }}</span>
+                                <h4 class="title">
+                                    <a href="/barang-detail.html">{{ $item->nama }}</a>
+                                </h4>
+                                {{-- <ul class="review">
+                                    <li><i class="lni lni-arrow-up"></i></li>
+                                    <li><i class="lni lni-arrow-up"></i></li>
+                                    <li><i class="lni lni-arrow-up"></i></li>
+                                    <li><i class="lni lni-arrow-up"></i></li>
+                                    <li><i class="lni lni-arrow-up"></i></li>
+                                    <li><span>Harga Naik 3%</span></li>
+                                </ul> --}}
+                                <div class="price">
+                                    @foreach ($prices as $i)
+                                        @if ($i->item_id == $item->id)
+                                            <small style="color: #303030">@currency($i->hargahariini) | {{ $i->pasar->nama }}</small><br>
+                                        @endif
+                                    @endforeach
+                                    {{-- <small> berfore : Rp 17.000/Kg</small><br>
+                                    <small> selisih : Rp 1000/Kg</small> --}}
+                                </div>
                             </div>
                         </div>
-                        <div class="product-info">
-                            <span class="category">Beras</span>
-                            <h4 class="title">
-                                <a href="/barang-detail.html">Beras Mangkok</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-arrow-up"></i></li>
-                                <li><i class="lni lni-arrow-up"></i></li>
-                                <li><i class="lni lni-arrow-up"></i></li>
-                                <li><i class="lni lni-arrow-up"></i></li>
-                                <li><i class="lni lni-arrow-up"></i></li>
-                                <li><span>Harga Naik 3%</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>Rp 18.000/Kg</span><br>
-                                <small> berfore : Rp 17.000/Kg</small><br>
-                                <small> selisih : Rp 1000/Kg</small>
-                            </div>
-                        </div>
+                        <!-- End Single Product -->
                     </div>
-                    <!-- End Single Product -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-6">
-                    <!-- Start Single Product -->
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img src="assets/images/products/products2.jpg" alt="#">
-                            <div class="button">
-                                <a href="/barang-detail.html" class="btn"><i class="lni lni-chevron-right"></i>Lihat</a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Minyak Goreng</span>
-                            <h4 class="title">
-                                <a href="/barang-detail.html">Minyak Gooreng Curah</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-arrow-up"></i></li>
-                                <li><i class="lni lni-arrow-up"></i></li>
-                                <li><i class="lni lni-arrow-up"></i></li>
-                                <li><i class="lni lni-arrow-up"></i></li>
-                                <li><i class="lni lni-arrow-up"></i></li>
-                                <li><span>Harga Naik 3%</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>Rp 18.000/Kg</span><br>
-                                <small> berfore : Rp 17.000/Kg</small><br>
-                                <small> selisih : Rp 1000/Kg</small>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Product -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-6">
-                    <!-- Start Single Product -->
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img src="assets/images/products/products1.jpg" alt="#">
-                            <div class="button">
-                                <a href="/barang-detail.html" class="btn"><i class="lni lni-chevron-right"></i>Lihat</a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Minyak Goreng</span>
-                            <h4 class="title">
-                                <a href="/barang-detail.html">Minyak Tropical</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><span>Harga Turun 2%</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>Rp 18.000/Kg</span><br>
-                                <small> berfore : Rp 17.000/Kg</small><br>
-                                <small> selisih : Rp 1000/Kg</small>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Product -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-6">
-                    <!-- Start Single Product -->
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img src="assets/images/products/products1.jpg" alt="#">
-                            <div class="button">
-                                <a href="/barang-detail.html" class="btn"><i class="lni lni-chevron-right"></i>Lihat</a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Minyak Goreng</span>
-                            <h4 class="title">
-                                <a href="/barang-detail.html">Minyak Tropical</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><span>Harga Turun 2%</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>Rp 18.000/Kg</span><br>
-                                <small> berfore : Rp 17.000/Kg</small><br>
-                                <small> selisih : Rp 1000/Kg</small>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Product -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-6">
-                    <!-- Start Single Product -->
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img src="assets/images/products/products1.jpg" alt="#">
-                            <div class="button">
-                                <a href="/barang-detail.html" class="btn"><i class="lni lni-chevron-right"></i>Lihat</a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Minyak Goreng</span>
-                            <h4 class="title">
-                                <a href="/barang-detail.html">Minyak Tropical</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><span>Harga Turun 2%</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>Rp 18.000/Kg</span><br>
-                                <small> berfore : Rp 17.000/Kg</small><br>
-                                <small> selisih : Rp 1000/Kg</small>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Product -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-6">
-                    <!-- Start Single Product -->
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img src="assets/images/products/products1.jpg" alt="#">
-                            <div class="button">
-                                <a href="/barang-detail.html" class="btn"><i class="lni lni-chevron-right"></i>Lihat</a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Minyak Goreng</span>
-                            <h4 class="title">
-                                <a href="/barang-detail.html">Minyak Tropical</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><span>Harga Turun 2%</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>Rp 18.000/Kg</span><br>
-                                <small> berfore : Rp 17.000/Kg</small><br>
-                                <small> selisih : Rp 1000/Kg</small>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Product -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-6">
-                    <!-- Start Single Product -->
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img src="assets/images/products/products1.jpg" alt="#">
-                            <div class="button">
-                                <a href="/barang-detail.html" class="btn"><i class="lni lni-chevron-right"></i>Lihat</a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Minyak Goreng</span>
-                            <h4 class="title">
-                                <a href="/barang-detail.html">Minyak Tropical</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><span>Harga Turun 2%</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>Rp 18.000/Kg</span><br>
-                                <small> berfore : Rp 17.000/Kg</small><br>
-                                <small> selisih : Rp 1000/Kg</small>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Product -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-6">
-                    <!-- Start Single Product -->
-                    <div class="single-product">
-                        <div class="product-image">
-                            <img src="assets/images/products/products1.jpg" alt="#">
-                            <div class="button">
-                                <a href="/barang-detail.html" class="btn"><i class="lni lni-chevron-right"></i>Lihat</a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <span class="category">Minyak Goreng</span>
-                            <h4 class="title">
-                                <a href="/barang-detail.html">Minyak Tropical</a>
-                            </h4>
-                            <ul class="review">
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><i class="lni lni-arrow-down"></i></li>
-                                <li><span>Harga Turun 2%</span></li>
-                            </ul>
-                            <div class="price">
-                                <span>Rp 18.000/Kg</span><br>
-                                <small> berfore : Rp 17.000/Kg</small><br>
-                                <small> selisih : Rp 1000/Kg</small>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Product -->
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

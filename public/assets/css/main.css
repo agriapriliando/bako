@@ -3210,6 +3210,9 @@ ol {
 .single-product .product-image {
   overflow: hidden;
   position: relative;
+  /* tambahan  */
+  width: 100px;
+  margin: 0 auto;
 }
 
 .single-product .product-image .sale-tag {
