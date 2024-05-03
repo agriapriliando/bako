@@ -9,6 +9,21 @@
         p {
             color: #303030;
         }
+
+        .google-maps {
+            position: relative;
+            padding-bottom: 75%; // This is the aspect ratio
+            height: 0;
+            overflow: hidden;
+        }
+
+        .google-maps iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+        }
     </style>
     <!-- Start Hero Area -->
     <section class="hero-area">
@@ -155,10 +170,17 @@
                     <div class="inner">
                         <div class="content">
                             <h2 class="wow fadeInUp" data-wow-delay=".4s">Kolom Informasi Bahan Pokok</h2>
-                            <p class="wow fadeInUp" data-wow-delay=".6s">Seluruh Harga Bahan Pokok tersebut diatas
-                                diperbaharui setiap hari.</p>
-                            <div class="button wow fadeInUp" data-wow-delay=".8s">
-                                <a href="javascript:void(0)" class="btn">Unduhan</a>
+                            <p class="wow fadeInUp" data-wow-delay=".6s">Daftar Harga Bahan Pokok
+                                1 Minggu Terakhir</p>
+                            <div class="button p-0 wow fadeInUp" data-wow-delay=".8s">
+                                @for ($c = 1; $c <= 7; $c++)
+                                    <div>
+                                        @foreach ($pasar as $i)
+                                            <a target="_blank" href="http://localhost/sembakolaravel/public/report/{{ $i->id }}/{{ \Carbon\Carbon::now()->subDays($c)->format('Y-m-d') }}"
+                                                class="btn m-1">{{ \Carbon\Carbon::now()->subDays($c)->translatedFormat('j F Y') }} - {{ $i->nama }}</a>
+                                        @endforeach
+                                    </div>
+                                @endfor
                             </div>
                         </div>
                     </div>
@@ -172,30 +194,20 @@
     <section class="banner section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-6 col-12">
-                    <div class="single-banner" style="background-image:url('assets/images/banner/banner_besar.jpg')">
-                        <div class="content">
-                            <h2>Pasar Besar</h2>
-                            <p>Jalan A. Yani Km <br>Kel. Pahandut, Kec. Pahandut <br> Kota Palangkaraya, Kalimantan
-                                Tengah</p>
-                            <div class="button">
-                                <a href="#" class="btn">Lokasi</a>
+                @foreach ($pasar as $p)
+                    <div class="col-lg-6 col-md-6 col-12">
+                        {{-- <div class="single-banner" style="background-image:url('{{ $p->image }}')"> --}}
+                        <div class="single-banner">
+                            <div class="content">
+                                <h2>{{ $p->nama }}</h2>
+                                <p>{{ $p->deskripsi }}</p>
+                                <div class="google-maps mt-3">
+                                    {!! $p->lokasi_gmap !!}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-12">
-                    <div class="single-banner custom-responsive-margin" style="background-image:url('assets/images/banner/banner_kahayan.jpg')">
-                        <div class="content">
-                            <h2>Pasar Kahayan</h2>
-                            <p>Jl. Tjilik Riwut Km. 1 <br>Kel. Palangka, Kec. Jekan Raya, <br>Kota Palangka Raya,
-                                Kalimantan Tengah</p>
-                            <div class="button">
-                                <a href="product-grids.html" class="btn">Lokasi</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

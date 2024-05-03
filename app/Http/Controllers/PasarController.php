@@ -6,6 +6,7 @@ use Image;
 use App\Models\Pasar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PasarController extends Controller
 {
