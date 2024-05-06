@@ -4,7 +4,7 @@ $(function () {
     }
     $.ajax({
         type: 'GET', //THIS NEEDS TO BE GET
-        url: 'http://127.0.0.1:8000/grafik/data',
+        url: 'http://127.0.0.1:8000/grafik/datamingguan',
         dataType: 'json',
         success: function (data) {
             // var parsed_response = jQuery.parseJSON(data[0]['datapasar'][0]['dataharga'][0]);

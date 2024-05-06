@@ -98,8 +98,7 @@
                                                 Grafik
                                             </a>
                                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                <li><a class="dropdown-item" href="#">Mingguan</a></li>
-                                                <li><a class="dropdown-item" href="#">Bulanan</a></li>
+                                                <li><a class="dropdown-item" href="{{ url('grafik/mingguan') }}">Mingguan</a></li>
                                                 <li><a class="dropdown-item" href="#">Tahunan</a></li>
                                             </ul>
                                         </li>
