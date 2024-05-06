@@ -9,7 +9,7 @@
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="footer-logo">
                                 <a href="index.html">
-                                    <img src="assets/images/logo/logo_tulisan_putih.png" alt="#">
+                                    <img src="{{ asset('assets/images/logo/logo_tulisan_putih.png') }}" alt="#">
                                 </a>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
                         <div class="col-lg-4 col-12">
                             <div class="payment-gateway">
                                 <span>Kerja Sama</span>
-                                <img src="assets/images/footer/logo_footer.png" alt="#">
+                                <img src="{{ asset('assets/images/footer/logo_footer.png') }}" alt="#">
                             </div>
                         </div>
                         <div class="col-lg-4 col-12">

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\GrafikController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PasarController;
@@ -22,6 +23,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index']);
+
+Route::get('grafik/', [GrafikController::class, 'index']);
+Route::get('grafik/data', [GrafikController::class, 'dataGrafik']);
+
 
 Route::get('report/{pasar_id}/{tgl}', [ReportController::class, 'index']);
 Route::get('report/{pasar_id}/{tgl}/pdf', [ReportController::class, 'pdf']);

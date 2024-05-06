@@ -33,7 +33,7 @@
                     <div class="col-lg-3 col-md-3 col-6">
                         <!-- Start Header Logo -->
                         <a class="navbar-brand" href="index.html">
-                            <img src="assets/images/logo/logo_tulisan.png" alt="Logo">
+                            <img src="{{ asset('assets/images/logo/logo_tulisan.png') }}" alt="Logo">
                         </a>
                         <!-- End Header Logo -->
                     </div>
