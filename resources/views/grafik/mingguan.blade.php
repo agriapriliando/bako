@@ -6,7 +6,7 @@
                 <div class="col-12">
                     <div class="align-center my-2">
                         <h3>Grafik Harga Seluruh Kategori (7 Hari Terakhir)</h3>
-                        <p class="text-muted">Grafik Ini menampilkan Harga Rata-Rata Per Kategori</p>
+                        <p class="text-muted">Grafik Ini menampilkan Harga Barang Berdasarkan Kategori</p>
                     </div>
                     <?php $x = 0; ?>
                     @foreach ($category as $cat)
@@ -17,12 +17,11 @@
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $x }}" aria-expanded="false"
                                             aria-controls="flush-collapse{{ $x }}">
-                                            <span class="fw-bold fs-5">Kategory - {{ $cat->nama }}</span>
+                                            <span class="fw-bold fs-5">Kategory : {{ $cat->nama }}</span>
                                         </button>
                                     </h2>
                                     @foreach ($pasar as $pas)
                                         <div id="flush-collapse{{ $x }}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                            <p>{{ $pas->nama }}</p>
                                             <div class="accordion-body">
                                                 <div id="chart{{ $x . $cat->nama . $pas->id }}">
                                                 </div>

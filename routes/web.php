@@ -24,8 +24,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('grafik/mingguan', [GrafikController::class, 'index']);
-Route::get('grafik/datamingguan', [GrafikController::class, 'dataGrafik']);
+Route::get('grafik/mingguan', [GrafikController::class, 'index']); // semuakategori
+Route::get('grafik/datamingguan', [GrafikController::class, 'dataGrafik']); // semua kategori
+Route::get('grafikbarang/{itemid}', [GrafikController::class, 'grafikbarang']); // by id
+Route::get('grafikbarang/datamingguan/{itemid}', [GrafikController::class, 'dataMingguan']);
+Route::get('grafikbarang/databulanan/{itemid}', [GrafikController::class, 'dataBulanan']);
 
 
 Route::get('report/{pasar_id}/{tgl}', [ReportController::class, 'index']);

@@ -58,36 +58,52 @@ class GrafikController extends Controller
             $datacategory[$z]['datapasar'] = $datapas; //gabung data ke array utama
         }
         $dataall = $datacategory;
-        // return $dataall;
-        // for ($z = 0; $z < count($pasar); $z++) {
-        //     $datapas[$z]['pasar'] = $pasar[$z]['nama'];
-        //     $i = 0;
-        //     $items = Item::where('category_id', $pasar[$z]['id'])->get();
-        //     foreach ($items as $it) {
-        //         $data[$i]['name'] = $it->nama;
-        //         //harga pasar kahayan
-        //         $dataharga = Price::where('item_id', $it->id)
-        //             ->where('created_at', '>=', Carbon::now()->subDays(7))
-        //             ->where('pasar_id', 1)
-        //             ->with('item')->get()->pluck('hargahariini');
-        //         $data[$i]['data'] = $dataharga;
-        //         $i++;
-        //     }
-        //     $datapas[$z]['dataharga'] = $data;
-        // }
-        // return $datapas;
-        // $i = 0;
-        // $items = Item::where('category_id', 1)->get();
-        // foreach ($items as $it) {
-        //     $data[$i]['name'] = $it->nama;
-        //     //harga pasar kahayan
-        //     $dataharga = Price::where('item_id', $it->id)
-        //         ->where('created_at', '>=', Carbon::now()->subDays(7))
-        //         ->where('pasar_id', 1)
-        //         ->with('item')->get()->pluck('hargahariini');
-        //     $data[$i]['data'] = $dataharga;
-        //     $i++;
-        // }
         return response()->json($dataall);
+    }
+
+    public function grafikbarang($itemid)
+    {
+        $item = Item::find($itemid);
+        return view('grafik.grafikbarang', compact("item"));
+    }
+
+    public function dataMingguan($itemid)
+    {
+        $pasar = Pasar::all();
+        for ($i = 0; $i < count($pasar); $i++) {
+            // $dataMingguan[$i]["pasar_id"] = $pasar[$i]["id"];
+            // $dataMingguan[$i]["item_id"] = (Item::where("id", $itemid)->first())["id"];
+            // $dataMingguan[$i]["item_nama"] = (Item::where("id", $itemid)->first())["nama"];
+            $dataMingguan[$i]["name"] = (Item::where("id", $itemid)->first())["nama"] . " di " . $pasar[$i]["nama"];
+            $prices = Price::where('item_id', $itemid)
+                ->where('created_at', '>=', Carbon::now()->subDays(7))
+                ->where('pasar_id', $pasar[$i]["id"])
+                ->with('item')->limit(7)->get()->pluck('hargahariini');
+            $dataMingguan[$i]["data"] = $prices;
+        }
+        return response()->json([
+            'nama' => (Item::where("id", $itemid)->first())["nama"],
+            'data' => $dataMingguan
+        ]);
+    }
+
+    public function dataBulanan($itemid)
+    {
+        $pasar = Pasar::all();
+        for ($i = 0; $i < count($pasar); $i++) {
+            // $dataMingguan[$i]["pasar_id"] = $pasar[$i]["id"];
+            // $dataMingguan[$i]["item_id"] = (Item::where("id", $itemid)->first())["id"];
+            // $dataMingguan[$i]["item_nama"] = (Item::where("id", $itemid)->first())["nama"];
+            $dataBulanan[$i]["name"] = (Item::where("id", $itemid)->first())["nama"] . " di " . $pasar[$i]["nama"];
+            $prices = Price::where('item_id', $itemid)
+                ->where('created_at', '>=', Carbon::now()->subDays(30))
+                ->where('pasar_id', $pasar[$i]["id"])
+                ->with('item')->limit(30)->get()->pluck('hargahariini');
+            $dataBulanan[$i]["data"] = $prices;
+        }
+        return response()->json([
+            'nama' => (Item::where("id", $itemid)->first())["nama"],
+            'data' => $dataBulanan
+        ]);
     }
 }
