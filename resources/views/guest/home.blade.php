@@ -127,7 +127,7 @@
                             <div class="product-image">
                                 <img src="{{ $item->category->image }}" alt="#">
                                 <div class="button">
-                                    <a href="/barang-detail.html" class="btn"><i class="lni lni-chevron-right"></i>Lihat</a>
+                                    <a href="{{ url('grafikbarang/' . $item->id) }}" class="btn"><i class="lni lni-chevron-right"></i>Lihat</a>
                                 </div>
                             </div>
                             <div class="product-info">

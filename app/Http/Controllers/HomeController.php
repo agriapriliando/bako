@@ -23,7 +23,7 @@ class HomeController extends Controller
             $c++;
         }
         // return $priceslide;
-        $prices = Price::whereDate('created_at', Carbon::now()->addDay())
+        $prices = Price::whereDate('created_at', Carbon::now())
             ->with('item', 'category')->orderBy('pasar_id')->get();
         $items = Item::all();
         $category = Category::all();

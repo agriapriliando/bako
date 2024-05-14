@@ -30,20 +30,12 @@
         <div class="header-middle">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-3 col-md-3 col-6">
+                    <div class="col-lg-8 col-md-10 col-12">
                         <!-- Start Header Logo -->
                         <a class="navbar-brand" href="{{ url('') }}">
                             <img src="{{ asset('assets/images/logo/logo_tulisan.png') }}" alt="Logo">
                         </a>
                         <!-- End Header Logo -->
-                    </div>
-                    <div class="col-lg-5 col-md-7 col-6">
-                        <!-- Start Main Menu Search -->
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Cari Barang">
-                            <button class="btn btn-primary" type="button"><i class="lni lni-search-alt"></i></button>
-                        </div>
-                        <!-- End Main Menu Search -->
                     </div>
                     <div class="col-lg-4 col-md-2 d-xs-none">
                         <div class="middle-right-area">
@@ -117,7 +109,6 @@
                                             </a>
                                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                                 <li><a class="dropdown-item" href="{{ url('grafik/mingguan') }}">Mingguan</a></li>
-                                                <li><a class="dropdown-item" href="#">Tahunan</a></li>
                                             </ul>
                                         </li>
                                         <li class="nav-item">
