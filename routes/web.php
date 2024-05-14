@@ -29,6 +29,7 @@ Route::get('grafik/datamingguan', [GrafikController::class, 'dataGrafik']); // s
 Route::get('grafikbarang/{itemid}', [GrafikController::class, 'grafikbarang']); // by id
 Route::get('grafikbarang/datamingguan/{itemid}', [GrafikController::class, 'dataMingguan']);
 Route::get('grafikbarang/databulanan/{itemid}', [GrafikController::class, 'dataBulanan']);
+Route::get('grafikbarang/{itemid}/{tahun}', [GrafikController::class, 'dataTahunan']);
 
 
 Route::get('report/{pasar_id}/{tgl}', [ReportController::class, 'index']);

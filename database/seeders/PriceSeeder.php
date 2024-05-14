@@ -18,7 +18,7 @@ class PriceSeeder extends Seeder
         $itemall = Item::all();
         // pasar kahayan
         foreach ($itemall as $a) {
-            for ($i = 0; $i <= 40; $i++) {
+            for ($i = 0; $i <= 750; $i++) {
                 DB::table('prices')->insert([
                     'item_id' => $a->id,
                     'pasar_id' => 1,
@@ -37,7 +37,7 @@ class PriceSeeder extends Seeder
         }
         // pasar besar
         foreach ($itemall as $a) {
-            for ($i = 0; $i <= 40; $i++) {
+            for ($i = 0; $i <= 750; $i++) {
                 DB::table('prices')->insert([
                     'item_id' => $a->id,
                     'pasar_id' => 2,

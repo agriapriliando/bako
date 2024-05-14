@@ -106,4 +106,37 @@ class GrafikController extends Controller
             'data' => $dataBulanan
         ]);
     }
+
+    public function dataTahunan($itemid, $tahun)
+    {
+        for ($n = 0; $n < 12; $n++) {
+            $bulan[$n] = $n;
+        }
+        $pasar = Pasar::all();
+        for ($i = 0; $i < count($pasar); $i++) {
+            $dataTahunan[$i]["name"] = (Item::where("id", $itemid)->first())["nama"] . " di " . $pasar[$i]["nama"];
+            for ($n = 0; $n < 12; $n++) {
+                $prices[$n] = Price::where('item_id', $itemid)
+                    ->whereMonth('created_at', '=', $n + 1)
+                    ->whereYear('created_at', $tahun)
+                    ->where('pasar_id', $pasar[$i]["id"])
+                    ->with('item')->get();
+                if (count($prices[$n]) != 0) {
+                    $average[$n] = $prices[$n]->sum('hargahariini') / count($prices[$n]);
+                    $average[$n] = round($average[$n]);
+                } else {
+                    $average[$n] = 0;
+                }
+            }
+            // return $prices[10];
+            // return count($prices[0]);
+            // return $prices[0]->sum('hargahariini');
+            // return array_sum($prices[0][0]);
+            $dataTahunan[$i]["data"] = $average;
+        }
+        return response()->json([
+            'nama' => (Item::where("id", $itemid)->first())["nama"],
+            'data' => $dataTahunan
+        ]);
+    }
 }
