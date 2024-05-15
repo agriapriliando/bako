@@ -1,4 +1,10 @@
 <x-app-layout>
+    <style>
+        .dt-button {
+            color: #e6e6e6 !important;
+            background-color: #2174b8 !important;
+        }
+    </style>
     <!-- Start Trending Product Area -->
     <section class="trending-product section pt-0">
         <div class="container">
@@ -9,7 +15,7 @@
                         <div class="row">
                             <div class="col-12 mt-0 pt-0">
                                 <div class="section-title p-0 m-0">
-                                    <h2>Kelola Data Harga Semua Pasar</h2>
+                                    <h2>Kelola Seluruh Data Harga Barang</h2>
                                 </div>
                             </div>
                         </div>
@@ -62,66 +68,27 @@
                                 </div>
                             </div> --}}
                         </div>
-                        <table id="example" class="table table-striped" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Barang</th>
-                                    <th>Harga </th>
-                                    <th>Tanggal</th>
-                                    <th>Pasar</th>
-                                    <th>Kelola</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($prices as $item)
+                        <div>
+                            <table id="example" class="table table-striped data-table" style="width:100%">
+                                <thead>
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td class="data{{ $item->id }}">{{ $item->item->nama }} <br><small class="text-muted">
-                                                @foreach ($categories as $i)
-                                                    @if ($i->id == $item->item->category_id)
-                                                        <span class="badge bg-success">Kategori : {{ $i->nama }}</span>
-                                                    @endif
-                                                @endforeach
-                                            </small></td>
-                                        <td>
-                                            <div>@currency($item->hargahariini)</div>
-
-                                            <span class="badge rounded-pill bg-primary">
-                                                Harga Kemarin :
-                                                {{ $item->hargakemarin ? 'Rp ' . $item->hargakemarin : 'Tidak Ada' }}
-                                            </span><br>
-                                            <span class="badge rounded-pill bg-warning text-dark">
-                                                updated : {{ \Carbon\Carbon::parse($item->updated_at)->translatedFormat('j F, Y H:i') }} Wib
-                                            </span><br>
-                                            <span class="badge rounded-pill bg-warning text-dark">
-                                                oleh Petugas : {{ $item->user->name }}
-                                            </span>
-                                        </td>
-                                        <td>{{ $item->created_at }} Wib</td>
-                                        <td>{{ $item->pasar->nama }}</td>
-                                        <td>
-                                            <div class="d-flex gap-1">
-                                                <a href="{{ url('prices/' . $item->id . '/edit') }}" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
-                                                <a data-tgl="{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('j F, Y H:i') }} Wib" data-id="{{ $item->id }}"
-                                                    data-name="{{ $item->item->nama }}" href="#" class="btn btn-sm btn-danger btn-delete">
-                                                    <i class="lni lni-eraser"></i>
-                                                </a>
-                                            </div>
-                                        </td>
+                                        <th>No</th>
+                                        <th>Barang</th>
+                                        <th>Harga</th>
+                                        <th>Tanggal</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Barang</th>
-                                    <th>Harga Hari Ini</th>
-                                    <th>Harga Kemarin</th>
-                                    <th>Kelola</th>
-                                </tr>
-                            </tfoot>
-                        </table>
+                                </thead>
+                                <tbody></tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Barang</th>
+                                        <th>Harga</th>
+                                        <th>Tanggal</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
                     <!-- End Single Product -->
                 </div>
@@ -155,11 +122,89 @@
                 console.log(startDate);
             });
         </script>
-        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-        <script>
-            new DataTable('#example', {
-                scrollX: true
+        <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+        {{-- <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script> --}}
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+        <script type="text/javascript">
+            $(function() {
+
+                var table = $('.data-table').DataTable({
+                    processing: true,
+                    scrollX: true,
+                    // serverSide: true,
+                    pagingType: 'numbers',
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf', 'print', 'pageLength'
+                    ],
+                    lengthMenu: [
+                        [10, 50, 200, -1],
+                        [10, 50, 200, 'All']
+                    ],
+                    createdRow: function(row, data, dataIndex) {
+                        $(row).attr('id', 'data' + data['id']);
+                    },
+                    initComplete: function() {
+                        var api = this.api();
+                        // Setup - add a text input to each header cell
+                        $('.filterhead', api.table().header()).each(function() {
+                            var title = $(this).text();
+                            $(this).html('<input type="text" placeholder="Search ' + title + '" class="column_search" />');
+                        });
+                        this.api()
+                            .columns()
+                            .every(function() {
+                                let column = this;
+                                let title = column.footer().textContent;
+
+                                // Create input element
+                                let input = document.createElement('input');
+                                input.placeholder = title;
+                                column.footer().replaceChildren(input);
+
+                                // Event listener for user input
+                                input.addEventListener('keyup', () => {
+                                    if (column.search() !== this.value) {
+                                        column.search(input.value).draw();
+                                    }
+                                });
+                            });
+                    },
+                    ajax: "{{ url('prices') }}",
+                    columns: [{
+                            data: 'DT_RowIndex',
+                            name: 'DT_RowIndex'
+                        },
+                        {
+                            data: 'namabarang',
+                            name: 'namabarang'
+                        },
+                        {
+                            data: 'hargahariini',
+                            name: 'hargahariini'
+                        },
+                        {
+                            data: 'created_at',
+                            name: 'created_at'
+                        },
+
+                    ]
+                });
+
+            });
+            // Apply the search
+            $('table thead').on('keyup', ".column_search", function() {
+                table
+                    .column($(this).parent().index())
+                    .search(this.value)
+                    .draw();
             });
         </script>
         <script src="{{ asset('') }}assets/js/sweetalert/sweetalert.min.js"></script>
@@ -206,8 +251,9 @@
                                         }
                                     });
                                     if (data['message']) {
-                                        $(".data" + id).each(function() {
-                                            $(this).parents("tr").remove();
+                                        $("#data" + id).each(function() {
+                                            // $(this).parents("tr").remove();
+                                            $(this).remove();
                                         });
                                     } else {
                                         alert('Error occured.');

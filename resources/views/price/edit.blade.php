@@ -21,6 +21,14 @@
                             </div>
                         </div>
                         <div class="row mb-3">
+                            @if (session('status'))
+                                <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                                    <strong>{{ session('status') }}</strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="row mb-3">
                             <div class="col">
                                 <form method="POST" action="{{ url('prices/' . $price->id) }}">
                                     @csrf

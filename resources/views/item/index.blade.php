@@ -30,7 +30,6 @@
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Kategori</th>
-                                    <th>Harga Rata-Rata <br>Tahun <span id="tahunini"></span></th>
                                     <th>Kelola</th>
                                 </tr>
                             </thead>
@@ -45,12 +44,6 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td class="data{{ $item->id }}">{{ $item->nama }} <br><small class="text-muted">{{ $item->deskripsi }}</small></td>
                                         <td>{{ $item->category->nama }}</td>
-                                        <td>
-                                            <div>{{ $item->hargaaverage }}</div>
-                                            <span class="badge rounded-pill bg-warning text-dark">
-                                                updated : {{ \Carbon\Carbon::parse($item->tglharga)->format('j F, Y') }}
-                                            </span>
-                                        </td>
                                         <td>
                                             <div class="d-flex gap-1">
                                                 <a href="{{ url('items/' . $item->id . '/edit') }}" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
@@ -68,7 +61,6 @@
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Kategori</th>
-                                    <th>Rata-Rata <br>Tahun Ini</th>
                                     <th>Kelola</th>
                                 </tr>
                             </tfoot>

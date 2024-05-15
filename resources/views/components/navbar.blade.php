@@ -45,7 +45,7 @@
                                     <span>085249xxxxxxxx</span>
                                 </h3>
                             </div>
-                            <div class="navbar-cart">
+                            <div class="navbar-cart d-none">
                                 <div class="wishlist">
                                     <a href="javascript:void(0)">
                                         <i class="lni lni-chevron-up"></i>

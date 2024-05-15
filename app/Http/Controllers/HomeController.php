@@ -13,6 +13,7 @@ class HomeController extends Controller
 {
     public function index()
     {
+        // return "AAAA";
         // return Carbon::now()->subDay();
         $priceslide = Price::whereDate('created_at', Carbon::now())
             ->with('item', 'category')->inRandomOrder()->limit(4)->get();
