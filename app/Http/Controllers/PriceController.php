@@ -10,7 +10,8 @@ use App\Models\Price;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use DataTables;
+// use DataTables;
+use Yajra\DataTables\DataTables;
 
 class PriceController extends Controller
 {
@@ -20,26 +21,26 @@ class PriceController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Price::with('item', 'pasar')->orderBy('created_at', 'DESC')->orderBy('item_id')->get();
+            $data = Price::with('item');
             return Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('namabarang', function ($row) {
-                    $urledit = url('prices/' . $row->id . '/edit');
-                    $urldel = \Carbon\Carbon::parse($row->created_at)->translatedFormat('j F, Y H:i');
-                    $btn = '<div class="d-flex gap-1 mt-1">
-                    <a href="' . $urledit . '" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
-                    <a data-tgl="' . $urldel . ' Wib" data-id="' . $row->id . '"
-                        data-name="' . $row->item->nama . '" href="#" class="btn btn-sm btn-danger btn-delete">
-                        <i class="lni lni-eraser"></i>
-                    </a></div>';
-                    $warna = $row->pasar->id == 1 ? 'bg-success' : 'bg-danger';
-                    return $row->item->nama . '</br> <span class="badge ' . $warna . '">Lokasi : ' . $row->pasar->nama . '</span>' . $btn;
-                })
-                ->addColumn('hargahariini', function ($row) {
+                // ->addColumn('namabarang', function ($row) {
+                //     $urledit = url('prices/' . $row->id . '/edit');
+                //     $urldel = \Carbon\Carbon::parse($row->created_at)->translatedFormat('j F, Y H:i');
+                //     $btn = '<div class="d-flex gap-1 mt-1">
+                //     <a href="' . $urledit . '" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
+                //     <a data-tgl="' . $urldel . ' Wib" data-id="' . $row->id . '"
+                //         data-name="' . $row->item->nama . '" href="#" class="btn btn-sm btn-danger btn-delete">
+                //         <i class="lni lni-eraser"></i>
+                //     </a></div>';
+                //     $warna = $row->pasar->id == 1 ? 'bg-success' : 'bg-danger';
+                //     return $row->item->nama . '</br> <span class="badge ' . $warna . '">Lokasi : ' . $row->pasar->nama . '</span>' . $btn;
+                // })
+                ->editColumn('hargahariini', function ($row) {
                     return "Rp " . number_format($row->hargahariini, 0, ',', '.');
                 })
-                ->addColumn('created_at', function ($row) {
-                    return $row->created_at_edit . " WIB";
+                ->editColumn('created_at', function ($row) {
+                    return $row->created_at . " WIB";
                 })
                 // ->addColumn('action', function ($row) {
                 //     $urledit = url('prices/' . $row->id . '/edit');
@@ -53,8 +54,8 @@ class PriceController extends Controller
                 // </div>';
                 //     return $btn;
                 // })
-                ->rawColumns(['namabarang'])
-                ->make(true);
+                // ->rawColumns(['namabarang'])
+                ->make();
         }
         return view('price.index');
     }

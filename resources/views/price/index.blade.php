@@ -75,7 +75,7 @@
                                         <th>No</th>
                                         <th>Barang</th>
                                         <th>Harga</th>
-                                        <th>Tanggal</th>
+                                        <th>Timestamp</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -84,7 +84,7 @@
                                         <th>No</th>
                                         <th>Barang</th>
                                         <th>Harga</th>
-                                        <th>Tanggal</th>
+                                        <th>Timestamp</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -118,8 +118,6 @@
                     maxYear: parseInt(moment().format('YYYY'), 10),
                     maxDate: moment()
                 });
-
-                console.log(startDate);
             });
         </script>
         <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
@@ -134,11 +132,11 @@
         <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
         <script type="text/javascript">
             $(function() {
-
                 var table = $('.data-table').DataTable({
                     processing: true,
+                    serverSide: true,
                     scrollX: true,
-                    // serverSide: true,
+                    // stateSave: true,
                     pagingType: 'numbers',
                     dom: 'Bfrtip',
                     buttons: [
@@ -180,11 +178,13 @@
                     ajax: "{{ url('prices') }}",
                     columns: [{
                             data: 'DT_RowIndex',
-                            name: 'DT_RowIndex'
+                            name: 'DT_RowIndex',
+                            searchable: false,
+                            orderable: false
                         },
                         {
-                            data: 'namabarang',
-                            name: 'namabarang'
+                            data: 'item.nama',
+                            name: 'item.nama'
                         },
                         {
                             data: 'hargahariini',
@@ -201,8 +201,7 @@
             });
             // Apply the search
             $('table thead').on('keyup', ".column_search", function() {
-                table
-                    .column($(this).parent().index())
+                table.column($(this).parent().index())
                     .search(this.value)
                     .draw();
             });
