@@ -23,18 +23,18 @@ class PriceController extends Controller
         if ($request->ajax()) {
             $data = Price::with('item');
             return Datatables::of($data)
-                // ->addColumn('namabarang', function ($row) {
-                //     $urledit = url('prices/' . $row->id . '/edit');
-                //     $urldel = \Carbon\Carbon::parse($row->created_at)->translatedFormat('j F, Y H:i');
-                //     $btn = '<div class="d-flex gap-1 mt-1">
-                //     <a href="' . $urledit . '" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
-                //     <a data-tgl="' . $urldel . ' Wib" data-id="' . $row->id . '"
-                //         data-name="' . $row->item->nama . '" href="#" class="btn btn-sm btn-danger btn-delete">
-                //         <i class="lni lni-eraser"></i>
-                //     </a></div>';
-                //     $warna = $row->pasar->id == 1 ? 'bg-success' : 'bg-danger';
-                //     return $row->item->nama . '</br> <span class="badge ' . $warna . '">Lokasi : ' . $row->pasar->nama . '</span>' . $btn;
-                // })
+                ->editColumn('item.nama', function ($row) {
+                    $urledit = url('prices/' . $row->id . '/edit');
+                    $urldel = \Carbon\Carbon::parse($row->created_at)->translatedFormat('j F, Y H:i');
+                    $btn = '<div class="d-flex gap-1 mt-1">
+                    <a href="' . $urledit . '" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
+                    <a data-tgl="' . $urldel . ' Wib" data-id="' . $row->id . '"
+                        data-name="' . $row->item->nama . '" href="#" class="btn btn-sm btn-danger btn-delete">
+                        <i class="lni lni-eraser"></i>
+                    </a></div>';
+                    $warna = $row->pasar->id == 1 ? 'bg-success' : 'bg-danger';
+                    return $row->item->nama . '</br> <span class="badge ' . $warna . '">Lokasi : ' . $row->pasar->nama . '</span>' . $btn;
+                })
                 ->editColumn('hargahariini', function ($row) {
                     return "Rp " . $row->hargahariini;
                 })
@@ -53,7 +53,7 @@ class PriceController extends Controller
                 // </div>';
                 //     return $btn;
                 // })
-                // ->rawColumns(['namabarang'])
+                ->rawColumns(['item.nama'])
                 ->make();
         }
         return view('price.index');

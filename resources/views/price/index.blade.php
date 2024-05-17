@@ -134,6 +134,9 @@
                     processing: true,
                     serverSide: true,
                     scrollX: true,
+                    search: {
+                        return: true
+                    },
                     // stateSave: true,
                     pagingType: 'numbers',
                     dom: 'Bfrtip',
@@ -173,9 +176,9 @@
                                 });
                             });
                     },
-                    order: [
-                        [2, 'desc']
-                    ],
+                    // order: [
+                    //     [2, 'desc']
+                    // ],
                     ajax: "{{ url('prices') }}",
                     columns: [{
                             data: 'item.nama',
