@@ -23,7 +23,6 @@ class PriceController extends Controller
         if ($request->ajax()) {
             $data = Price::with('item');
             return Datatables::of($data)
-                ->addIndexColumn()
                 // ->addColumn('namabarang', function ($row) {
                 //     $urledit = url('prices/' . $row->id . '/edit');
                 //     $urldel = \Carbon\Carbon::parse($row->created_at)->translatedFormat('j F, Y H:i');
@@ -37,7 +36,7 @@ class PriceController extends Controller
                 //     return $row->item->nama . '</br> <span class="badge ' . $warna . '">Lokasi : ' . $row->pasar->nama . '</span>' . $btn;
                 // })
                 ->editColumn('hargahariini', function ($row) {
-                    return "Rp " . number_format($row->hargahariini, 0, ',', '.');
+                    return "Rp " . $row->hargahariini;
                 })
                 ->editColumn('created_at', function ($row) {
                     return $row->created_at . " WIB";

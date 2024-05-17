@@ -72,7 +72,6 @@
                             <table id="example" class="table table-striped data-table" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
                                         <th>Barang</th>
                                         <th>Harga</th>
                                         <th>Timestamp</th>
@@ -81,7 +80,6 @@
                                 <tbody></tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>No</th>
                                         <th>Barang</th>
                                         <th>Harga</th>
                                         <th>Timestamp</th>
@@ -175,14 +173,11 @@
                                 });
                             });
                     },
+                    order: [
+                        [2, 'desc']
+                    ],
                     ajax: "{{ url('prices') }}",
                     columns: [{
-                            data: 'DT_RowIndex',
-                            name: 'DT_RowIndex',
-                            searchable: false,
-                            orderable: false
-                        },
-                        {
                             data: 'item.nama',
                             name: 'item.nama'
                         },
