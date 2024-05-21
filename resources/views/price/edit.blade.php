@@ -54,7 +54,7 @@
                                     <div class="d-grid">
                                         <button type="submit" class="btn btn-primary mb-2">Simpan Data Harga</button>
                                         {{-- <a href="{{ url('hargapasar/' . $pasar->slugpasar) }}" class="btn btn-warning">Kembali</a> --}}
-                                        <button class="btn btn-warning" onclick="history.back()">Kembali</button>
+                                        {{-- <button class="btn btn-warning" onclick="history.back()">Kembali</button> --}}
                                     </div>
                                 </form>
                             </div>

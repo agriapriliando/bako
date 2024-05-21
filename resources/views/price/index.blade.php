@@ -74,7 +74,7 @@
                                     <tr>
                                         <th>Barang</th>
                                         <th>Harga</th>
-                                        <th>Timestamp</th>
+                                        <th>Timestamp <br>Tahun-Bulan-Tanggal</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
