@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\Setting;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -25,7 +26,9 @@ class Navbar extends Component
     {
         return view('components.navbar', [
             'categories' => Category::all(),
-            'items' => Item::all()
+            'items' => Item::all(),
+            'logo' => Setting::find(10),
+            'kontak' => Setting::find(2),
         ]);
     }
 }

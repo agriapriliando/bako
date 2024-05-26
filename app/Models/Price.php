@@ -13,7 +13,7 @@ class Price extends Model
     use \Znck\Eloquent\Traits\BelongsToThrough;
     use HasFactory;
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
     // public $timestamps = false;
 
     public function item()

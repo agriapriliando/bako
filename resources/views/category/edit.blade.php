@@ -33,7 +33,7 @@
                                         <input id="img-upload" onchange="readURL(this);" type="file" name="image" class="d-none">
                                         <div class="row justify-content-center position-relative">
                                             <div class="col-md-4 col-12">
-                                                <img id="img-preview" class="img-preview" src="{{ asset('storage/images/category/' . $category->image) }}" alt="your image" />
+                                                <img id="img-preview" class="img-preview" src="{{ asset($category->image) }}" alt="your image" />
                                                 <div class="position-absolute top-50 start-50 translate-middle img-preview p-2 m-3" style="background-color: #ffffffce">
                                                     <p class="fs-3">Pilih untuk mengganti gambar</p>
                                                 </div>

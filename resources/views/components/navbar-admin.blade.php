@@ -57,12 +57,9 @@
                                             <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-33" aria-controls="navbarSupportedContent"
                                                 aria-expanded="false" aria-label="Toggle navigation">Setting</a>
                                             <ul class="sub-menu collapse" id="submenu-1-33">
-                                                <li class="nav-item"><a href="#">Banner</a></li>
-                                                <li class="nav-item"><a href="#">Kontak</a></li>
-                                                <li class="nav-item"><a href="#">Footer</a></li>
-                                                <li class="nav-item"><a href="#">Media Sosial</a></li>
-                                                <li class="nav-item"><a href="#">Logo</a></li>
-                                                <li class="nav-item"><a href="#">Page Tentang</a></li>
+                                                @foreach ($setting as $s)
+                                                    <li class="nav-item"><a href="{{ url('setting/' . $s->id) }}">{{ $s->judul }}</a></li>
+                                                @endforeach
                                             </ul>
                                         </li>
                                         <li class="nav-item">

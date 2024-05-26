@@ -9,7 +9,7 @@
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="footer-logo">
                                 <a href="index.html">
-                                    <img src="{{ asset('assets/images/logo/logo_tulisan_putih.png') }}" alt="#">
+                                    <img src="{{ asset('storage/images/setting/' . $logo->isi) }}" alt="#">
                                 </a>
                             </div>
                         </div>
@@ -17,7 +17,7 @@
                             <div class="footer-newsletter">
                                 <h4 class="title">
                                     Website Harga Bahan Pokok
-                                    <span>Website ini dikelola oleh Dinas Perdangan, Koperasi, UKM dan Perindustrian
+                                    <span>Website ini dikelola oleh Dinas Perdagangan, Koperasi, UKM dan Perindustrian
                                         Kota Palangka Raya</span>
                                 </h4>
                                 <div class="newsletter-form-head">
@@ -41,46 +41,17 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
                             <!-- Single Widget -->
-                            <div class="single-footer f-contact">
-                                <h3>Dinas Perdangan, Koperasi, UKM dan Perindustrian
-                                    Kota Palangka Raya</h3>
-                                <p class="phone">Jalan Tjilik Riwut No. 98, Kota Palangka Raya</p>
-                                <p class="phone">Telp. : 0852444xxxxx</p>
-                                <ul>
-                                    <li><span>Senin s.d. Jumat: </span> 08.00 WIB - 15.00 WIB</li>
-                                </ul>
-                                <p class="mail">
-                                    <a href="#">disperindagkop@palangkaraya.go.id</a>
-                                </p>
-                            </div>
+                            {!! $footer1->isi !!}
                             <!-- End Single Widget -->
                         </div>
                         <div class="col-lg-3 col-md-6 col-12">
                             <!-- Single Widget -->
-                            <div class="single-footer f-link">
-                                <h3>Informasi</h3>
-                                <ul>
-                                    <li><a href="javascript:void(0)">Tentang Kami</a></li>
-                                    <li><a href="javascript:void(0)">Harga Hari Ini</a></li>
-                                    <li><a href="javascript:void(0)">Harga Lampau</a></li>
-                                    <li><a href="javascript:void(0)">Pasar Kahayan</a></li>
-                                    <li><a href="javascript:void(0)">Pasar Besar</a></li>
-                                </ul>
-                            </div>
+                            {!! $footer2->isi !!}
                             <!-- End Single Widget -->
                         </div>
                         <div class="col-lg-3 col-md-6 col-12">
                             <!-- Single Widget -->
-                            <div class="single-footer f-link">
-                                <h3>Kategori Bahan Pokok</h3>
-                                <ul>
-                                    <li><a href="javascript:void(0)">Beras</a></li>
-                                    <li><a href="javascript:void(0)">Minyak Goreng</a></li>
-                                    <li><a href="javascript:void(0)">Daging Segar</a></li>
-                                    <li><a href="javascript:void(0)">Sayuran dan Buah</a></li>
-                                    <li><a href="javascript:void(0)">Cabai Lombok</a></li>
-                                </ul>
-                            </div>
+                            {!! $footer3->isi !!}
                             <!-- End Single Widget -->
                         </div>
                     </div>

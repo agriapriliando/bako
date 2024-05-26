@@ -9,6 +9,7 @@ use App\Http\Controllers\PasarController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('tentang', [HomeController::class, 'tentang']);
 
 Route::get('grafik/mingguan', [GrafikController::class, 'index']); // semuakategori
 Route::get('grafik/datamingguan', [GrafikController::class, 'dataGrafik']); // semua kategori
@@ -37,6 +39,10 @@ Route::get('report/{pasar_id}/{tgl}/pdf', [ReportController::class, 'pdf']);
 // http://localhost/sembakolaravel/public/report/1/2024-04-07
 Route::get('report/{pasar_id}/{tgl}/excel', [ExcelController::class, 'export']);
 // http://localhost/sembakolaravel/public/report/1/2024-04-07/excel
+
+Route::get('setting/{id}', [SettingController::class, 'dataSetting']);
+Route::patch('setting/{setting}/update', [SettingController::class, 'updateSetting']);
+Route::get('setting/{setting}/reset', [SettingController::class, 'resetSetting']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Item;
 use App\Models\Pasar;
 use App\Models\Price;
+use App\Models\Setting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,14 @@ class HomeController extends Controller
         $items = Item::all();
         $category = Category::all();
         $pasar = Pasar::all();
-        return view('guest.home', compact('priceslide', 'prices', 'category', 'items', 'pasar'));
+        $banner = Setting::find(1);
+        return view('guest.home', compact('priceslide', 'prices', 'category', 'items', 'pasar', 'banner'));
+    }
+
+    public function tentang()
+    {
+        $setting = Setting::find(11);
+        $pasar = Pasar::all();
+        return view('guest.tentang', compact('setting', 'pasar'));
     }
 }

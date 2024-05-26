@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\Pasar;
+use App\Models\Setting;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -22,6 +23,9 @@ class NavbarAdmin extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.navbar-admin', ['pasars' => Pasar::all()]);
+        return view('components.navbar-admin', [
+            'pasars' => Pasar::all(),
+            'setting' => Setting::all()
+        ]);
     }
 }

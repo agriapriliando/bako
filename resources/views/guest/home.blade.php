@@ -64,9 +64,10 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-6 col-12 md-custom-padding">
                             <!-- Start Small Banner -->
-                            <div class="hero-small-banner" style="background-image: url('assets/images/hero/slider-bga.jpg');">
+                            <div class="hero-small-banner" style="background-image: url('{{ asset('storage/images/setting/bannerfront.jpg') }}');">
+                                <img src="{{ asset('storage/images/setting/' . $banner->isi) }}" alt="banner" class="img-fluid">
                                 <div class="content">
-                                    <h2 class="text-center">
+                                    <h2 class="text-center d-none">
                                         Free Banner
                                     </h2>
                                 </div>

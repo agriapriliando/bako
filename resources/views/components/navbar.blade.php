@@ -33,16 +33,16 @@
                     <div class="col-lg-8 col-md-10 col-12">
                         <!-- Start Header Logo -->
                         <a class="navbar-brand" href="{{ url('') }}">
-                            <img src="{{ asset('assets/images/logo/logo_tulisan.png') }}" alt="Logo">
+                            <img src="{{ asset('storage/images/setting/' . $logo->isi) }}" alt="Logo">
                         </a>
                         <!-- End Header Logo -->
                     </div>
                     <div class="col-lg-4 col-md-2 d-xs-none">
                         <div class="middle-right-area">
                             <div class="nav-hotline">
-                                <i class="lni lni-phone"></i>
+                                {{-- <i class="lni lni-phone"></i> --}}
                                 <h3>Hotline:
-                                    <span>085249xxxxxxxx</span>
+                                    <a href="https://api.whatsapp.com/send/?phone={{ $kontak->isi }}"><i class="lni lni-whatsapp"></i> {{ $kontak->isi }}</a>
                                 </h3>
                             </div>
                             <div class="navbar-cart d-none">
@@ -112,7 +112,7 @@
                                             </ul>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#">Tentang</a>
+                                            <a class="nav-link" href="{{ url('tentang') }}">Tentang</a>
                                         </li>
                                     </ul>
                                     <span class="navbar-text bg-primary px-3 rounded text-white" id="jam">

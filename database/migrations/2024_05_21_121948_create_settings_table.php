@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('kode', 100); //kode kelompok setting
             $table->string('judul'); // judul setting
-            $table->string('deskripsi'); // penjelasan setting
-            $table->string('isi')->nullable(); // isi
-            $table->string('isi2')->nullable(); // isi2
+            $table->text('deskripsi'); // penjelasan setting
+            $table->text('isi')->nullable(); // isi
+            $table->text('isi2')->nullable(); // isi2
             $table->timestamps();
         });
     }
