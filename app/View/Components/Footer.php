@@ -26,6 +26,19 @@ class Footer extends Component
         $footer1 = Setting::find(3);
         $footer2 = Setting::find(4);
         $footer3 = Setting::find(5);
-        return view('components.footer', compact('logo', 'footer1', 'footer2', 'footer3'));
+        $fb = Setting::find(6);
+        $instagram = Setting::find(7);
+        $xtwitter = Setting::find(8);
+        $youtube = Setting::find(9);
+        return view('components.footer', compact(
+            'logo',
+            'footer1',
+            'footer2',
+            'footer3',
+            'fb',
+            'instagram',
+            'xtwitter',
+            'youtube'
+        ));
     }
 }

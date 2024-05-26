@@ -72,7 +72,7 @@
                         </div>
                         <div class="col-lg-4 col-12">
                             <div class="copyright">
-                                <p>Developed by<a href="https://ditaria.com/" rel="nofollow" target="_blank">Ditaria</a>
+                                <p>Design By<a href="https://ditaria.com/" rel="nofollow" target="_blank">Ditaria</a>
                                 </p>
                             </div>
                         </div>
@@ -81,10 +81,10 @@
                                 <li>
                                     <span>Follow Us On:</span>
                                 </li>
-                                <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
-                                <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a></li>
-                                <li><a href="javascript:void(0)"><i class="lni lni-instagram"></i></a></li>
-                                <li><a href="javascript:void(0)"><i class="lni lni-google"></i></a></li>
+                                <li class="{{ $fb->isi == '' ? 'd-none' : '' }}"><a href="{{ $fb->isi }}"><i class="lni lni-facebook-filled"></i></a></li>
+                                <li class="{{ $instagram->isi == '' ? 'd-none' : '' }}"><a href="{{ $instagram->isi }}"><i class="lni lni-instagram"></i></a></li>
+                                <li class="{{ $xtwitter->isi == '' ? 'd-none' : '' }}"><a href="{{ $xtwitter->isi }}"><i class="lni lni-twitter-original"></i></a></li>
+                                <li class="{{ $youtube->isi == '' ? 'd-none' : '' }}"><a href="{{ $youtube->isi }}"><i class="lni lni-google"></i></a></li>
                             </ul>
                         </div>
                     </div>
