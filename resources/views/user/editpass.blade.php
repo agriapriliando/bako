@@ -9,7 +9,7 @@
                         <div class="row">
                             <div class="col-12 mt-0 pt-0">
                                 <div class="section-title p-0 m-0">
-                                    <h2>Ubah Akun {{ $user->name }}</h2>
+                                    <h2>Ubah Password Akun {{ Auth::user()->name }}</h2>
                                 </div>
                             </div>
                         </div>
@@ -23,32 +23,9 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <form method="POST" action="{{ url('users/' . $user->id) }}" enctype="multipart/form-data">
+                                <form method="POST" action="{{ url('gantipass/') }}" enctype="multipart/form-data">
                                     @method('PATCH')
                                     @csrf
-                                    <div class="mb-2">
-                                        <label>Nama Lengkap</label>
-                                        <input type="text" class="form-control" name="name" value="{{ old('name', $user->name) }}" autofocus autocomplete="name">
-                                        <x-alert-input :messages="$errors->get('name')" class="mt-2 bg-danger"></x-alert-input>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label>Username</label>
-                                        <input type="text" class="form-control" name="username" value="{{ old('username', $user->username) }}" autofocus autocomplete="username">
-                                        <x-alert-input :messages="$errors->get('username')" class="mt-2 bg-danger"></x-alert-input>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label>Email</label>
-                                        <input type="text" class="form-control" name="email" value="{{ old('email', $user->email) }}" autofocus autocomplete="email">
-                                        <x-alert-input :messages="$errors->get('email')" class="mt-2 bg-danger"></x-alert-input>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label>Status</label>
-                                        <select class="form-select" name="status">
-                                            <option value="1" {{ $user->status == 1 ? 'selected' : '' }}>Admin Utama</option>
-                                            <option value="0" {{ $user->status == 0 ? 'selected' : '' }}>Admin Pelaksana</option>
-                                        </select>
-                                        <x-alert-input :messages="$errors->get('status')" class="mt-2 bg-danger"></x-alert-input>
-                                    </div>
                                     <div class="mb-2">
                                         <label>Password</label>
                                         <div class="input-group">
@@ -69,8 +46,8 @@
                                         <x-alert-input :messages="$errors->get('email')" class="mt-2 bg-danger"></x-alert-input>
                                     </div>
                                     <div class="d-grid">
-                                        <button type="submit" class="btn btn-primary mb-2">Simpan Akun</button>
-                                        <a href="{{ url('users') }}" class="btn btn-warning">Kembali</a>
+                                        <button type="submit" class="btn btn-primary mb-2">Ganti Password</button>
+                                        <a href="{{ url('prices') }}" class="btn btn-warning">Kembali</a>
                                     </div>
                                 </form>
                             </div>

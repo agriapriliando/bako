@@ -67,7 +67,7 @@ class PriceSeeder extends Seeder
 
     public function run(): void
     {
-        // $this->dataToday();
-        $this->dataBanyak();
+        $this->dataToday();
+        // $this->dataBanyak();
     }
 }

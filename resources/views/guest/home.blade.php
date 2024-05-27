@@ -84,7 +84,7 @@
                                     <div class="button">
                                         @foreach ($pasar as $p)
                                             <a class="btn"
-                                                href="http://localhost/sembakolaravel/public/report/{{ $p->id }}/{{ \Carbon\Carbon::now()->subDay()->format('Y-m-d') }}/pdf">{{ $p->nama }}</a>
+                                                href="http://localhost/sembakolaravel/public/report/{{ $p->id }}/{{ \Carbon\Carbon::now()->format('Y-m-d') }}/pdf">{{ $p->nama }}</a>
                                         @endforeach
                                     </div>
                                 </div>

@@ -45,21 +45,23 @@ Route::patch('setting/{setting}/update', [SettingController::class, 'updateSetti
 Route::get('setting/{setting}/reset', [SettingController::class, 'resetSetting']);
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('users', [UserController::class, 'index']);
-    Route::get('users/create', [UserController::class, 'create']);
-    Route::post('users', [UserController::class, 'store']);
-    Route::delete('users/{id}', [UserController::class, 'destroy']);
-    Route::get('users/{user}/edit', [UserController::class, 'edit']);
-    Route::patch('users/{user}', [UserController::class, 'update']);
-    Route::get('users/{user}/reset', [UserController::class, 'resetPass']);
-});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::middleware('cekStatus')->group(function () {
+        Route::get('users', [UserController::class, 'index']);
+        Route::get('users/create', [UserController::class, 'create']);
+        Route::post('users', [UserController::class, 'store']);
+        Route::delete('users/{id}', [UserController::class, 'destroy']);
+        Route::get('users/{user}/edit', [UserController::class, 'edit']);
+        Route::patch('users/{user}', [UserController::class, 'update']);
+        Route::get('users/{user}/reset', [UserController::class, 'resetPass']);
+    });
+    Route::get('gantipass', [UserController::class, 'editPass']);
+    Route::patch('gantipass', [UserController::class, 'gantiPass']);
     Route::resource('categories', CategoryController::class);
     Route::get('/listitem/{tglinput}/{pasar_id}', [PriceController::class, 'listitem'])->name('listitem');
     Route::get('/prices/create/{pasar_id}', [PriceController::class, 'create']);

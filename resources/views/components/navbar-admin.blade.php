@@ -63,6 +63,9 @@
                                             </ul>
                                         </li>
                                         <li class="nav-item">
+                                            <a href="{{ url('gantipass') }}" class="{{ request()->is('gantipass') ? 'active' : '' }}" aria-label="Toggle navigation">Pass</a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a class="btn btn-sm btn-danger text-white p-2 my-2 mt-2" href="{{ route('logout') }}">Logout</a>
                                         </li>
                                     </ul>

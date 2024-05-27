@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::where('id', '!=', 1)->get();
         return view('user.index', compact('users'));
     }
 
@@ -44,11 +45,12 @@ class UserController extends Controller
             'name' => 'required|max:25|regex:/\w*$/',
             'username' => 'required|unique:users,username,' . $user->id,
             'email' => 'required|email|unique:users,email,' . $user->id,
+            'status' => 'required'
         ]);
 
-        $data['password'] = bcrypt($request->password);
-        $data['status'] = 1;
-
+        if ($request->filled('password')) {
+            $data['password'] = bcrypt($request->password);
+        }
         $user->update($data);
         return redirect('users/' . $user->id . '/edit')->with('status', 'Akun Berhasil Dirubah');
     }
@@ -70,5 +72,20 @@ class UserController extends Controller
         return response()->json([
             'message' => "Akun Berhasil Dihapus"
         ]);
+    }
+
+    public function editPass()
+    {
+        return view('user.editpass');
+    }
+
+    public function gantipass(Request $request)
+    {
+        $user = User::where('email', Auth::user()->email)->first();
+        $user->update([
+            'password' => bcrypt($request->password)
+        ]);
+
+        return redirect('gantipass')->with('status', 'Password Berhasil Dirubah');
     }
 }
