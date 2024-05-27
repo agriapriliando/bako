@@ -5,7 +5,7 @@ $(function () {
     tahun = tahun.getAttribute("data-tahun");
     $.ajax({
         type: 'GET', //THIS NEEDS TO BE GET
-        url: 'http://sembako.ditaria.com/grafikbarang/datamingguan/' + id,
+        url: "{{ url('grafikbarang/datamingguan') }}/" + id,
         dataType: 'json',
         success: function (data) {
             console.log(data);
@@ -19,7 +19,7 @@ $(function () {
     });
     $.ajax({
         type: 'GET', //THIS NEEDS TO BE GET
-        url: 'http://sembako.ditaria.com/grafikbarang/databulanan/' + id,
+        url: "{{ url('grafikbarang/databulanan') }}/" + id,
         dataType: 'json',
         success: function (data) {
             console.log(data);
@@ -33,7 +33,7 @@ $(function () {
     });
     $.ajax({
         type: 'GET', //THIS NEEDS TO BE GET
-        url: 'http://sembako.ditaria.com/grafikbarang/' + id + '/' + tahun,
+        url: "{{ url('grafikbarang') }}/" + id + '/' + tahun,
         dataType: 'json',
         success: function (data) {
             console.log(data);

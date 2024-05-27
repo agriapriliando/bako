@@ -4,7 +4,7 @@ $(function () {
     }
     $.ajax({
         type: 'GET', //THIS NEEDS TO BE GET
-        url: 'http://sembako.ditaria.com/grafik/datamingguan',
+        url: "{{ url('grafik/datamingguan') }}",
         dataType: 'json',
         success: function (data) {
             // var parsed_response = jQuery.parseJSON(data[0]['datapasar'][0]['dataharga'][0]);
