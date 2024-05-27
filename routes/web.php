@@ -10,6 +10,7 @@ use App\Http\Controllers\PriceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,7 +34,6 @@ Route::get('grafikbarang/datamingguan/{itemid}', [GrafikController::class, 'data
 Route::get('grafikbarang/databulanan/{itemid}', [GrafikController::class, 'dataBulanan']);
 Route::get('grafikbarang/{itemid}/{tahun}', [GrafikController::class, 'dataTahunan']);
 
-
 Route::get('report/{pasar_id}/{tgl}', [ReportController::class, 'index']);
 Route::get('report/{pasar_id}/{tgl}/pdf', [ReportController::class, 'pdf']);
 // http://localhost/sembakolaravel/public/report/1/2024-04-07
@@ -43,6 +43,17 @@ Route::get('report/{pasar_id}/{tgl}/excel', [ExcelController::class, 'export']);
 Route::get('setting/{id}', [SettingController::class, 'dataSetting']);
 Route::patch('setting/{setting}/update', [SettingController::class, 'updateSetting']);
 Route::get('setting/{setting}/reset', [SettingController::class, 'resetSetting']);
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('users', [UserController::class, 'index']);
+    Route::get('users/create', [UserController::class, 'create']);
+    Route::post('users', [UserController::class, 'store']);
+    Route::delete('users/{id}', [UserController::class, 'destroy']);
+    Route::get('users/{user}/edit', [UserController::class, 'edit']);
+    Route::patch('users/{user}', [UserController::class, 'update']);
+    Route::get('users/{user}/reset', [UserController::class, 'resetPass']);
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
