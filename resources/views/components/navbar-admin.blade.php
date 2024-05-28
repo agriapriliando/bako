@@ -65,6 +65,11 @@
                                         <li class="nav-item">
                                             <a href="{{ url('gantipass') }}" class="{{ request()->is('gantipass') ? 'active' : '' }}" aria-label="Toggle navigation">Pass</a>
                                         </li>
+                                        @if (Auth::user()->status == 1)
+                                            <li class="nav-item">
+                                                <a href="{{ url('users') }}" class="{{ request()->is('users') ? 'active' : '' }}" aria-label="Toggle navigation">Pengguna</a>
+                                            </li>
+                                        @endif
                                         <li class="nav-item">
                                             <a class="btn btn-sm btn-danger text-white p-2 my-2 mt-2" href="{{ route('logout') }}">Logout</a>
                                         </li>

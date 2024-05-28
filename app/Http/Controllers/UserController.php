@@ -28,7 +28,7 @@ class UserController extends Controller
         ]);
 
         $data['password'] = bcrypt($request->username);
-        $data['status'] = 2;
+        $data['status'] = 0;
 
         User::create($data);
         return redirect('users')->with('status', 'Akun Berhasil Ditambahkan');
