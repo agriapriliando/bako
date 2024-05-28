@@ -81,7 +81,7 @@ class GrafikController extends Controller
                 ->with('item')->limit(7)->get()->pluck('hargahariini');
             $dataMingguan[$i]["data"] = $prices;
         }
-        return response()->json([
+        return json_encode([
             'nama' => (Item::where("id", $itemid)->first())["nama"],
             'data' => $dataMingguan
         ]);
@@ -101,7 +101,7 @@ class GrafikController extends Controller
                 ->with('item')->limit(30)->get()->pluck('hargahariini');
             $dataBulanan[$i]["data"] = $prices;
         }
-        return response()->json([
+        return json_encode([
             'nama' => (Item::where("id", $itemid)->first())["nama"],
             'data' => $dataBulanan
         ]);
@@ -134,7 +134,7 @@ class GrafikController extends Controller
             // return array_sum($prices[0][0]);
             $dataTahunan[$i]["data"] = $average;
         }
-        return response()->json([
+        return json_encode([
             'nama' => (Item::where("id", $itemid)->first())["nama"],
             'data' => $dataTahunan
         ]);
