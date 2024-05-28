@@ -1,6 +1,7 @@
 $(function () {
-    var ids = document.getElementById("accordionFlushExample");
-    url = ids.getAttribute("data-url");
+    var idd = document.getElementById("accordionFlushExample");
+    var url = idd.getAttribute("data-url");
+    console.log(url)
     $.ajax({
         type: 'GET',
         url: url,
