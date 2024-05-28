@@ -10,7 +10,7 @@
                         @auth
                             <!-- Start Navbar -->
                             <nav class="navbar navbar-expand-lg">
-                                <a class="btn btn-sm btn-primary me-3" href="#">Hai, {{ Auth::user()->name }}</a>
+                                <a class="btn btn-sm btn-primary me-3 d-block d-sm-none" href="{{ url('prices') }}">Hai, {{ Auth::user()->name }}</a>
                                 <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                     aria-expanded="false" aria-label="Toggle navigation">
                                     <span class="toggler-icon"></span>

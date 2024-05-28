@@ -45,13 +45,14 @@
                                             <div class="d-flex gap-1">
                                                 <a href="{{ url('users/' . $item->id . '/edit') }}" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
                                                 @if ($item->item_count == 0)
-                                                    <a data-id="{{ $item->id }}" data-name="{{ $item->name }}" href="#" class="btn btn-sm btn-danger btn-delete">
+                                                    <button data-id="{{ $item->id }}" data-name="{{ $item->name }}"
+                                                        class="btn btn-sm btn-danger btn-delete {{ Auth::user()->id == $item->id ? 'd-none' : '' }}">
                                                         <i class="lni lni-eraser"></i>
-                                                    </a>
+                                                    </button>
                                                 @endif
-                                                <a data-id="{{ $item->id }}" data-name="{{ $item->name }}" href="#" class="btn btn-sm btn-warning btn-reset">
+                                                <button data-id="{{ $item->id }}" data-name="{{ $item->name }}" class="btn btn-sm btn-warning btn-reset">
                                                     <i class="lni lni-spinner-arrow"></i>
-                                                </a>
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
