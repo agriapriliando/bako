@@ -79,7 +79,7 @@ class GrafikController extends Controller
                 ->where('created_at', '>=', Carbon::now()->subDays(7))
                 ->where('pasar_id', $pasar[$i]["id"])
                 ->with('item')->limit(7)->get()->pluck('hargahariini');
-            $dataMingguan[$i]["data"] = $prices;
+            $dataMingguan[$i]["data"] = intval($prices);
         }
         return json_encode([
             'nama' => (Item::where("id", $itemid)->first())["nama"],
@@ -99,7 +99,7 @@ class GrafikController extends Controller
                 ->where('created_at', '>=', Carbon::now()->subDays(30))
                 ->where('pasar_id', $pasar[$i]["id"])
                 ->with('item')->limit(30)->get()->pluck('hargahariini');
-            $dataBulanan[$i]["data"] = $prices;
+            $dataBulanan[$i]["data"] = intval($prices);
         }
         return json_encode([
             'nama' => (Item::where("id", $itemid)->first())["nama"],
