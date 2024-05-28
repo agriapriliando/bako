@@ -57,7 +57,6 @@ function chartSeminggu(dataseminggu) {
             text: 'Harga Seminggu Terakhir',
             align: 'left'
         },
-        accessibility: disabled,
         subtitle: {
             text: 'Harga ' + dataseminggu.nama,
             align: 'left'
@@ -131,7 +130,6 @@ function chartBulanan(datasebulan) {
             text: 'Harga 30 Hari Terakhir',
             align: 'left'
         },
-        accessibility: disabled,
         subtitle: {
             text: 'Harga ' + datasebulan.nama,
             align: 'left'
@@ -198,7 +196,6 @@ function chartTahunan(datasetahun) {
             text: 'Harga Rerata Bulanan Tahun ' + d.getFullYear(),
             align: 'left'
         },
-        accessibility: disabled,
         subtitle: {
             text: 'Harga ' + datasetahun.nama,
             align: 'left'
