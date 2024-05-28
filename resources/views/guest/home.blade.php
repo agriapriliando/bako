@@ -35,7 +35,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
-                <div class="col-lg-8 col-12 custom-padding-right">
+                <div class="col-lg-8 col-12 custom-padding-right d-none d-sm-block">
                     <div class="slider-head">
                         <!-- Start Hero Slider -->
                         <div class="hero-slider">
