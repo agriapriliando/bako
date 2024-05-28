@@ -1,7 +1,9 @@
 $(function () {
+    var ids = document.getElementById("accordionFlushExample");
+    url = ids.getAttribute("data-url");
     $.ajax({
         type: 'GET',
-        url: "https://sembako.ditaria.com/grafik/datamingguan/",
+        url: url,
         dataType: 'json',
         success: function (data) {
             // var parsed_response = jQuery.parseJSON(data[0]['datapasar'][0]['dataharga'][0]);

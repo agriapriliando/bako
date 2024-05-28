@@ -12,7 +12,7 @@
                     @foreach ($category as $cat)
                         <!-- Start Single Product -->
                         <div class="single-product">
-                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                            <div class="accordion accordion-flush" id="accordionFlushExample" data-url="{{ url('grafik/datamingguan') }}">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $x }}" aria-expanded="false"

@@ -48,7 +48,10 @@ class GrafikController extends Controller
                         ->where('pasar_id', $pasar[$m]['id'])
                         ->with('item')->get()->pluck('hargahariini'); //cari harga sesuai loop item
                     // return $dataharga;
-                    $data[$i]['data'] = $dataharga; //masukan ke daftar harga sesuai item
+                    $pricesint = array();
+                    foreach ($dataharga as $as)
+                        $pricesint[] = intval($as);
+                    $data[$i]['data'] = $pricesint; //masukan ke daftar harga sesuai item
                     $i++;
                 }
                 // return $data;
