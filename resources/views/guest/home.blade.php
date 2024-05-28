@@ -84,7 +84,7 @@
                                     <div class="button">
                                         @foreach ($pasar as $p)
                                             // jika di local, gunakan url localhost
-                                            <a class="btn" href="{{ url('') }}/report/{{ $p->id }}/{{ \Carbon\Carbon::now()->format('Y-m-d') }}/pdf">{{ $p->nama }}</a>
+                                            <a class="btn" href="{{ url('') }}/public/report/{{ $p->id }}/{{ \Carbon\Carbon::now()->format('Y-m-d') }}/pdf">{{ $p->nama }}</a>
                                         @endforeach
                                     </div>
                                 </div>
