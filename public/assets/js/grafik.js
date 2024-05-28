@@ -1,40 +1,32 @@
 $(function () {
-    // function handleJSON(jsonData) {
-    //     return jsonData;
-    // }
     $.ajax({
-        type: 'GET', //THIS NEEDS TO BE GET
+        type: 'GET',
         url: "https://sembako.ditaria.com/grafik/datamingguan/",
         dataType: 'json',
         success: function (data) {
             // var parsed_response = jQuery.parseJSON(data[0]['datapasar'][0]['dataharga'][0]);
             // console.log(data[0]['datapasar'][0]['dataharga']);
             datacompile = data;
-            console.log(datacompile);
             getData(datacompile);
         },
         error: function () {
             console.log(data);
+            console.log("gagal");
         }
     });
 });
 
 function getData(datagrafik) {
-    // console.log(datagrafik[0]['datapasar'].length);
     for (let i = 0; i < datagrafik.length; i++) {
         for (let l = 0; l < datagrafik[i]['datapasar'].length; l++) {
             untukidchart = i + datagrafik[i]['category'] + datagrafik[i]['datapasar'][l]['pasar_id'];
             my_chart(datagrafik[i], untukidchart, l);
-            // console.log(untukidchart);
         }
     }
 }
 
-
 function my_chart(res, idchart, l) {
-    // console.log(response[0]['name']);
     var d = new Date();
-    // console.log(idchart);
     d.setDate(d.getDate() - 6);
     const chart = Highcharts.chart('chart' + idchart, {
         title: {
@@ -108,6 +100,4 @@ function my_chart(res, idchart, l) {
             }]
         }
     });
-    // document.addEventListener('DOMContentLoaded', function() {
-    // });
 }

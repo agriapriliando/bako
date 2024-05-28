@@ -4,64 +4,60 @@ $(function () {
     var tahun = document.getElementById("chartsetahun");
     tahun = tahun.getAttribute("data-tahun");
     $.ajax({
-        type: 'GET', //THIS NEEDS TO BE GET
+        type: 'GET',
         url: "https://sembako.ditaria.com/grafikbarang/datamingguan/" + id,
         dataType: 'json',
         success: function (data) {
-            // console.log(data);
             // var parsed_response = jQuery.parseJSON(data[0]['datapasar'][0]['dataharga'][0]);
             // console.log(data[0]['datapasar'][0]['dataharga']);
             chartSeminggu(data);
         },
         error: function () {
             console.log(data);
+            console.log("gagal");
         }
     });
     $.ajax({
-        type: 'GET', //THIS NEEDS TO BE GET
+        type: 'GET',
         url: "https://sembako.ditaria.com/grafikbarang/databulanan/" + id,
         dataType: 'json',
         success: function (data) {
-            // console.log(data);
             // var parsed_response = jQuery.parseJSON(data[0]['datapasar'][0]['dataharga'][0]);
             // console.log(data[0]['datapasar'][0]['dataharga']);
             chartBulanan(data);
         },
         error: function () {
             console.log(data);
+            console.log("gagal");
+
         }
     });
     $.ajax({
-        type: 'GET', //THIS NEEDS TO BE GET
+        type: 'GET',
         url: "https://sembako.ditaria.com/grafikbarang/" + id + "/" + tahun,
         dataType: 'json',
         success: function (data) {
-            // console.log(data);
             // var parsed_response = jQuery.parseJSON(data[0]['datapasar'][0]['dataharga'][0]);
             // console.log(data[0]['datapasar'][0]['dataharga']);
             chartTahunan(data);
         },
         error: function () {
             console.log(data);
+            console.log("gagal");
+
         }
     });
 });
 
-// function getData(datagrafik) {
-//     chartSeminggu(datagrafik);
-// }
-
 function chartSeminggu(dataseminggu) {
     var d = new Date();
-    // console.log(d);
     d.setDate(d.getDate() - 6);
     const chart = Highcharts.chart('chartseminggu', {
         title: {
             text: 'Harga Seminggu Terakhir',
             align: 'left'
         },
-        // accessibility: enabled,
-
+        accessibility: disabled,
         subtitle: {
             text: 'Harga ' + dataseminggu.nama,
             align: 'left'
@@ -135,8 +131,7 @@ function chartBulanan(datasebulan) {
             text: 'Harga 30 Hari Terakhir',
             align: 'left'
         },
-        // accessibility: enabled,
-
+        accessibility: disabled,
         subtitle: {
             text: 'Harga ' + datasebulan.nama,
             align: 'left'
@@ -176,13 +171,6 @@ function chartBulanan(datasebulan) {
         },
 
         series: datasebulan.data,
-        // series: [{
-        //     name: 'Lokasi Pasar Kahayan',
-        //     data: [14100, 15200, 14900, 15300, 14200, 15600, 15500]
-        // }, {
-        //     name: 'Lokasi Pasar Besar',
-        //     data: [14000, 15300, 14200, 15600, 15500, 14200, 15600]
-        // }],
 
         responsive: {
             rules: [{
@@ -210,8 +198,7 @@ function chartTahunan(datasetahun) {
             text: 'Harga Rerata Bulanan Tahun ' + d.getFullYear(),
             align: 'left'
         },
-        // accessibility: enabled,
-
+        accessibility: disabled,
         subtitle: {
             text: 'Harga ' + datasetahun.nama,
             align: 'left'
@@ -251,13 +238,6 @@ function chartTahunan(datasetahun) {
         },
 
         series: datasetahun.data,
-        // series: [{
-        //     name: 'Lokasi Pasar Kahayan',
-        //     data: [14100, 15200, 14900, 15300, 14200, 15600, 15500]
-        // }, {
-        //     name: 'Lokasi Pasar Besar',
-        //     data: [14000, 15300, 14200, 15600, 15500, 14200, 15600]
-        // }],
 
         responsive: {
             rules: [{
