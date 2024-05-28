@@ -11,6 +11,7 @@ $(function () {
             // var parsed_response = jQuery.parseJSON(data[0]['datapasar'][0]['dataharga'][0]);
             // console.log(data[0]['datapasar'][0]['dataharga']);
             chartSeminggu(data);
+            console.log("berhasil");
         },
         error: function () {
             console.log(data);
@@ -25,6 +26,7 @@ $(function () {
             // var parsed_response = jQuery.parseJSON(data[0]['datapasar'][0]['dataharga'][0]);
             // console.log(data[0]['datapasar'][0]['dataharga']);
             chartBulanan(data);
+            console.log("berhasil");
         },
         error: function () {
             console.log(data);
@@ -40,6 +42,7 @@ $(function () {
             // var parsed_response = jQuery.parseJSON(data[0]['datapasar'][0]['dataharga'][0]);
             // console.log(data[0]['datapasar'][0]['dataharga']);
             chartTahunan(data);
+            console.log("berhasil");
         },
         error: function () {
             console.log(data);
