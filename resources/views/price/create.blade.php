@@ -27,7 +27,7 @@
                                     @method('POST')
                                     <div class="mb-2">
                                         <label>Pilih Tanggal</label>
-                                        <input name="tglprice" id="opt_items" type="date" class="form-control" value="{{ date('Y-m-d') }}" required>
+                                        <input data-url="{{ url('listitem') }}" name="tglprice" id="opt_items" type="date" class="form-control" value="{{ date('Y-m-d') }}" required>
                                         <small>Hari Ini Tanggal {{ date('j F Y') }}</small>
                                     </div>
                                     <div class="mb-2">
@@ -72,13 +72,14 @@
                 $('#basic-usage').select2({
                     theme: "bootstrap-5",
                 });
-
+                var url = document.getElementById("opt_items");
+                url = url.getAttribute("data-url") + '/';
                 var pasar_id = $("#pasar_id").val();
                 var tgl = $('#opt_items').val();
 
                 $.ajax({
                     type: 'GET',
-                    url: 'http://127.0.0.1:8000/listitem/' + tgl + '/' + pasar_id,
+                    url: url + tgl + '/' + pasar_id,
                     success: function(data) {
                         var html = '<select name="item_id" class="form-select" id="basic-usage" data-placeholder="Choose one thing">';
                         for (var count = 0; count < data.length; count++) {
@@ -96,7 +97,7 @@
                     var tgl = $(this).val();
                     $.ajax({
                         type: 'GET',
-                        url: 'http://127.0.0.1:8000/listitem/' + tgl + '/' + pasar_id,
+                        url: url + tgl + '/' + pasar_id,
                         success: function(data) {
                             var html = '<select name="item_id" class="form-select" id="basic-usage" data-placeholder="Choose one thing">';
                             for (var count = 0; count < data.length; count++) {
