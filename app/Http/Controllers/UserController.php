@@ -22,8 +22,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|max:25|regex:/\w*$/',
-            'username' => 'required|unique:users,username',
+            'name' => 'required',
+            'username' => 'required|unique:users,username|regex:/\w*$/',
             'email' => 'required|email|unique:users,email',
         ]);
 
@@ -42,8 +42,8 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $data = $request->validate([
-            'name' => 'required|max:25|regex:/\w*$/',
-            'username' => 'required|unique:users,username,' . $user->id,
+            'name' => 'required',
+            'username' => 'required|regex:/\w*$/|unique:users,username,' . $user->id,
             'email' => 'required|email|unique:users,email,' . $user->id,
             'status' => 'required'
         ]);
