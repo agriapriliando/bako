@@ -42,15 +42,15 @@
                             <!-- Start Single Slider -->
                             @foreach ($priceslide as $item)
                                 <div class="single-slider div1">
-                                    <div class="content"
-                                        style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(236, 236, 236, 0.5)),url({{ $item->category->image }}) right center no-repeat; background-size: 300px;">
+                                    <div class="content align-right"
+                                        style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(236, 236, 236, 0.5)),url({{ $item->category->image }}) right center no-repeat; background-size: 280px;">
                                         <h2><span>Update : {{ $item->created_at_edit }} WIB</br>Lokasi : {{ $item->pasar->nama }} </span>
                                             {{ $item->item->nama }}
                                         </h2>
                                         <h3>@currency($item->hargahariini)</h3>
                                         <p>Kategori {{ $item->category->nama }}</p>
-                                        <div class="button">
-                                            <a href="/barang-detail.html" class="btn">Lihat</a>
+                                        <div class="button d-none">
+                                            <a href="{{ url('grafikbarang/' . $item->category->id) }}" class="btn">Lihat</a>
                                         </div>
                                     </div>
                                 </div>
@@ -83,8 +83,8 @@
                                         Pasar Kahayan</p>
                                     <div class="button">
                                         @foreach ($pasar as $p)
-                                            <a class="btn"
-                                                href="http://localhost/sembakolaravel/public/report/{{ $p->id }}/{{ \Carbon\Carbon::now()->format('Y-m-d') }}/pdf">{{ $p->nama }}</a>
+                                            // jika di local, gunakan url localhost
+                                            <a class="btn" href="{{ url('') }}/report/{{ $p->id }}/{{ \Carbon\Carbon::now()->format('Y-m-d') }}/pdf">{{ $p->nama }}</a>
                                         @endforeach
                                     </div>
                                 </div>
@@ -134,7 +134,7 @@
                             <div class="product-info">
                                 <span class="category">{{ $item->category->nama }}</span>
                                 <h4 class="title">
-                                    <a href="/barang-detail.html">{{ $item->nama }}</a>
+                                    <a href="{{ url('grafikbarang/' . $item->id) }}">{{ $item->nama }}</a>
                                 </h4>
                                 {{-- <ul class="review">
                                     <li><i class="lni lni-arrow-up"></i></li>
@@ -177,7 +177,7 @@
                                 @for ($c = 1; $c <= 7; $c++)
                                     <div>
                                         @foreach ($pasar as $i)
-                                            <a target="_blank" href="http://localhost/sembakolaravel/public/report/{{ $i->id }}/{{ \Carbon\Carbon::now()->subDays($c)->format('Y-m-d') }}"
+                                            <a target="_blank" href="{{ url('') }}/report/{{ $i->id }}/{{ \Carbon\Carbon::now()->subDays($c)->format('Y-m-d') }}"
                                                 class="btn m-1">{{ \Carbon\Carbon::now()->subDays($c)->translatedFormat('j F Y') }} - {{ $i->nama }}</a>
                                         @endforeach
                                     </div>
