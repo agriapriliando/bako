@@ -1,10 +1,10 @@
 $(function () {
-    function handleJSON(jsonData) {
-        return jsonData;
-    }
+    // function handleJSON(jsonData) {
+    //     return jsonData;
+    // }
     $.ajax({
         type: 'GET', //THIS NEEDS TO BE GET
-        url: "{{ url('grafik/datamingguan') }}",
+        url: "https://sembako.ditaria.com/grafik/datamingguan/",
         dataType: 'json',
         success: function (data) {
             // var parsed_response = jQuery.parseJSON(data[0]['datapasar'][0]['dataharga'][0]);
@@ -82,7 +82,6 @@ function my_chart(res, idchart, l) {
             }
         },
         series: res['datapasar'][l]['dataharga'],
-        // series: res[idchart]['dataharga'],
         // series: [{
         //     name: "Harga",
         //     data: [14000, 14300, 14900, 15300, 14200, 15600, 15500]

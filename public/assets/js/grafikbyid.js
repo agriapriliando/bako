@@ -5,10 +5,10 @@ $(function () {
     tahun = tahun.getAttribute("data-tahun");
     $.ajax({
         type: 'GET', //THIS NEEDS TO BE GET
-        url: "{{ url('grafikbarang/datamingguan') }}/" + id,
+        url: "https://sembako.ditaria.com/grafikbarang/datamingguan/" + id,
         dataType: 'json',
         success: function (data) {
-            console.log(data);
+            // console.log(data);
             // var parsed_response = jQuery.parseJSON(data[0]['datapasar'][0]['dataharga'][0]);
             // console.log(data[0]['datapasar'][0]['dataharga']);
             chartSeminggu(data);
@@ -19,10 +19,10 @@ $(function () {
     });
     $.ajax({
         type: 'GET', //THIS NEEDS TO BE GET
-        url: "{{ url('grafikbarang/databulanan') }}/" + id,
+        url: "https://sembako.ditaria.com/grafikbarang/databulanan/" + id,
         dataType: 'json',
         success: function (data) {
-            console.log(data);
+            // console.log(data);
             // var parsed_response = jQuery.parseJSON(data[0]['datapasar'][0]['dataharga'][0]);
             // console.log(data[0]['datapasar'][0]['dataharga']);
             chartBulanan(data);
@@ -33,10 +33,10 @@ $(function () {
     });
     $.ajax({
         type: 'GET', //THIS NEEDS TO BE GET
-        url: "{{ url('grafikbarang') }}/" + id + '/' + tahun,
+        url: "https://sembako.ditaria.com/grafikbarang/" + id + "/" + tahun,
         dataType: 'json',
         success: function (data) {
-            console.log(data);
+            // console.log(data);
             // var parsed_response = jQuery.parseJSON(data[0]['datapasar'][0]['dataharga'][0]);
             // console.log(data[0]['datapasar'][0]['dataharga']);
             chartTahunan(data);
