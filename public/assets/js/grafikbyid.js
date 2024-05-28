@@ -1,11 +1,10 @@
 $(function () {
-    var id = document.getElementById("chartseminggu");
-    id = id.getAttribute("data-id");
-    var tahun = document.getElementById("chartsetahun");
-    tahun = tahun.getAttribute("data-tahun");
+    var ids = document.getElementById("chartseminggu");
+    id = ids.getAttribute("data-id");
+    urlmingguan = ids.getAttribute("data-url");
     $.ajax({
         type: 'GET',
-        url: "https://sembako.ditaria.com/grafikbarang/datamingguan/" + id,
+        url: urlmingguan,
         dataType: 'json',
         success: function (data) {
             // var parsed_response = jQuery.parseJSON(data[0]['datapasar'][0]['dataharga'][0]);
@@ -18,9 +17,12 @@ $(function () {
             console.log("gagal");
         }
     });
+
+    var idb = document.getElementById("chartsebulan");
+    urlbulanan = idb.getAttribute("data-url");
     $.ajax({
         type: 'GET',
-        url: "https://sembako.ditaria.com/grafikbarang/databulanan/" + id,
+        url: urlbulanan,
         dataType: 'json',
         success: function (data) {
             // var parsed_response = jQuery.parseJSON(data[0]['datapasar'][0]['dataharga'][0]);
@@ -34,9 +36,12 @@ $(function () {
 
         }
     });
+    var idt = document.getElementById("chartsetahun");
+    tahun = idt.getAttribute("data-tahun");
+    urltahun = idt.getAttribute("data-url");
     $.ajax({
         type: 'GET',
-        url: "https://sembako.ditaria.com/grafikbarang/" + id + "/" + tahun,
+        url: urltahun,
         dataType: 'json',
         success: function (data) {
             // var parsed_response = jQuery.parseJSON(data[0]['datapasar'][0]['dataharga'][0]);

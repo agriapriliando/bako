@@ -20,7 +20,7 @@
                                 </h2>
                                 <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                                     <div class="accordion-body">
-                                        <div id="chartseminggu" data-id="{{ $item->id }}">
+                                        <div id="chartseminggu" data-url="{{ url('grafikbarang/datamingguan/' . $item->id) }}" data-id="{{ $item->id }}">
                                         </div>
                                     </div>
                                 </div>
@@ -40,7 +40,7 @@
                                 </h2>
                                 <div id="flush-collapseSebulan" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                                     <div class="accordion-body">
-                                        <div id="chartsebulan">
+                                        <div id="chartsebulan" data-url="{{ url('grafikbarang/databulanan/' . $item->id) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@
                                 </h2>
                                 <div id="flush-collapseTahun" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                                     <div class="accordion-body">
-                                        <div id="chartsetahun" data-tahun="{{ Carbon\Carbon::now()->year }}">
+                                        <div id="chartsetahun" data-url="{{ url('grafikbarang/' . $item->id . '/' . Carbon\Carbon::now()->year) }}" data-tahun="{{ Carbon\Carbon::now()->year }}">
                                         </div>
                                     </div>
                                 </div>
