@@ -81,6 +81,7 @@
                                         <th>Barang</th>
                                         <th>Harga</th>
                                         <th>Timestamp <br>Tahun-Bulan-Tanggal</th>
+                                        <th>Admin</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -92,6 +93,7 @@
                                         <th>Barang</th>
                                         <th>Harga</th>
                                         <th>Timestamp <br>Tahun-Bulan-Tanggal</th>
+                                        <th>Admin</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </tfoot>
@@ -210,6 +212,10 @@
                         {
                             data: 'created_at',
                             name: 'created_at'
+                        },
+                        {
+                            data: 'user.name',
+                            name: 'user.name'
                         },
                         {
                             data: 'action',

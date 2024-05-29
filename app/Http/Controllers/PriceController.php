@@ -43,6 +43,9 @@ class PriceController extends Controller
                 ->editColumn('hargahariini', function ($row) {
                     return "Rp " . $row->hargahariini;
                 })
+                ->editColumn('user.name', function ($row) {
+                    return "Update by </br> " . $row->user->name;
+                })
                 ->addColumn('action', function ($data) {
                     $urledit = url('prices/' . $data->id . '/edit');
                     $urldel = \Carbon\Carbon::parse($data->created_at)->translatedFormat('j F, Y H:i');
@@ -55,7 +58,7 @@ class PriceController extends Controller
                 </div>';
                     return $btn;
                 })
-                ->rawColumns(['action', 'hargahariini'])
+                ->rawColumns(['action', 'hargahariini', 'user.name'])
                 ->make();
         }
         return view('price.index');
