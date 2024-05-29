@@ -50,6 +50,14 @@
                                         </div>
                                         <x-alert-input :messages="$errors->get('hargahariini')" class="mt-2 bg-danger"></x-alert-input>
                                     </div>
+                                    <div class="mb-2">
+                                        <label>Harga Eceran Tertinggi (HET)</label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">Rp</span>
+                                            <input type="number" class="form-control" name="het" value="{{ old('het', $price->het) }}">
+                                        </div>
+                                        <x-alert-input :messages="$errors->get('het')" class="mt-2 bg-danger"></x-alert-input>
+                                    </div>
                                     <input class="d-none" id="pasar_id" type="text" name="pasar_id" value="{{ $pasar->id }}">
                                     <div class="d-grid">
                                         <button type="submit" class="btn btn-primary mb-2">Simpan Data Harga</button>

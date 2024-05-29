@@ -21,39 +21,41 @@ class PriceController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Price::with('item');
+            $data = Price::with('item', 'pasar', 'user');
             return Datatables::of($data)
-                ->editColumn('item.nama', function ($row) {
-                    $urledit = url('prices/' . $row->id . '/edit');
-                    $urldel = \Carbon\Carbon::parse($row->created_at)->translatedFormat('j F, Y H:i');
-                    $btn = '<div class="d-flex gap-1 mt-1">
-                    <a href="' . $urledit . '" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
-                    <a data-tgl="' . $urldel . ' Wib" data-id="' . $row->id . '"
-                        data-name="' . $row->item->nama . '" href="#" class="btn btn-sm btn-danger btn-delete">
-                        <i class="lni lni-eraser"></i>
-                    </a></div>';
-                    $warna = $row->pasar->id == 1 ? 'bg-success' : 'bg-danger';
-                    return $row->item->nama . '</br> <span class="badge ' . $warna . '">Lokasi : ' . $row->pasar->nama . '</span>' . $btn;
-                })
-                ->editColumn('hargahariini', function ($row) {
-                    return "Rp " . $row->hargahariini;
-                })
-                ->editColumn('created_at', function ($row) {
-                    return $row->created_at . " WIB";
-                })
-                // ->addColumn('action', function ($row) {
+                // ->editColumn('item.nama', function ($row) {
                 //     $urledit = url('prices/' . $row->id . '/edit');
                 //     $urldel = \Carbon\Carbon::parse($row->created_at)->translatedFormat('j F, Y H:i');
-                //     $btn = '<div class="d-flex gap-1">
+                //     $btn = '<div class="d-flex gap-1 mt-1">
                 //     <a href="' . $urledit . '" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
                 //     <a data-tgl="' . $urldel . ' Wib" data-id="' . $row->id . '"
                 //         data-name="' . $row->item->nama . '" href="#" class="btn btn-sm btn-danger btn-delete">
                 //         <i class="lni lni-eraser"></i>
-                //     </a>
-                // </div>';
-                //     return $btn;
+                //     </a></div>';
+                //     $warna = $row->pasar->id == 1 ? 'bg-success' : 'bg-danger';
+                //     // return $row->item->nama . '</br> <span class="badge ' . $warna . '">Lokasi : ' . $row->pasar->nama . '</span>' . $btn;
+                //     return $row->item->nama . '</br>' . $btn;
                 // })
-                ->rawColumns(['item.nama'])
+                ->editColumn('created_at', function ($row) {
+                    return Carbon::parse($row->created_at)->format('Y-m-d');
+                    // return $row->created_at . " WIB";
+                })
+                ->editColumn('hargahariini', function ($row) {
+                    return "Rp " . $row->hargahariini;
+                })
+                ->addColumn('action', function ($data) {
+                    $urledit = url('prices/' . $data->id . '/edit');
+                    $urldel = \Carbon\Carbon::parse($data->created_at)->translatedFormat('j F, Y H:i');
+                    $btn = '<div class="d-flex gap-1">
+                    <a href="' . $urledit . '" class="btn btn-sm btn-warning"><i class="lni lni-pencil"></i></a>
+                    <a data-tgl="' . $urldel . ' Wib" data-id="' . $data->id . '"
+                        data-name="' . $data->item->nama . '" href="#" class="btn btn-sm btn-danger btn-delete">
+                        <i class="lni lni-eraser"></i>
+                    </a>
+                </div>';
+                    return $btn;
+                })
+                ->rawColumns(['action', 'hargahariini'])
                 ->make();
         }
         return view('price.index');
@@ -160,6 +162,7 @@ class PriceController extends Controller
             'pasar_id' => $request->pasar_id,
             'user_id' => Auth::id(),
             'hargahariini' => $request->hargahariini,
+            'het' => $request->het, //item baru
             'hargaminggulalu' => 0,
             'hargabulanlalu' => 0,
             'deskripsi' => '',
@@ -203,7 +206,7 @@ class PriceController extends Controller
         $dataValidated = $request->validate([
             'hargahariini' => 'required',
         ]);
-        $pasar = Pasar::find($price->pasar_id);
+        $dataValidated['het'] = $request->het;
         $price->update($dataValidated);
 
         return redirect('prices/' . $price->id . '/edit/')->with('status', 'Harga Berhasil dirubah');
@@ -218,5 +221,13 @@ class PriceController extends Controller
         return response()->json([
             'message' => 'Data Harga Berhasil Dihapus'
         ]);
+    }
+
+    public function deletes($tgl, $pasar_id)
+    {
+        Price::whereDate('created_at', '=', $tgl)
+            ->where('pasar_id', $pasar_id)->delete();
+        $pasar = Pasar::find($pasar_id);
+        return redirect('hargapasar/' . $pasar->slugpasar)->with('status', 'Berhasil Dihapus');
     }
 }

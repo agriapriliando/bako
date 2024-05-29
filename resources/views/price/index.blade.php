@@ -4,6 +4,10 @@
             color: #e6e6e6 !important;
             background-color: #2174b8 !important;
         }
+
+        /* .dataTables_filter {
+            display: none;
+        } */
     </style>
     <!-- Start Trending Product Area -->
     <section class="trending-product section pt-0">
@@ -72,17 +76,23 @@
                             <table id="example" class="table table-striped data-table" style="width:100%">
                                 <thead>
                                     <tr>
+                                        <th>ID</th>
+                                        <th>Pasar</th>
                                         <th>Barang</th>
                                         <th>Harga</th>
                                         <th>Timestamp <br>Tahun-Bulan-Tanggal</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
                                 <tfoot>
                                     <tr>
+                                        <th>ID</th>
+                                        <th>Pasar</th>
                                         <th>Barang</th>
                                         <th>Harga</th>
-                                        <th>Timestamp</th>
+                                        <th>Timestamp <br>Tahun-Bulan-Tanggal</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -134,8 +144,9 @@
                     processing: true,
                     serverSide: true,
                     scrollX: true,
+                    ordering: false,
                     search: {
-                        return: true
+                        return: true // click enter untuk mencari
                     },
                     // stateSave: true,
                     pagingType: 'numbers',
@@ -150,37 +161,45 @@
                     createdRow: function(row, data, dataIndex) {
                         $(row).attr('id', 'data' + data['id']);
                     },
-                    initComplete: function() {
-                        var api = this.api();
-                        // Setup - add a text input to each header cell
-                        $('.filterhead', api.table().header()).each(function() {
-                            var title = $(this).text();
-                            $(this).html('<input type="text" placeholder="Search ' + title + '" class="column_search" />');
-                        });
-                        this.api()
-                            .columns()
-                            .every(function() {
-                                let column = this;
-                                let title = column.footer().textContent;
+                    // initComplete: function() {
+                    //     var api = this.api();
+                    //     // Setup - add a text input to each header cell
+                    //     $('.filterhead', api.table().header()).each(function() {
+                    //         var title = $(this).text();
+                    //         $(this).html('<input type="text" placeholder="Search ' + title + '" class="column_search" />');
+                    //     });
+                    //     this.api()
+                    //         .columns()
+                    //         .every(function() {
+                    //             let column = this;
+                    //             let title = column.footer().textContent;
 
-                                // Create input element
-                                let input = document.createElement('input');
-                                input.placeholder = title;
-                                column.footer().replaceChildren(input);
+                    //             // Create input element
+                    //             let input = document.createElement('input');
+                    //             input.placeholder = title;
+                    //             column.footer().replaceChildren(input);
 
-                                // Event listener for user input
-                                input.addEventListener('keyup', () => {
-                                    if (column.search() !== this.value) {
-                                        column.search(input.value).draw();
-                                    }
-                                });
-                            });
-                    },
+                    //             // Event listener for user input
+                    //             input.addEventListener('keyup', () => {
+                    //                 if (column.search() !== this.value) {
+                    //                     column.search(input.value).draw();
+                    //                 }
+                    //             });
+                    //         });
+                    // },
                     // order: [
-                    //     [2, 'desc']
+                    //     [1, 'desc']
                     // ],
                     ajax: "{{ url('prices') }}",
                     columns: [{
+                            data: 'id',
+                            name: 'id'
+                        },
+                        {
+                            data: 'pasar.nama',
+                            name: 'pasar.nama'
+                        },
+                        {
                             data: 'item.nama',
                             name: 'item.nama'
                         },
@@ -192,16 +211,13 @@
                             data: 'created_at',
                             name: 'created_at'
                         },
-
+                        {
+                            data: 'action',
+                            name: 'action'
+                        },
                     ]
                 });
 
-            });
-            // Apply the search
-            $('table thead').on('keyup', ".column_search", function() {
-                table.column($(this).parent().index())
-                    .search(this.value)
-                    .draw();
             });
         </script>
         <script src="{{ asset('') }}assets/js/sweetalert/sweetalert.min.js"></script>

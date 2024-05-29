@@ -34,15 +34,23 @@
                                         <label>Pilih Barang</label>
                                         <div id="state">
                                         </div>
-                                        <x-alert-input :messages="$errors->get('deskripsi')" class="mt-2 bg-danger"></x-alert-input>
+                                        <x-alert-input :messages="$errors->get('item_id')" class="bg-danger"></x-alert-input>
                                     </div>
-                                    <div class="mb-2">
+                                    <div class="mb-3">
                                         <label>Harga Barang</label>
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-1">
                                             <span class="input-group-text" id="basic-addon1">Rp</span>
                                             <input type="number" class="form-control" name="hargahariini" value="{{ old('hargahariini') }}">
                                         </div>
-                                        <x-alert-input :messages="$errors->get('hargahariini')" class="mt-2 bg-danger"></x-alert-input>
+                                        <x-alert-input :messages="$errors->get('hargahariini')" class="bg-danger"></x-alert-input>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label>Harga Eceran Tertinggi (HET)</label>
+                                        <div class="input-group mb-1">
+                                            <span class="input-group-text" id="basic-addon1">Rp</span>
+                                            <input type="number" class="form-control" name="het" value="{{ old('het') }}">
+                                        </div>
+                                        <x-alert-input :messages="$errors->get('het')" class="bg-danger"></x-alert-input>
                                     </div>
                                     <input class="d-none" id="pasar_id" type="text" name="pasar_id" value="{{ $pasar->id }}">
                                     <div class="d-grid">

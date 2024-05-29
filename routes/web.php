@@ -68,6 +68,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('items', ItemController::class);
     Route::resource('pasars', PasarController::class);
     Route::resource('prices', PriceController::class);
+    Route::get('prices/deletes/{tgl}/{pasar_id}', [PriceController::class, 'deletes']);
     Route::post('priceby', [PriceController::class, 'priceby']);
     Route::get('hargapasar/{slugpasar}', [PriceController::class, 'hargapasar']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

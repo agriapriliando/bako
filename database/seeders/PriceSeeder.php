@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Item;
 use App\Models\Pasar;
+use App\Models\Price;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -42,10 +43,11 @@ class PriceSeeder extends Seeder
     {
         $pasar = Pasar::all();
         $itemall = Item::all();
+        $jumlah_hari = 350;
         // pasar kahayan
         foreach ($pasar as $p) {
             foreach ($itemall as $a) {
-                for ($i = 0; $i <= 1; $i++) {
+                for ($i = 1; $i <= $jumlah_hari; $i++) {
                     DB::table('prices')->insert([
                         'item_id' => $a->id,
                         'pasar_id' => $p->id,
@@ -65,9 +67,22 @@ class PriceSeeder extends Seeder
         }
     }
 
+    public function addHet()
+    {
+        DB::table('prices')
+            ->whereDate('created_at', Carbon::now())
+            ->whereIn('item_id', [1, 9, 52, 53, 54, 55])
+            ->update([
+                'het' => rand(100, 999) . "000"
+            ]);
+    }
+
     public function run(): void
     {
-        $this->dataToday();
+        // $this->dataToday();
+        // Price::truncate();
+        // DB::statement("ALTER TABLE prices AUTO_INCREMENT = 1");
         // $this->dataBanyak();
+        $this->addHet();
     }
 }

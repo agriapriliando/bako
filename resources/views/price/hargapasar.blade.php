@@ -24,6 +24,10 @@
                             @endif
                             <div class="col">
                                 <a href="{{ url('prices/create/' . $pasar->id) }}" class="btn btn-sm btn-success"><i class="lni lni-plus"></i> Tambah Data Harga</a>
+                                <a onclick="return confirm('Yakin ingin hapus semua data harga hari ini?')"
+                                    href="{{ url('prices/deletes/' . \Carbon\Carbon::now()->format('Y-m-d')) . '/' . $pasar->id }}" class="btn btn-sm btn-danger float-end"><i
+                                        class="lni lni-trash"></i> Hapus Seluruh
+                                    Harga</a>
                             </div>
                         </div>
                         <table id="example" class="table table-striped" style="width:100%">
@@ -31,7 +35,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Barang</th>
-                                    <th>Harga Barang</th>
+                                    <th>Harga Barang | HET</th>
                                     <th>Diperbaharui</th>
                                     <th>Kelola</th>
                                 </tr>
@@ -50,7 +54,11 @@
                                             <small><span class="badge text-bg-info">{{ $item->pasar->nama }}</span></small>
                                         </td>
                                         <td>
-                                            <div>@currency($item->hargahariini)</div>
+                                            <div>@currency($item->hargahariini) <br>
+                                                @if ($item->het != '')
+                                                    @currency($item->het)
+                                                @endif
+                                            </div>
                                         </td>
                                         <td>{{ $item->updated_at }} Wib <br>
                                             <span class="badge rounded-pill bg-warning text-dark">
@@ -74,8 +82,8 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Barang</th>
-                                    <th>Harga Hari Ini</th>
-                                    <th>Harga Kemarin</th>
+                                    <th>Harga Barang | HET</th>
+                                    <th>Diperbaharui</th>
                                     <th>Kelola</th>
                                 </tr>
                             </tfoot>
