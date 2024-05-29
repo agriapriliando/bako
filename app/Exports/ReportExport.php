@@ -30,18 +30,13 @@ class ReportExport implements
 
     public function view(): View
     {
-        // return $pasar_id . $tgl;
-        // return Carbon::parse($tgl)->subDay()->format('Y-m-d');
+        // price normal
         $prices = Price::with('item')->orderBy('item_id')
             ->where('pasar_id', $this->pasar_id)
+            ->where('het', null)
             // ->whereDate('created_at', '>=', Carbon::parse($tgl)->subDay()->format('Y-m-d'))
             ->whereDate('created_at', '=', Carbon::parse($this->tgl)->format('Y-m-d'))
             ->get();
-        $pricesCompare = Price::with('item')->orderBy('created_at', 'DESC')
-            ->where('pasar_id', $this->pasar_id)
-            ->whereDate('created_at', '=', Carbon::parse($this->tgl)->subDay()->format('Y-m-d'))
-            ->get();
-        // dd($pricesCompare);
         for ($i = 0; $i < count($prices); $i++) {
             $prices[$i]['nama_item'] = $prices[$i]->item->nama;
             $hargakemarin = Price::where('pasar_id', $prices[$i]['pasar_id'])
@@ -54,11 +49,33 @@ class ReportExport implements
             }
             $prices[$i]['hargaselisih'] = $prices[$i]['hargahariini'] - $prices[$i]['hargakemarin'];
         }
+
+        // price dgn HET
+        $priceshet = Price::with('item')->orderBy('item_id')
+            ->where('pasar_id', $this->pasar_id)
+            ->where('het', '!=', null)
+            // ->whereDate('created_at', '>=', Carbon::parse($this->tgl)->subDay()->format('Y-m-d'))
+            ->whereDate('created_at', '=', Carbon::parse($this->tgl)->format('Y-m-d'))
+            ->get();
+        for ($i = 0; $i < count($priceshet); $i++) {
+            $priceshet[$i]['nama_item'] = $priceshet[$i]->item->nama;
+            $het = Price::where('pasar_id', $priceshet[$i]['pasar_id'])
+                ->where('item_id', $priceshet[$i]['item_id'])
+                ->whereDate('created_at', Carbon::parse($priceshet[$i]['created_at'])->subDay()->format('Y-m-d'))->first();
+            if ($het) {
+                $priceshet[$i]['het'] = $het['hargahariini'];
+            } else {
+                $priceshet[$i]['het'] = FALSE;
+            }
+            $priceshet[$i]['hargaselisih'] = $priceshet[$i]['hargahariini'] - $priceshet[$i]['het'];
+        }
+
         return view('report.formatexcel', [
             'prices' => $prices,
+            'priceshet' => $priceshet,
             'tgl' => date('j F Y', strtotime($this->tgl)),
             'tglmin' => date('j F Y', strtotime('-1 day', strtotime($this->tgl))),
-            'pasar' => Pasar::find($this->pasar_id),
+            'pasar' => Pasar::find($this->pasar_id)
         ]);
     }
 
@@ -81,8 +98,8 @@ class ReportExport implements
             'C' => 15,
             'D' => 15,
             'E' => 12,
-            'F' => 7,
-            'G' => 10,
+            'F' => 9,
+            'G' => 8,
         ];
     }
     public function registerEvents(): array

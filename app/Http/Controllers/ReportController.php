@@ -14,16 +14,13 @@ class ReportController extends Controller
     {
         // return $pasar_id . $tgl;
         // return Carbon::parse($tgl)->subDay()->format('Y-m-d');
+        // price normal
         $prices = Price::with('item')->orderBy('item_id')
             ->where('pasar_id', $pasar_id)
+            ->where('het', null)
             // ->whereDate('created_at', '>=', Carbon::parse($tgl)->subDay()->format('Y-m-d'))
             ->whereDate('created_at', '=', Carbon::parse($tgl)->format('Y-m-d'))
             ->get();
-        $pricesCompare = Price::with('item')->orderBy('created_at', 'DESC')
-            ->where('pasar_id', $pasar_id)
-            ->whereDate('created_at', '=', Carbon::parse($tgl)->subDay()->format('Y-m-d'))
-            ->get();
-        // dd($pricesCompare);
         for ($i = 0; $i < count($prices); $i++) {
             $prices[$i]['nama_item'] = $prices[$i]->item->nama;
             $hargakemarin = Price::where('pasar_id', $prices[$i]['pasar_id'])
@@ -37,8 +34,34 @@ class ReportController extends Controller
             $prices[$i]['hargaselisih'] = $prices[$i]['hargahariini'] - $prices[$i]['hargakemarin'];
         }
 
+        // price dgn HET
+        $priceshet = Price::with('item')->orderBy('item_id')
+            ->where('pasar_id', $pasar_id)
+            ->where('het', '!=', null)
+            // ->whereDate('created_at', '>=', Carbon::parse($tgl)->subDay()->format('Y-m-d'))
+            ->whereDate('created_at', '=', Carbon::parse($tgl)->format('Y-m-d'))
+            ->get();
+        for ($i = 0; $i < count($priceshet); $i++) {
+            $priceshet[$i]['nama_item'] = $priceshet[$i]->item->nama;
+            $het = Price::where('pasar_id', $priceshet[$i]['pasar_id'])
+                ->where('item_id', $priceshet[$i]['item_id'])
+                ->whereDate('created_at', Carbon::parse($priceshet[$i]['created_at'])->subDay()->format('Y-m-d'))->first();
+            if ($het) {
+                $priceshet[$i]['het'] = $het['hargahariini'];
+            } else {
+                $priceshet[$i]['het'] = FALSE;
+            }
+            $priceshet[$i]['hargaselisih'] = $priceshet[$i]['hargahariini'] - $priceshet[$i]['het'];
+        }
+
+        $pricesCompare = Price::with('item')->orderBy('created_at', 'DESC')
+            ->where('pasar_id', $pasar_id)
+            ->whereDate('created_at', '=', Carbon::parse($tgl)->subDay()->format('Y-m-d'))
+            ->get();
+
         return view('report.format1', [
             'prices' => $prices,
+            'priceshet' => $priceshet,
             'tgl' => date('j F Y', strtotime($tgl)),
             'tglmin' => date('j F Y', strtotime('-1 day', strtotime($tgl))),
             'pasar' => Pasar::find($pasar_id)
@@ -49,11 +72,9 @@ class ReportController extends Controller
     {
         $prices = Price::with('item')->orderBy('item_id')
             ->where('pasar_id', $pasar_id)
+            ->where('het', null)
+            // ->whereDate('created_at', '>=', Carbon::parse($tgl)->subDay()->format('Y-m-d'))
             ->whereDate('created_at', '=', Carbon::parse($tgl)->format('Y-m-d'))
-            ->get();
-        $pricesCompare = Price::with('item')->orderBy('created_at', 'DESC')
-            ->where('pasar_id', $pasar_id)
-            ->whereDate('created_at', '=', Carbon::parse($tgl)->subDay()->format('Y-m-d'))
             ->get();
         for ($i = 0; $i < count($prices); $i++) {
             $prices[$i]['nama_item'] = $prices[$i]->item->nama;
@@ -68,8 +89,29 @@ class ReportController extends Controller
             $prices[$i]['hargaselisih'] = $prices[$i]['hargahariini'] - $prices[$i]['hargakemarin'];
         }
 
+        // price dgn HET
+        $priceshet = Price::with('item')->orderBy('item_id')
+            ->where('pasar_id', $pasar_id)
+            ->where('het', '!=', null)
+            // ->whereDate('created_at', '>=', Carbon::parse($tgl)->subDay()->format('Y-m-d'))
+            ->whereDate('created_at', '=', Carbon::parse($tgl)->format('Y-m-d'))
+            ->get();
+        for ($i = 0; $i < count($priceshet); $i++) {
+            $priceshet[$i]['nama_item'] = $priceshet[$i]->item->nama;
+            $het = Price::where('pasar_id', $priceshet[$i]['pasar_id'])
+                ->where('item_id', $priceshet[$i]['item_id'])
+                ->whereDate('created_at', Carbon::parse($priceshet[$i]['created_at'])->subDay()->format('Y-m-d'))->first();
+            if ($het) {
+                $priceshet[$i]['het'] = $het['hargahariini'];
+            } else {
+                $priceshet[$i]['het'] = FALSE;
+            }
+            $priceshet[$i]['hargaselisih'] = $priceshet[$i]['hargahariini'] - $priceshet[$i]['het'];
+        }
+
         $pdf = Pdf::loadView('report.format1', [
             'prices' => $prices,
+            'priceshet' => $priceshet,
             'tgl' => date('j F Y', strtotime($tgl)),
             'tglmin' => date('j F Y', strtotime('-1 day', strtotime($tgl))),
             'pasar' => Pasar::find($pasar_id)
