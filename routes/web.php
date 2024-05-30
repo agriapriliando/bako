@@ -53,6 +53,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('prices/zzzzz', [PriceController::class, 'truncatePrices']);
     Route::middleware('cekStatus')->group(function () {
         Route::get('users', [UserController::class, 'index']);
         Route::get('users/create', [UserController::class, 'create']);

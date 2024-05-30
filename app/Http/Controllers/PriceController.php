@@ -234,6 +234,15 @@ class PriceController extends Controller
         return redirect('hargapasar/' . $pasar->slugpasar)->with('status', 'Berhasil Dihapus');
     }
 
+    public function truncatePrices()
+    {
+        if (Auth::id() == 1) {
+            Price::truncate();
+            return redirect('prices')->with('status', 'Semua Data Harga Terhapus');
+        }
+        return redirect('prices')->with('status', 'Akun Anda Tidak Bisa Menggunakan Fitur Ini');
+    }
+
     public function copyDataKemarin($tgl, $pasar_id)
     {
         $cek = Price::whereDate('created_at', Carbon::parse($tgl)->format('Y-m-d'))
