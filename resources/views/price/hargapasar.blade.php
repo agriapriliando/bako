@@ -22,12 +22,18 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             @endif
+                            <div class="align-right">
+                                <a onclick="return confirm('Yakin ingin duplikat data kemarin?')" href="{{ url('prices/copy/' . \Carbon\Carbon::now()->format('Y-m-d')) . '/' . $pasar->id }}"
+                                    class="btn btn-sm btn-warning"><i class="lni lni-clipboard"></i>
+                                    Duplikat Harga Kemarin</a>
+                                <a onclick="return confirm('Yakin ingin hapus semua data harga hari ini?')"
+                                    href="{{ url('prices/deletes/' . \Carbon\Carbon::now()->format('Y-m-d')) . '/' . $pasar->id }}" class="btn btn-sm btn-danger"><i class="lni lni-trash-can"></i>
+                                    Hapus
+                                    Seluruh
+                                    Harga</a>
+                            </div>
                             <div class="col">
                                 <a href="{{ url('prices/create/' . $pasar->id) }}" class="btn btn-sm btn-success"><i class="lni lni-plus"></i> Tambah Data Harga</a>
-                                <a onclick="return confirm('Yakin ingin hapus semua data harga hari ini?')"
-                                    href="{{ url('prices/deletes/' . \Carbon\Carbon::now()->format('Y-m-d')) . '/' . $pasar->id }}" class="btn btn-sm btn-danger float-end"><i
-                                        class="lni lni-trash"></i> Hapus Seluruh
-                                    Harga</a>
                             </div>
                         </div>
                         <table id="example" class="table table-striped" style="width:100%">
@@ -105,9 +111,23 @@
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
         <script>
             new DataTable('#example', {
-                scrollX: true
+                scrollX: true,
+                search: {
+                    return: true // click enter untuk mencari
+                },
+                pagingType: 'numbers',
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print', 'pageLength'
+                ],
             });
         </script>
         <script src="{{ asset('') }}assets/js/sweetalert/sweetalert.min.js"></script>

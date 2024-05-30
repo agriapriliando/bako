@@ -239,10 +239,11 @@ class PriceController extends Controller
         $cek = Price::whereDate('created_at', Carbon::parse($tgl)->format('Y-m-d'))
             ->where('pasar_id', $pasar_id)
             ->get();
-        return $cek;
-        if ($cek) {
+        // return $cek;
+        if (count($cek) == 0) {
             $prices = Price::whereDate('created_at', Carbon::parse($tgl)->subDays(1)->format('Y-m-d'))
                 ->get();
+            // return $prices;
             $i = 0;
             foreach ($prices as $item) {
                 unset($prices[$i]['id']);
@@ -250,11 +251,23 @@ class PriceController extends Controller
                 unset($prices[$i]['updated_at']);
                 // $prices[$i]['created_at'] = Carbon::now()->format('Y-m-d H:i:s e');
                 // $prices[$i]['updated_at'] = Carbon::now()->format('Y-m-d H:i:s e');
-                $data = $item;
-                // Price::create([$prices[$i][0]]);
+                // Price::insert($prices[$i]);
                 $i++;
+                Price::create([
+                    "item_id" => $item->item_id,
+                    "pasar_id" => $item->pasar_id,
+                    "user_id" => $item->user_id,
+                    "hargahariini" => 0,
+                    "het" => $item->het,
+                    "hargaminggulalu" => 0,
+                    "hargabulanlalu" => 0,
+                    "deskripsi" => "",
+                    "status" => "Tetap",
+                    "selisih" => 0,
+                    "persen" => 0
+                ]);
             }
-            return $data;
+            // return $prices;
             $pasar = Pasar::find($pasar_id);
             return redirect('hargapasar/' . $pasar->slugpasar)->with('status', 'Berhasil Duplikat');
         } else {

@@ -78,16 +78,31 @@
                             <!-- Start Small Banner -->
                             <div class="hero-small-banner style2">
                                 <div class="content">
-                                    <h2>Unduh Laporan PDF</h2>
+                                    <h2>Unduh PDF</h2>
                                     <p>Unduh Dokumen PDF seluruh item bahan pokok hari {{ \Carbon\Carbon::now()->translatedFormat('j F Y') }}</p>
-                                    <div class="button">
+                                    <div class="mt-2">
                                         @foreach ($pasar as $p)
                                             {{-- jika di local, gunakan url localhost --}}
                                             @if (config('app.env') == 'local')
-                                                <a class="btn"
+                                                <a class="btn btn-primary"
                                                     href="http://localhost/sembakolaravel/public/report/{{ $p->id }}/{{ \Carbon\Carbon::now()->format('Y-m-d') }}/pdf">{{ $p->nama }}</a>
                                             @else
-                                                <a class="btn" href="{{ url('') }}/report/{{ $p->id }}/{{ \Carbon\Carbon::now()->format('Y-m-d') }}/pdf">{{ $p->nama }}</a>
+                                                <a class="btn btn-primary"
+                                                    href="{{ url('') }}/report/{{ $p->id }}/{{ \Carbon\Carbon::now()->format('Y-m-d') }}/pdf">{{ $p->nama }}</a>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                    <div class="mt-2">
+                                        @foreach ($pasar as $p)
+                                            {{-- jika di local, gunakan url localhost --}}
+                                            @if (config('app.env') == 'local')
+                                                <a class="btn btn-primary btn-sm"
+                                                    href="http://localhost/sembakolaravel/public/reporthet/{{ $p->id }}/{{ \Carbon\Carbon::now()->format('Y-m-d') }}/pdf">{{ $p->nama }}
+                                                    HET</a>
+                                            @else
+                                                <a class="btn btn-primary btn-sm"
+                                                    href="{{ url('') }}/reporthet/{{ $p->id }}/{{ \Carbon\Carbon::now()->format('Y-m-d') }}/pdf">{{ $p->nama }}
+                                                    HET</a>
                                             @endif
                                         @endforeach
                                     </div>
