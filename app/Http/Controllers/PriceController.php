@@ -233,4 +233,33 @@ class PriceController extends Controller
         $pasar = Pasar::find($pasar_id);
         return redirect('hargapasar/' . $pasar->slugpasar)->with('status', 'Berhasil Dihapus');
     }
+
+    public function copyDataKemarin($tgl, $pasar_id)
+    {
+        $cek = Price::whereDate('created_at', Carbon::parse($tgl)->format('Y-m-d'))
+            ->where('pasar_id', $pasar_id)
+            ->get();
+        return $cek;
+        if ($cek) {
+            $prices = Price::whereDate('created_at', Carbon::parse($tgl)->subDays(1)->format('Y-m-d'))
+                ->get();
+            $i = 0;
+            foreach ($prices as $item) {
+                unset($prices[$i]['id']);
+                unset($prices[$i]['created_at']);
+                unset($prices[$i]['updated_at']);
+                // $prices[$i]['created_at'] = Carbon::now()->format('Y-m-d H:i:s e');
+                // $prices[$i]['updated_at'] = Carbon::now()->format('Y-m-d H:i:s e');
+                $data = $item;
+                // Price::create([$prices[$i][0]]);
+                $i++;
+            }
+            return $data;
+            $pasar = Pasar::find($pasar_id);
+            return redirect('hargapasar/' . $pasar->slugpasar)->with('status', 'Berhasil Duplikat');
+        } else {
+            $pasar = Pasar::find($pasar_id);
+            return redirect('hargapasar/' . $pasar->slugpasar)->with('status', 'Data Masih Ada, Silahkan Hapus Seluruh Harga');
+        }
+    }
 }

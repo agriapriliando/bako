@@ -78,13 +78,17 @@
                             <!-- Start Small Banner -->
                             <div class="hero-small-banner style2">
                                 <div class="content">
-                                    <h2>Daftar Harga Hari ini</h2>
-                                    <p>Berisi seluruh item bahan pokok berdasarkan lokasi pantauan : Pasar Besar dan
-                                        Pasar Kahayan</p>
+                                    <h2>Unduh Laporan PDF</h2>
+                                    <p>Unduh Dokumen PDF seluruh item bahan pokok hari {{ \Carbon\Carbon::now()->translatedFormat('j F Y') }}</p>
                                     <div class="button">
                                         @foreach ($pasar as $p)
                                             {{-- jika di local, gunakan url localhost --}}
-                                            <a class="btn" href="{{ url('') }}/public/report/{{ $p->id }}/{{ \Carbon\Carbon::now()->format('Y-m-d') }}/pdf">{{ $p->nama }}</a>
+                                            @if (config('app.env') == 'local')
+                                                <a class="btn"
+                                                    href="http://localhost/sembakolaravel/public/report/{{ $p->id }}/{{ \Carbon\Carbon::now()->format('Y-m-d') }}/pdf">{{ $p->nama }}</a>
+                                            @else
+                                                <a class="btn" href="{{ url('') }}/report/{{ $p->id }}/{{ \Carbon\Carbon::now()->format('Y-m-d') }}/pdf">{{ $p->nama }}</a>
+                                            @endif
                                         @endforeach
                                     </div>
                                 </div>
@@ -177,8 +181,13 @@
                                 @for ($c = 1; $c <= 7; $c++)
                                     <div>
                                         @foreach ($pasar as $i)
-                                            <a target="_blank" href="{{ url('') }}/report/{{ $i->id }}/{{ \Carbon\Carbon::now()->subDays($c)->format('Y-m-d') }}"
-                                                class="btn m-1">{{ \Carbon\Carbon::now()->subDays($c)->translatedFormat('j F Y') }} - {{ $i->nama }}</a>
+                                            @if (config('app.env') == 'local')
+                                                <a target="_blank" href="http://localhost/sembakolaravel/public/report/{{ $i->id }}/{{ \Carbon\Carbon::now()->subDays($c)->format('Y-m-d') }}"
+                                                    class="btn m-1">{{ \Carbon\Carbon::now()->subDays($c)->translatedFormat('j F Y') }} - {{ $i->nama }}</a>
+                                            @else
+                                                <a target="_blank" href="{{ url('') }}/report/{{ $i->id }}/{{ \Carbon\Carbon::now()->subDays($c)->format('Y-m-d') }}"
+                                                    class="btn m-1">{{ \Carbon\Carbon::now()->subDays($c)->translatedFormat('j F Y') }} - {{ $i->nama }}</a>
+                                            @endif
                                         @endforeach
                                     </div>
                                 @endfor

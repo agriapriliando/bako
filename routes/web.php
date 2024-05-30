@@ -34,8 +34,10 @@ Route::get('grafikbarang/datamingguan/{itemid}', [GrafikController::class, 'data
 Route::get('grafikbarang/databulanan/{itemid}', [GrafikController::class, 'dataBulanan']);
 Route::get('grafikbarang/{itemid}/{tahun}', [GrafikController::class, 'dataTahunan']);
 
-Route::get('report/{pasar_id}/{tgl}', [ReportController::class, 'index']);
+Route::get('report/{pasar_id}/{tgl}', [ReportController::class, 'html']);
 Route::get('report/{pasar_id}/{tgl}/pdf', [ReportController::class, 'pdf']);
+Route::get('reporthet/{pasar_id}/{tgl}', [ReportController::class, 'htmlhet']);
+Route::get('reporthet/{pasar_id}/{tgl}/pdf', [ReportController::class, 'pdfhet']);
 // http://localhost/sembakolaravel/public/report/1/2024-04-07
 Route::get('report/{pasar_id}/{tgl}/excel', [ExcelController::class, 'export']);
 // http://localhost/sembakolaravel/public/report/1/2024-04-07/excel
@@ -69,6 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('pasars', PasarController::class);
     Route::resource('prices', PriceController::class);
     Route::get('prices/deletes/{tgl}/{pasar_id}', [PriceController::class, 'deletes']);
+    Route::get('prices/copy/{tgl}/{pasar_id}', [PriceController::class, 'copyDataKemarin']);
     Route::post('priceby', [PriceController::class, 'priceby']);
     Route::get('hargapasar/{slugpasar}', [PriceController::class, 'hargapasar']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
