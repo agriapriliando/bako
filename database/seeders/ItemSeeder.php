@@ -20,8 +20,8 @@ class ItemSeeder extends Seeder
         DB::table('items')->insert([
             [
                 'category_id' => 1,
-                'nama' => 'Beras SPHP 1 Kg',
-                'deskripsi' => 'Beras SPHP 1 Kg',
+                'nama' => 'Beras SPHP-1Kg',
+                'deskripsi' => 'Beras SPHP-1Kg',
                 'hargaaverage' => 0,
                 'tglharga' => Carbon::now(),
                 'created_at' => Carbon::now(),
@@ -29,8 +29,8 @@ class ItemSeeder extends Seeder
             ],
             [
                 'category_id' => 1,
-                'nama' => 'Beras Pangkuh/ IR.64/.IR.42 1 Kg',
-                'deskripsi' => 'Beras Pangkuh/ IR.64/.IR.42 1 Kg',
+                'nama' => 'Beras Pangkuh IR.42-1Kg',
+                'deskripsi' => 'Beras Pangkuh IR.42-1Kg',
                 'hargaaverage' => 0,
                 'tglharga' => Carbon::now(),
                 'created_at' => Carbon::now(),
@@ -38,8 +38,8 @@ class ItemSeeder extends Seeder
             ],
             [
                 'category_id' => 1,
-                'nama' => 'Beras Siam 1 Kg',
-                'deskripsi' => 'Beras Siam 1 Kg',
+                'nama' => 'Beras Siam Pamanukan-1Kg',
+                'deskripsi' => 'Beras Siam Pamanukan-1Kg',
                 'hargaaverage' => 0,
                 'tglharga' => Carbon::now(),
                 'created_at' => Carbon::now(),
@@ -47,8 +47,8 @@ class ItemSeeder extends Seeder
             ],
             [
                 'category_id' => 1,
-                'nama' => 'Beras Karang Dukuh 1 Kg',
-                'deskripsi' => 'Beras Karang Dukuh 1 Kg',
+                'nama' => 'Beras Karang Dukuh-1Kg',
+                'deskripsi' => 'Beras Karang Dukuh-1Kg',
                 'hargaaverage' => 0,
                 'tglharga' => Carbon::now(),
                 'created_at' => Carbon::now(),
@@ -56,8 +56,8 @@ class ItemSeeder extends Seeder
             ],
             [
                 'category_id' => 1,
-                'nama' => 'Beras Mayang 1 Kg',
-                'deskripsi' => 'Beras Mayang 1 Kg',
+                'nama' => 'Beras Mayang-1Kg',
+                'deskripsi' => 'Beras Mayang-1Kg',
                 'hargaaverage' => 0,
                 'tglharga' => Carbon::now(),
                 'created_at' => Carbon::now(),
@@ -65,8 +65,8 @@ class ItemSeeder extends Seeder
             ],
             [
                 'category_id' => 1,
-                'nama' => 'Beras Mangkok 1 Kg',
-                'deskripsi' => 'Beras Mangkok 1 Kg',
+                'nama' => 'Beras Mangkok-1Kg',
+                'deskripsi' => 'Beras Mangkok-1Kg',
                 'hargaaverage' => 0,
                 'tglharga' => Carbon::now(),
                 'created_at' => Carbon::now(),
@@ -74,8 +74,8 @@ class ItemSeeder extends Seeder
             ],
             [
                 'category_id' => 1,
-                'nama' => 'Beras Lahap 5 Kg',
-                'deskripsi' => 'Beras Lahap 5 Kg',
+                'nama' => 'Beras Lahap-5Kg',
+                'deskripsi' => 'Beras Lahap-5Kg',
                 'hargaaverage' => 0,
                 'tglharga' => Carbon::now(),
                 'created_at' => Carbon::now(),
@@ -83,8 +83,8 @@ class ItemSeeder extends Seeder
             ],
             [
                 'category_id' => 1,
-                'nama' => 'Beras Sania 5 Kg',
-                'deskripsi' => 'Beras Sania 5 Kg',
+                'nama' => 'Beras Sania-5Kg',
+                'deskripsi' => 'Beras Sania-5Kg',
                 'hargaaverage' => 0,
                 'tglharga' => Carbon::now(),
                 'created_at' => Carbon::now(),
