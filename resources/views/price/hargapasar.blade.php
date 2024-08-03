@@ -25,7 +25,7 @@
                             <div class="align-right">
                                 <a onclick="return confirm('Yakin ingin duplikat data kemarin?')" href="{{ url('prices/copy/' . \Carbon\Carbon::now()->format('Y-m-d')) . '/' . $pasar->id }}"
                                     class="btn btn-sm btn-warning"><i class="lni lni-clipboard"></i>
-                                    Duplikat Harga Kemarin</a>
+                                    Duplikat Nama Barang Kemarin</a>
                                 <a onclick="return confirm('Yakin ingin hapus semua data harga hari ini?')"
                                     href="{{ url('prices/deletes/' . \Carbon\Carbon::now()->format('Y-m-d')) . '/' . $pasar->id }}" class="btn btn-sm btn-danger"><i class="lni lni-trash-can"></i>
                                     Hapus

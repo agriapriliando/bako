@@ -245,16 +245,20 @@ class PriceController extends Controller
 
     public function copyDataKemarin($tgl, $pasar_id)
     {
+        // dapatkan data hari saat itu, jika ada data, notif masih ada data
         $cek = Price::whereDate('created_at', Carbon::parse($tgl)->format('Y-m-d'))
             ->where('pasar_id', $pasar_id)
             ->get();
         // return $cek;
         if (count($cek) == 0) {
+            //dapatkan data -1 hari sebelumnya
             $prices = Price::whereDate('created_at', Carbon::parse($tgl)->subDays(1)->format('Y-m-d'))
-                ->get();
+                ->where('pasar_id', $pasar_id)->get();
             // return $prices;
             $i = 0;
+            // loop data tersebut
             foreach ($prices as $item) {
+                // hapus element dari array yang di loop
                 unset($prices[$i]['id']);
                 unset($prices[$i]['created_at']);
                 unset($prices[$i]['updated_at']);

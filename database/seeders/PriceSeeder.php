@@ -82,7 +82,7 @@ class PriceSeeder extends Seeder
         // $this->dataToday();
         // Price::truncate();
         // DB::statement("ALTER TABLE prices AUTO_INCREMENT = 1");
-        // $this->dataBanyak();
-        $this->addHet();
+        $this->dataBanyak();
+        // $this->addHet();
     }
 }

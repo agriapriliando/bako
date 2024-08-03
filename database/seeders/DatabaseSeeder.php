@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
             // CategorySeeder::class,
             // ItemSeeder::class,
             // PasarSeeder::class,
-            PriceSeeder::class,
-            // SettingSeeder::class,
+            // PriceSeeder::class,
+            SettingSeeder::class,
             // AveragehargaharianSeeder::class,
         ]);
     }
